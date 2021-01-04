@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<!--debug div, like terminal window -->
+<!--format in CSS-->
+<!--separate js-->
+<!--lists-->
+    <!--recipes section-->
+    <!--lots-->
+    <!--items-->
+<!--do next > get one loot table working !-->
+
+<html>
+    <head>
+        <style>
+            aside {
+                float: inline-start;
+                width: 50%;
+                height: 100%;
+                padding-left: 15px;
+                margin-left: 15px;
+                float: right;
+                background-color: lightgrey;
+            }
+        </style>
+    </head>
+<body>
+
+<h2>Robot builder</h2>
+
+<aside>
+    <h2><strong>Terminal</strong></h2>
+    <p id=activity><br></p>
+</aside>
+
+
+<table><caption><strong>INVENTORY</strong></caption>
+<thead>
+    <tr>
+            <th><u>Item No.</u</th>
+            <th><u>Name</u></th>
+            <th><u>Quan</u></th>
+    </tr>
+</thead>
+
+<tbody>
+    <tr>
+        <td>001</td>
+        <td>Battery</td>
+        <td id=battery>0</td>
+    </tr>
+
+    <tr>
+        <td>002</td>
+        <td>Motor</td>
+        <td id=motor>0</td>
+    </tr>
+
+    <tr>
+        <td>003</td>
+        <td>Wire</td>
+        <td id=wire>0</td>
+    </tr>
+</tbody>
+</table>
+<br>
+
+<button type="button" onclick=salvage_cool() id=salvage_button>Salvage 3 sec</button>
+
+<script>
+
+// Variables
+
+var salvage_loot = ["wire", "motor", "battery"];
+var messages = []
+var msg_hist = []
+
+function salvage_cool() {
+
+    // clear terminal
+    clr_term()
+
+    // disables button
+    document.getElementById('salvage_button').disabled = true;
+
+    // terminal message
+    message = "You are looking around the Salvage Lot..."
+    messages.push(message);
+    msg_hist.push(message);
+    update_terminal(message)
+
+    // function after timeout
+    setTimeout(salvage, 3000);
+}
+
+function salvage() {
+
+    clr_term()
+    
+    // console
+    console.log("function salvage")
+
+    for (i of salvage_loot) {
+        x = get_rand_int(0,10);
+        console.log("increase " + i + " by " + x);
+        increase_item(i, x);
+        message = i + " has increased by " + x 
+
+        // adds new msg to top of list
+        messages.push(message);
+        msg_hist.push(message);
+    }
+
+    update_terminal();
+
+    //re-enables button
+    document.getElementById('salvage_button').disabled = false;
+}
+
+function get_rand_int(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function increase_item(item, quantity) {
+    var item_count = document.getElementById(item).innerHTML;
+    item_count = parseInt(item_count, 10)
+    total = item_count + quantity;
+    document.getElementById(item).innerHTML = total;
+}
+
+
+
+function update_terminal() {
+
+    // reprints entire msg list to 'terminal'
+    messages.forEach(print_activity);
+}
+
+function print_activity(i) {
+    document.getElementById("activity").innerHTML += i + "<br>";
+}
+
+
+function clr_term() {
+    document.getElementById("activity").innerHTML = ""
+    messages = []
+}
+
+</script>
+
+</body>
+</html>

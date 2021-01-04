@@ -1,11 +1,12 @@
 /*
-<!-- cant salvage in both places at once -->
-<!-- turn on debug-->
-<!--lists-->
-    <!--recipes section-->
-    <!--lots-->
-    <!--items-->
-    <!-- buffs !-->
+
+cant salvage in both places at once -->
+turn on debug
+lists
+    recipes section
+    lots
+    items
+    buffs
 */
 
 // This feature is experimental and rudimentary. You probably do not want to use it.

@@ -2,6 +2,8 @@
 
 cant salvage in both places at once -->
 turn on debug
+get git tied on
+put on intranet
 lists
     recipes section
     lots

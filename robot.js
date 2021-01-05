@@ -9,6 +9,7 @@ lists
     lots
     items
     buffs
+    test update
 */
 
 // This feature is experimental and rudimentary. You probably do not want to use it.

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 
-<!--debug div, like terminal window -->
-<!--format in CSS-->
-<!--separate js-->
-<!--lists-->
-    <!--recipes section-->
-    <!--lots-->
-    <!--items-->
-<!--do next > get one loot table working !-->
+<!--test messages -->
+<!--test tagName property-->
+<!-- integrate this fun:
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+-->
 
 <html>
     <head>
@@ -25,13 +24,17 @@
     </head>
 <body>
 
-<h2>Robot builder</h2>
+<h2>Robot builder test page</h2>
 
 <aside>  <!-- Terminal -->
-    <h2><strong>Terminal</strong></h2>
+    <h2><strong>Test Terminal</strong></h2>
 
     <p id="activity"></p>
 </aside>
+
+<button data-btns="one" type="button" id=junkyard_btn>Junkyard 3 sec</button><br><br>
+<button type="button" id=tinnery_btn>Tinnery 3 sec</button><br><br>
+<button onclick=disable type="button" id=salvage_btn>Salvage 3 sec</button><br><br>
 
 
 
@@ -39,7 +42,7 @@
 <script>
 
 
-var messages = ["you have wire", "you have orange", "you have cherry"];
+var messages = ["test_messages wire", "test_messages orange", "test_messages cherry"];
 messages.forEach(update_activity);
 
 function update_activity(item, index) {
@@ -47,6 +50,10 @@ function update_activity(item, index) {
 }
 
 
+function disable() {
+    btn_list = document.getElementByTagName("button")
+    console.log(btn_list);
+}
 
 
 

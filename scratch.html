@@ -15,7 +15,7 @@ https://www.w3schools.com/jquery/jquery_syntax.asp
     <head>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="jquery_robot.js"></script>
+        <script src="scratch.js"></script>
 
         <style>
             aside {
@@ -40,18 +40,18 @@ https://www.w3schools.com/jquery/jquery_syntax.asp
 </aside>
 
 <button type="button" id="button">button</button><br><br>
-<button onclick=enable_btns() type="button" id="tinnery_btn">Tinnery 3 sec</button><br><br>
-<button onclick=disable_btns() type="button" id="salvage_btn">Salvage 3 sec</button><br><br>
+<button type="button" id="enable_btns">Tinnery 3 sec</button><br><br>
+<button onclick=disable_test() type="button" id="disable_btns">disable_test 3 sec</button><br><br>
 
 
 
 <!-- Scripting --> 
 <script>
 
-function extra() {
+function disable_test() {
     // run stuff first
     console.log("debug")
-    disable_btns()
+    $(":button").attr("disabled",true);
 }
 
 

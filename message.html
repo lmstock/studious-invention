@@ -6,10 +6,17 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
+document ready instructions:
+https://www.w3schools.com/jquery/jquery_syntax.asp
 -->
 
 <html>
     <head>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="jquery_robot.js"></script>
+
         <style>
             aside {
                 float: inline-start;
@@ -29,31 +36,27 @@
 <aside>  <!-- Terminal -->
     <h2><strong>Test Terminal</strong></h2>
 
-    <p id="activity"></p>
+    <p id="test">test text for deletion<br></p>
 </aside>
 
-<button data-btns="one" type="button" id=junkyard_btn>Junkyard 3 sec</button><br><br>
-<button type="button" id=tinnery_btn>Tinnery 3 sec</button><br><br>
-<button onclick=disable type="button" id=salvage_btn>Salvage 3 sec</button><br><br>
+<button type="button" id="button">button</button><br><br>
+<button onclick=enable_btns() type="button" id="tinnery_btn">Tinnery 3 sec</button><br><br>
+<button onclick=disable_btns() type="button" id="salvage_btn">Salvage 3 sec</button><br><br>
 
 
 
 <!-- Scripting --> 
 <script>
 
-
-var messages = ["test_messages wire", "test_messages orange", "test_messages cherry"];
-messages.forEach(update_activity);
-
-function update_activity(item, index) {
-  document.getElementById("activity").innerHTML += item + "<br>"; 
+function extra() {
+    // run stuff first
+    console.log("debug")
+    disable_btns()
 }
 
 
-function disable() {
-    btn_list = document.getElementByTagName("button")
-    console.log(btn_list);
-}
+
+
 
 
 

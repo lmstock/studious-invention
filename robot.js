@@ -40,13 +40,18 @@ var msg_hist = []
 
 // Functions
 
+$(document).ready(function () {
+    //your code here
+
+
+
 function cooldown(obj) {
 
     //clear terminal
     clr_term()
 
-    //disables btn
-    document.getElementById(obj.btn).disabled = true;
+    //disables btns
+    disable_btns()
 
     //terminal message
     message = obj.search_message
@@ -54,7 +59,7 @@ function cooldown(obj) {
     msg_hist.push(message);
     update_terminal(message)
 
-    // Ananymous function to send arguments into second function
+    // Anonymous function to send arguments into second function
     anon_fun()
 
     function anon_fun() {
@@ -83,8 +88,8 @@ function get_loot(obj) {
 
     update_terminal();
 
-    //re-enables button
-    document.getElementById(obj.btn).disabled = false;
+    //re-enables buttons
+    enable_btns()
 }
 
 function get_rand_int(min, max) {
@@ -116,3 +121,13 @@ function clr_term() {
     messages = []
 }
 
+function disable_btns() {
+    $(":button").attr("disabled",true);
+}
+
+function enable_btns() {
+    $(":button").attr("disabled",false);
+}
+
+
+});

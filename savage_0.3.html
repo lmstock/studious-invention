@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 
-
+<!--am i here?-->
 
 <html>
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="robot_style.css">
+        <script src="robot.js"></script>
     </head>
 
 <body>
@@ -67,8 +69,8 @@
 
         <div class="column middle">
 
-            <button type="button" onclick=cooldown(junkyard) id=junkyard_btn>Junkyard 3 sec</button><br><br>
-            <button type="button" onclick=cooldown(salvage) id=salvage_btn>Salvage 3 sec</button><br><br>
+            <button type="button" onclick=clr_term() id=junkyard_btn>Junkyard 3 sec</button><br><br>
+            <button type="button" onclick=clr_term() id=salvage_btn>Salvage 3 sec</button><br><br>
         </div>
 
         <div class="column right">
@@ -82,8 +84,6 @@
     </div>
 
 
-
-<script src="robot.js"></script>
 
 </body>
 </html>

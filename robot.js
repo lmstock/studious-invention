@@ -1,5 +1,5 @@
 /*
-
+THIS VERSION IS BORKEN
 cant salvage in both places at once -->
 turn on debug
 test tagname property
@@ -9,6 +9,8 @@ lists
     items
     buffs
     test update
+    <!--am i here?-->
+
 */
 
 // This feature is experimental and rudimentary. You probably do not want to use it.
@@ -40,12 +42,17 @@ var msg_hist = []
 
 // Functions
 
-$(document).ready(function () {
-    //your code here
+
+
+function clr_term() {
+    document.getElementById("activity").innerHTML = ""
+    messages = []
+}
 
 
 
 function cooldown(obj) {
+    console.log("start cooldown")
 
     //clear terminal
     clr_term()
@@ -115,19 +122,15 @@ function print_activity(i) {
     document.getElementById("activity").innerHTML += i + "<br>";
 }
 
+$(document).ready(function () {
+    //your code here
 
-function clr_term() {
-    document.getElementById("activity").innerHTML = ""
-    messages = []
-}
-
-function disable_btns() {
-    $(":button").attr("disabled",true);
-}
-
-function enable_btns() {
-    $(":button").attr("disabled",false);
-}
-
+    function disable_btns() {
+        $(":button").attr("disabled",true);
+    }
+    
+    function enable_btns() {
+        $(":button").attr("disabled",false);
+    }
 
 });

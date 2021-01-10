@@ -4,7 +4,6 @@
 
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="bild_0.1.css">
         <script src="bild_0.1.js"></script>
     </head>
@@ -30,7 +29,7 @@
                 <tr>
                     <td>001</td>
                     <td>Battery</td>
-                    <td id=battery>1</td>
+                    <td id=battery>0</td>
                 </tr>
 
                 <tr>
@@ -69,8 +68,10 @@
 
         <div class="column middle">
 
-            <button type="button" id=salvage>salvage</button><br><br>
-            <button type="button" id=tinnery>tinnery</button><br><br>
+            <div id="parent_btn">
+                <button onclick="cooldown(salvage)" type="button" id=salvage_btn>salvage</button><br><br>
+                <button onclick="cooldown(junkyard)" type="button" id=junkyard_btn>junkyard</button><br><br>
+            </div>
         </div>
 
         <div class="column right">

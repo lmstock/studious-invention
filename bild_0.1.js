@@ -1,96 +1,114 @@
 /*
-THIS VERSION IS UNDER HEAVY RECONSTRUCTION
-FIX SCRIPT
+all that and back to the original...
 
-to do:
-everything
 */
 
-// Should all the code go in  ready document ??
 
-$(document).ready(function () {
-    //your code here
+// Variables
 
-class Lot {
-    constructor(name, cool, loot) {
-      this.name = name;
-      this.cool = cool;
-      this.loot = loot;
-    }
+var lots = [
+    "junkyard",
+    "salvage"
+]
 
-    // Cooldown Method
-    cooldown() {
-        disable_btns();
-
-        // Anonymous function to send arguments into second function
-        anon_fun()
-        function anon_fun() {}
-        setTimeout(function() {enable_btns();}, this.cool);
-
-        console.log("success " + this.name);
-    }
-
-    // Get Loot Method
-    get_loot() {
-        this.loot.forEach(element => {
-            console.log(element);
-            let x = get_rand_int(1,10);
-            console.log(x);
-
-            // add quantity to table
-            let amt = document.getElementById(element).innerHTML;
-            amt = parseInt(amt, 10);
-            let total = amt + x;
-
-            // updates cell
-            $("#" + element).text(total);
-
-        }); {
-
-        }
-    }
-
+var junkyard = {
+    btn: "junkyard_btn",
+    cooldown: 3000,
+    loot: ["screw", "nut", "bolt"],
+    search_message: "You are looking around the Junkyard...",
 }
 
-
-
-// FUNCTIONS
-
-function disable_btns() {
-    $(":button").attr("disabled",true);
+var salvage = {
+    btn: "salvage_btn",
+    cooldown: 3000,
+    loot: ["battery", "motor", "wire"],
+    search_message: "You are looking around the Salvage lot...",
 }
 
-function enable_btns() {
-    $(":button").attr("disabled",false);
+var messages = []
+var msg_hist = []
+
+
+
+// Functions
+
+function cooldown(obj) {
+
+    //clear terminal
+    clr_term()
+
+    //disables btn
+    document.getElementById(obj.btn).disabled = true;
+
+    //terminal message
+    message = obj.search_message
+    messages.push(message);
+    msg_hist.push(message);
+    update_terminal(message)
+
+    // Ananymous function to send arguments into second function
+    anon_fun()
+
+    function anon_fun() {
+        setTimeout(function() {get_loot(obj);},obj.cooldown);
+    }
+}
+
+function get_loot(obj) {
+
+    clr_term()
+    
+    // console
+    console.log("function get_loot")
+
+    loot_list = obj.loot;
+    for (i of loot_list) {
+        x = get_rand_int(0,10);
+        console.log("increase " + i + " by " + x);
+        increase_item(i, x);
+        message = i + " has increased by " + x 
+
+        // adds new msg to top of list
+        messages.push(message);
+        msg_hist.push(message);
+    }
+
+    update_terminal();
+
+    //re-enables button
+    document.getElementById(obj.btn).disabled = false;
 }
 
 function get_rand_int(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function increase_item(item, quantity) {
+    var item_count = document.getElementById(item).innerHTML;
+    item_count = parseInt(item_count, 10)
+    total = item_count + quantity;
+    document.getElementById(item).innerHTML = total;
+}
 
 
 
-// LOOT LISTS
-let salvage_loot = ["wire", "battery", "bolt"];
-let tinnery_loot = ["motor", "screw", "nut"];
+function update_terminal() {
 
-// LOTS
-let salvage = new Lot("salvage", 3000, salvage_loot); 
-let tinnery = new Lot("tinnery", 3000, tinnery_loot);
+    // reprints entire msg list to 'terminal'
+    messages.forEach(print_activity);
+}
 
-// BUTTONS
-$("#salvage").click(function(){
-    salvage.cooldown();
-    salvage.get_loot();
-})
+function print_activity(i) {
+    document.getElementById("terminal").innerHTML += i + "<br>";
+}
 
-$("#tinnery").click(function(){
-    tinnery.cooldown();
-    tinnery.get_loot();
-})
+
+function clr_term() {
+    document.getElementById("terminal").innerHTML = ""
+    messages = []
+}
 
 
 
 
-});
+

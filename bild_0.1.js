@@ -1,6 +1,7 @@
 /*
 all that and back to the original...
 
+addeventlistener for all buttons
 */
 
 
@@ -12,14 +13,14 @@ var lots = [
 ]
 
 var junkyard = {
-    btn: "junkyard_btn",
+    btn: "junkyard",
     cooldown: 3000,
     loot: ["screw", "nut", "bolt"],
     search_message: "You are looking around the Junkyard...",
 }
 
 var salvage = {
-    btn: "salvage_btn",
+    btn: "salvage",
     cooldown: 3000,
     loot: ["battery", "motor", "wire"],
     search_message: "You are looking around the Salvage lot...",
@@ -37,8 +38,9 @@ function cooldown(obj) {
     //clear terminal
     clr_term()
 
-    //disables btn
-    document.getElementById(obj.btn).disabled = true;
+    //disables btn  ->> disable all
+    //document.getElementById(obj.btn).disabled = true;
+    document.querySelectorAll("parent_btn").disabled = true;
 
     //terminal message
     message = obj.search_message
@@ -109,6 +111,23 @@ function clr_term() {
 }
 
 
+
+let parent_btn = document.getElementById('parent_btn').addEventListener('click', buttonClick);
+
+function buttonClick(e) {
+    let sel = e.target.id;
+
+
+    if (sel === "salvage") {
+        console.log("y")
+        cooldown(salvage);
+    };
+    
+    if (sel === "junkyard") {
+        cooldown(junkyard);
+    };
+
+}
 
 
 

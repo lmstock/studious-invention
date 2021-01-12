@@ -13,34 +13,34 @@ var lots = [
 ]
 
 var junkyard = {
-    btn: "junkyard",
+    btn: "junkyard_btn",
     cooldown: 3000,
     loot: ["screw", "nut", "bolt"],
     search_message: "You are looking around the Junkyard...",
 }
 
 var salvage = {
-    btn: "salvage",
+    btn: "salvage_btn",
     cooldown: 3000,
     loot: ["battery", "motor", "wire"],
     search_message: "You are looking around the Salvage lot...",
 }
 
-var messages = []
-var msg_hist = []
-
+// Terminal Messages
+var messages = []     // current messages
+var msg_hist = []     // all messages
 
 
 // Functions
 
 function cooldown(obj) {
+    console.log("DEBUG: starting cooldown");
 
     //clear terminal
-    clr_term()
+    clr_term();
 
-    //disables btn  ->> disable all
-    //document.getElementById(obj.btn).disabled = true;
-    document.querySelectorAll("parent_btn").disabled = true;
+    //disables all search btns
+    disable_btns();
 
     //terminal message
     message = obj.search_message
@@ -78,7 +78,7 @@ function get_loot(obj) {
     update_terminal();
 
     //re-enables button
-    document.getElementById(obj.btn).disabled = false;
+    enable_btns();
 }
 
 function get_rand_int(min, max) {
@@ -92,7 +92,23 @@ function increase_item(item, quantity) {
     document.getElementById(item).innerHTML = total;
 }
 
+function disable_btns() {
+    let parent = document.querySelectorAll("button");
+    console.log("DEBUG: disable buttons");
 
+    for (let i = 0; i < parent.length; i++) {
+        parent[i].disabled = true;
+    }
+}
+
+function enable_btns() {
+    let parent = document.querySelectorAll("button");
+    console.log("DEBUG: re-enabling buttons");
+
+    for (let i = 0; i < parent.length; i++) {
+        parent[i].disabled = false;
+    }
+}
 
 function update_terminal() {
 
@@ -104,30 +120,25 @@ function print_activity(i) {
     document.getElementById("terminal").innerHTML += i + "<br>";
 }
 
-
 function clr_term() {
     document.getElementById("terminal").innerHTML = ""
     messages = []
 }
 
-
-
-let parent_btn = document.getElementById('parent_btn').addEventListener('click', buttonClick);
-
 function buttonClick(e) {
     let sel = e.target.id;
+    console.log("DEBUG: " + sel + " clicked");
 
-
-    if (sel === "salvage") {
-        console.log("y")
+    if (sel === "salvage_btn") {
         cooldown(salvage);
     };
     
-    if (sel === "junkyard") {
+    if (sel === "junkyard_btn") {
         cooldown(junkyard);
     };
 
 }
 
+// EVENT HANDLERS
 
-
+let parent_btn = document.getElementById('parent_btn').addEventListener('click', buttonClick);

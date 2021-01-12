@@ -40,7 +40,7 @@ https://www.w3schools.com/jquery/jquery_syntax.asp
 </aside>
 
 <div id="parent_btn">
-    <button type="button" id="btn_1">btn_1</button><br><br>
+    <button onclick=disable() type="button" id="btn_1">btn_1</button><br><br>
     <button type="button" id="btn_2">btn_2</button><br><br>
     <button type="button" id="btn_3">btn_3</button><br><br>
 </div>
@@ -48,10 +48,28 @@ https://www.w3schools.com/jquery/jquery_syntax.asp
 
 
 <!-- Scripting --> 
+
+
+
 <script>
 
 
-console.log(document.domain);
+
+
+
+function disable() {
+    let parent = document.querySelectorAll("button");
+
+    for (let i = 0; i < parent.length; i++) {
+    console.log(parent[i]);
+    parent[i].disabled = true;
+
+};
+}
+
+/* let btn_1 = document.getElementById('btn_1');
+console.log(btn_1);
+btn_1.disabled = true; */
 
 
 

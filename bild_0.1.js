@@ -1,17 +1,22 @@
 /*
-all that and back to the original...
+TO DO:
 
-addeventlistener for all buttons
+tidy
+8bitads
+  remove ads button
+player attributes
+die rolls
+
 */
 
 
-// Variables
+// VARIABLES
 
-var lots = [
-    "junkyard",
-    "salvage"
-]
+// HTML Elements
+let terminal = document.getElementById("terminal");
+let parent = document.querySelectorAll("button");
 
+// Lots
 var junkyard = {
     btn: "junkyard_btn",
     cooldown: 3000,
@@ -31,10 +36,12 @@ var messages = []     // current messages
 var msg_hist = []     // all messages
 
 
-// Functions
+// FUNCTIONS
 
-function cooldown(obj) {
-    console.log("DEBUG: starting cooldown");
+// When a btn is pressed triggers cooldown to specific lot
+// That lot is then sent to get loot function
+function start_cooldown(obj) {
+    console.log("DEBUG: starting start_cooldown");
 
     //clear terminal
     clr_term();
@@ -48,29 +55,26 @@ function cooldown(obj) {
     msg_hist.push(message);
     update_terminal(message)
 
-    // Ananymous function to send arguments into second function
-    anon_fun()
-
-    function anon_fun() {
-        setTimeout(function() {get_loot(obj);},obj.cooldown);
+    // Ananymous function to send arguments into and start second function
+    start_timer()
+    function start_timer() {
+        setTimeout(function() {after_cooldown(obj);},obj.cooldown);
     }
 }
 
-function get_loot(obj) {
-
-    clr_term()
+function after_cooldown(obj) {
+    console.log("DEBUG: start function after_cooldown")
     
-    // console
-    console.log("function get_loot")
+    clr_term()
 
     loot_list = obj.loot;
     for (i of loot_list) {
+        // x = dice(3, 6);
         x = get_rand_int(0,10);
-        console.log("increase " + i + " by " + x);
         increase_item(i, x);
         message = i + " has increased by " + x 
 
-        // adds new msg to top of list
+        // adds new msg to list
         messages.push(message);
         msg_hist.push(message);
     }
@@ -93,18 +97,14 @@ function increase_item(item, quantity) {
 }
 
 function disable_btns() {
-    let parent = document.querySelectorAll("button");
-    console.log("DEBUG: disable buttons");
-
+    console.log("DEBUG: disabling buttons");
     for (let i = 0; i < parent.length; i++) {
         parent[i].disabled = true;
     }
 }
 
 function enable_btns() {
-    let parent = document.querySelectorAll("button");
     console.log("DEBUG: re-enabling buttons");
-
     for (let i = 0; i < parent.length; i++) {
         parent[i].disabled = false;
     }
@@ -117,11 +117,11 @@ function update_terminal() {
 }
 
 function print_activity(i) {
-    document.getElementById("terminal").innerHTML += i + "<br>";
+    terminal.innerHTML += i + "<br>";
 }
 
 function clr_term() {
-    document.getElementById("terminal").innerHTML = ""
+    terminal.innerHTML = ""
     messages = []
 }
 
@@ -130,11 +130,11 @@ function buttonClick(e) {
     console.log("DEBUG: " + sel + " clicked");
 
     if (sel === "salvage_btn") {
-        cooldown(salvage);
+        start_cooldown(salvage);
     };
     
     if (sel === "junkyard_btn") {
-        cooldown(junkyard);
+        start_cooldown(junkyard);
     };
 
 }

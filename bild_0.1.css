@@ -43,4 +43,18 @@ body {
 .middle {
     width: 33%;
     background-color: rgb(230, 230, 230);
+
 }
+
+.container {
+    width: 95%;
+    margin: auto;
+    border-style: solid;
+    padding: 10px;
+    position: relative;
+}
+
+.debug {
+    top: 50%
+}
+

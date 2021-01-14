@@ -4,93 +4,104 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="bild_0.1.css">
+        <link rel="stylesheet" href="bild_0.2.css">
         
     </head>
 
 <body>
 
+
     <div class="header">
         <h2>Robot builder</h2>
     </div>
 
-        <div class="column left">
+        <div class="main">
 
-            <table>INVENTORY
-            <thead>
-                <tr>
-                        <th><u>Item No.</u</th>
-                        <th><u>Name</u></th>
-                        <th><u>Quan</u></th>
-                </tr>
-            </thead>
+            <div class="column left">
 
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Battery</td>
-                    <td id=battery>0</td>
-                </tr>
+                <table>INVENTORY
+                <thead>
+                    <tr>
+                            <th><u>Item No.</u</th>
+                            <th><u>Name</u></th>
+                            <th><u>Quan</u></th>
+                    </tr>
+                </thead>
 
-                <tr>
-                    <td>002</td>
-                    <td>Motor</td>
-                    <td id=motor>0</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>001</td>
+                        <td>Battery</td>
+                        <td id=battery>0</td>
+                    </tr>
 
-                <tr>
-                    <td>003</td>
-                    <td>Wire</td>
-                    <td id=wire>0</td>
-                </tr>
-                <tr>
-                    <td>004</td>
-                    <td>Screw</td>
-                    <td id=screw>0</td>
-                </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>Motor</td>
+                        <td id=motor>0</td>
+                    </tr>
 
-                <tr>
-                    <td>005</td>
-                    <td>Nut</td>
-                    <td id=nut>0</td>
-                </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Wire</td>
+                        <td id=wire>0</td>
+                    </tr>
+                    <tr>
+                        <td>004</td>
+                        <td>Screw</td>
+                        <td id=screw>0</td>
+                    </tr>
 
-                <tr>
-                    <td>006</td>
-                    <td>Bolt</td>
-                    <td id=bolt>0</td>
-                </tr>
+                    <tr>
+                        <td>005</td>
+                        <td>Nut</td>
+                        <td id=nut>0</td>
+                    </tr>
 
-            </tbody>
-            </table>
-            <br>
-        </div>
+                    <tr>
+                        <td>006</td>
+                        <td>Bolt</td>
+                        <td id=bolt>0</td>
+                    </tr>
 
-        <div class="column middle">
-
-            <div id="parent_btn">
-                <button type="button" id=salvage_btn>salvage</button><br><br>
-                <button type="button" id=junkyard_btn>junkyard</button><br><br>
-            </div>
-        </div>
-
-        <div class="column right">
-
-            <div class="terminal container">
-
-            <h2>Terminal</h2>
-            <p id=terminal><br></p>
+                </tbody>
+                </table>
+                <br>
             </div>
 
-            <div class="debug container">
-                <p><strong>DEBUG</strong></p>
-                <p>lseiocli</p>
-                <p>ei dsfraie</p>
+            <div class="column middle">
+
+                <div id="parent_btn">
+                    <button type="button" id=salvage_btn>salvage</button><br><br>
+                    <button type="button" id=junkyard_btn>junkyard</button><br><br>
+                </div>
             </div>
+
+            <div class="column right">
+
+                <div class="terminal">
+
+                <h2>Terminal</h2>
+                <p id=terminal><br></p>
+                </div>
+
+                <div class="debug">
+                    <p><strong>DEBUG</strong></p>
+                    <p>lseiocli</p>
+                    <p>ei dsfraie</p>
+                </div>
+            </div>
+
         </div>
+
+    <div class="ads">
+        <img src="8bitart/text.png">
+
+        
+    </div>
 
     <div class="footer">
-        <p>radioparts 2021</p>
+        <h3>Radioparts 2021</h3>
         <p><small>This feature is experimental and rudimentary. You probably do not want to use it.</small>
         </p>
     </div>

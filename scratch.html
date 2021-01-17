@@ -1,52 +1,72 @@
 <!DOCTYPE html>
 
-<!--test messages -->
-
-
-
-<html>
+<html lang="en">
     <head>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
         <meta content="utf-8" http-equiv="encoding">
-        <style>
-            aside {
-                float: inline-start;
-                width: 50%;
-                height: 100%;
-                padding-left: 15px;
-                margin-left: 15px;
-                float: right;
-                background-color: lightgrey;
-            }
-        </style>
+        <link rel="stylesheet" href="bild_0.2.css">
+        <title>Scratch.html</title>
     </head>
+
 <body>
 
-<h2>Robot builder test page</h2>
+    <div class="header">
+        <h2>Robot builder</h2>
+    </div>
 
-<aside>  <!-- Terminal -->
-    <h2><strong>Test Terminal</strong></h2>
+        <div class="main">
 
-    <p id="test">test text for deletion<br></p>
-</aside>
+            <div class="column left">
 
-<div id="parent_btn">
-    <button type="button" id="roll">roll</button><br><br>
-    <button type="button" id="btn_2">btn_2</button><br><br>
-    <button type="button" id="btn_3">btn_3</button><br><br>
-</div>
+                <table id="inventory_table">INVENTORY</table>
+                <br>
+            </div>
 
-<table>
+            <div class="column middle">
 
-</table>
+                <div id="parent_btn">
+                    <button type="button" id=salvage_btn>salvage</button><br><br>
+                    <button type="button" id=junkyard_btn>junkyard</button><br><br>
+                </div>
+            </div>
 
+            <div class="column right">
 
-<script src="scratch.js"></script>
+                <div class="terminal container">
 
+                <h2>Terminal</h2><br>
+                <p id=terminal><br></p>
+                </div>
 
+                <div class="debug container">
+                    <p><strong>DEBUG</strong></p><br>
+                    <p>lseiocli</p>
+                    <p>ei dsfraie</p>
+                </div>
+            </div>
+
+        </div>
+
+    <div class="ads">
+        <div class="imgDiv">
+            <img src="8bitart/grocery.png"></div>
+        <div class="imgDiv">
+            <img src="8bitart/cateyes.png"></div>
+        <div class="imgDiv">
+            <img src="8bitart/bits.png"></div>
+        <div class="imgDiv"> 
+            <img src="8bitart/runcat.png"></div> 
+
+    </div>
+
+    <div class="footer">
+        <h3>Radioparts 2021</h3>
+        <p><small>This feature is experimental and rudimentary. You probably do not want to use it.</small>
+        </p>
+    </div>
+
+    <script src="scratch_var.js"></script>
+    <script src="scratch_fun.js"></script>
 
 </body>
 </html>
-
-
-

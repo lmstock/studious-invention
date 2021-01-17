@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>title</title>
+  </head>
+  <body>
+
+    <p id="p"> Hello world</p>
+
+    <script>
+
+
+// creates elelment
+let test = document.createElement("p");
+test.setAttribute('id', 'test');
+
+let words = document.createTextNode("these words");
+test.appendChild(words);
+
+document.body.insertBefore(test, p)
+
+
+
+
+    </script>
+  
+  </body>
+</html>

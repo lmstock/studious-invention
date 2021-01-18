@@ -1,12 +1,13 @@
 /*
 TO DO:
-
 tidy
+write craft robot function, add new table.
+research states for debug & etc
+
 8bitads
   remove ads button
 player attributes
-die rolls
-
+integrate die rolls
 */
 
 
@@ -20,29 +21,37 @@ function start_cooldown(obj) {
     //clear terminal
     clr_term();
 
-    //disables all search btns
+    //disables all btns
+    // will need changed to salvage only btns when this can be done with bots
     disable_btns();
 
     //terminal message
-    message = obj.ind_message
-    messages.push(message);
-    msg_hist.push(message);
+    set_terminal_message(obj)
     update_terminal(message)
 
     // Ananymous function to send arguments into and start second function
     start_timer()
     function start_timer() {
-        setTimeout(function() {after_cooldown(obj);},obj.cooldown);
+        setTimeout(function() {finish_cooldown(obj);},obj.cooldown);
     }
 }
 
-function after_cooldown(obj) {
+function finish_cooldown(obj) {
     console.log("DEBUG: start function after_cooldown")
     
     clr_term()
 
     console.log("should break here")
 
+    loot(obj)
+
+    update_terminal();
+
+    //re-enables button
+    enable_btns();
+}
+
+function loot(obj) {
     loot_list = obj.loot;
     for (i of loot_list) {
         console.log("i of loot_list " + i);
@@ -57,11 +66,14 @@ function after_cooldown(obj) {
         messages.push(message);
         msg_hist.push(message);
     }
+}
 
-    update_terminal();
+function set_terminal_message(obj) {
+    console.log("DEBUG: starting set_terminal_message with obj=" + obj.name);
 
-    //re-enables button
-    enable_btns();
+    message = obj.ind_message;
+    messages.push(message);
+    msg_hist.push(message);
 }
 
 function get_rand_int(min, max) {

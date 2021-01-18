@@ -1,5 +1,7 @@
 // VARIABLES
 
+let debug = false;
+
 let inventory = [
     { ID: 001, item: "plastic_framing", qua: 0 },
     { ID: 002, item: "wire_bundle", qua: 0 },
@@ -27,6 +29,7 @@ let parent = document.querySelectorAll("button");
 
 // Lots
 let junkyard = {
+    name: "junkyard",
     btn: "junkyard_btn",
     cooldown: 3000,
     loot: ["plastic_framing", "wire_bundle", "sensor"],
@@ -34,6 +37,7 @@ let junkyard = {
 }
 
 let salvage = {
+    name: "salvage",
     btn: "salvage_btn",
     cooldown: 3000,
     loot: ["plastic_framing", "controller", "power_supply"],

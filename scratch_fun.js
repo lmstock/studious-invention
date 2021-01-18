@@ -10,9 +10,6 @@ die rolls
 */
 
 
-
-
-
 // FUNCTIONS
 
 // When a btn is pressed triggers cooldown to specific lot
@@ -27,7 +24,7 @@ function start_cooldown(obj) {
     disable_btns();
 
     //terminal message
-    message = obj.search_message
+    message = obj.ind_message
     messages.push(message);
     msg_hist.push(message);
     update_terminal(message)
@@ -43,6 +40,8 @@ function after_cooldown(obj) {
     console.log("DEBUG: start function after_cooldown")
     
     clr_term()
+
+    console.log("should break here")
 
     loot_list = obj.loot;
     for (i of loot_list) {
@@ -97,7 +96,7 @@ function enable_btns() {
 
 function update_terminal() {
 
-    // reprints entire msg list to 'terminal'
+    // reprints msg list to 'terminal'
     messages.forEach(print_activity);
 }
 
@@ -110,7 +109,7 @@ function clr_term() {
     messages = []
 }
 
-function buttonClick(e) {
+function SalvageClick(e) {
     let sel = e.target.id;
     console.log("DEBUG: " + sel + " clicked");
 
@@ -121,24 +120,39 @@ function buttonClick(e) {
     if (sel === "junkyard_btn") {
         start_cooldown(junkyard);
     };
-
 }
 
+function CraftClick(e) {
+    let sel = e.target.id;
+    console.log("DEBUG: " + sel + "clicked");
+
+    if (sel === "R1_craft_btn") {
+        start_cooldown(r_1);
+    };
+    
+    if (sel === "R2_craft_btn") {
+        start_cooldown(r_2);
+    };
+
+    if (sel === "R3_craft_btn") {
+        start_cooldown(r_3);
+    };
+}
 // EVENT HANDLERS
 
-let parent_btn = document.getElementById('parent_btn').addEventListener('click', buttonClick);
+let sal_parent_btn = document.getElementById('sal_parent_btn').addEventListener('click', SalvageClick);
+let craft_parent_btn = document.getElementById('craft_parent_btn').addEventListener('click', CraftClick);
 
 
+// START => Generates Inventory Table from array: inventory
 function generateTableHead(table, data) {
     let thead = table.createTHead();
     let row = thead.insertRow();
     for (let key of data) {
         let th = document.createElement("th");
         let text = document.createTextNode(key);
-
         th.appendChild(text);
         row.appendChild(th);
-
     }
 }
 
@@ -167,6 +181,8 @@ let data = Object.keys(inventory[0]);
 generateTable(table, inventory);
 generateTableHead(table, data);
 update_table_ids();
+
+// end: Generates Inventory Table from array: inventory
 
 /* //=========================================================
  // DICE CODE - KEEP 3 FUNCTIONS TOGETHER; run x = dice(quantity,sides)

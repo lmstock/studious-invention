@@ -46,8 +46,11 @@ function after_cooldown(obj) {
 
     loot_list = obj.loot;
     for (i of loot_list) {
-        // x = dice(3, 6);
+        console.log("i of loot_list " + i);
+
         x = get_rand_int(0,10);
+        console.log("randint x = " + x);
+
         increase_item(i, x);
         message = i + " has increased by " + x 
 
@@ -67,8 +70,13 @@ function get_rand_int(min, max) {
 }
 
 function increase_item(item, quantity) {
-    var item_count = document.getElementById(item).innerHTML;
-    item_count = parseInt(item_count, 10)
+    console.log("item: " + item);
+    console.log("quantity: " + quantity);
+
+    let item_count = document.getElementById(item).innerHTML;
+    console.log("item_count: " + item_count);
+
+    item_count = parseInt(item_count, 10);
     total = item_count + quantity;
     document.getElementById(item).innerHTML = total;
 }
@@ -119,3 +127,74 @@ function buttonClick(e) {
 // EVENT HANDLERS
 
 let parent_btn = document.getElementById('parent_btn').addEventListener('click', buttonClick);
+
+
+function generateTableHead(table, data) {
+    let thead = table.createTHead();
+    let row = thead.insertRow();
+    for (let key of data) {
+        let th = document.createElement("th");
+        let text = document.createTextNode(key);
+
+        th.appendChild(text);
+        row.appendChild(th);
+
+    }
+}
+
+function generateTable(table, data) {
+    for ( let element of data) {
+        let row = table.insertRow();
+        for (key in element) {
+            let cell = row.insertCell();
+            let text = document.createTextNode(element[key]);
+            cell.appendChild(text);
+        }
+    }
+}
+
+function update_table_ids() {
+    let rowNum = document.getElementById("inventory_table").rows.length;
+    for (let i = 0; i < rowNum; i++) {
+        let name = inventory_table.rows[i].cells[1].innerHTML;
+        inventory_table.rows[i].cells[2].id = name;
+    }
+}
+
+let table = document.querySelector("table");
+let data = Object.keys(inventory[0]);
+
+generateTable(table, inventory);
+generateTableHead(table, data);
+update_table_ids();
+
+/* //=========================================================
+ // DICE CODE - KEEP 3 FUNCTIONS TOGETHER; run x = dice(quantity,sides)
+function get_rand_int(min, max) {
+    x = Math.floor(Math.random() * (max - min + 1)) + min; 
+    return x;
+}
+
+function roll(sides) {
+    rand = get_rand_int(1, sides);
+    return rand;
+}
+
+function dice(quantity, sides) {
+    console.log("Rolling " + quantity + "d" + sides);
+    let total = 0;
+    for (i = 0; i < quantity; i++) {
+        x = roll(sides);
+        console.log("roll #" + i + " - " + x);
+        total = total + x;
+        console.log("total: " + total)   
+    }
+    return total;
+}
+
+x = dice(3,100);
+console.log(x)
+//=============================================================== */
+
+
+

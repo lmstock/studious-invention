@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 
+<!--working test copy
+
+    adding new buttons
+    link to assembly page
+    center div 1047px?
+    mobile reqs
+-->
+
 <html lang="en">
     <head>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
@@ -18,15 +26,25 @@
 
             <div class="column left">
 
-                <table id="inventory_table">INVENTORY</table>
+                <table id="inventory_table"><h3>INVENTORY</h3></table>
                 <br>
             </div>
 
             <div class="column middle">
 
-                <div id="parent_btn">
-                    <button type="button" id=salvage_btn>salvage</button><br><br>
-                    <button type="button" id=junkyard_btn>junkyard</button><br><br>
+                <h3>Salvage Buttons</h3><br>
+
+                <div id="sal_parent_btn">
+                    <button type="button" id=salvage_btn>Salvage</button><br><br>
+                    <button type="button" id=junkyard_btn>Junkyard</button><br><br>
+                </div>
+
+                <h3>Crafting Buttons</h3><br>
+
+                <div id="craft_parent_btn">
+                    <button type="button" id=R1_craft_btn>R1_craft</button><br><br>
+                    <button type="button" id=R2_craft_btn>R2_craft</button><br><br>
+                    <button type="button" id=R3_craft_btn>R3_craft</button><br><br>
                 </div>
             </div>
 
@@ -41,7 +59,7 @@
                 <div class="debug container">
                     <p><strong>DEBUG</strong></p><br>
                     <p>lseiocli</p>
-                    <p>ei dsfraie</p>
+                    <p>ei dsfraiebuttons for crafting robots. Each button will be disabled until the player has the inventory available for building it. For now they will be called: R1_craft, R2_craft, etc. The recipes for the initial program will be as follows:</p>
                 </div>
             </div>
 
@@ -67,6 +85,7 @@
 
     <script src="scratch_var.js"></script>
     <script src="scratch_fun.js"></script>
+
 
 </body>
 </html>

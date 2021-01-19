@@ -10,13 +10,22 @@ player attributes
 integrate die rolls
 */
 
+if (debug === 1) {
+    document.getElementById("debug_1").innerHTML = "DEBUG ON";
+} else {}
+
 
 // FUNCTIONS
+function debugging(function_name) {
+    if (debug === 1) {
+        console.log("DEBUG ON: " + function_name);
+    } else {}
+}
 
 // When a btn is pressed triggers cooldown to specific lot
 // That lot is then sent to get loot function
 function start_cooldown(obj) {
-    console.log("DEBUG: starting start_cooldown");
+    debugging("start_cooldown");
 
     //clear terminal
     clr_term();
@@ -37,11 +46,11 @@ function start_cooldown(obj) {
 }
 
 function finish_cooldown(obj) {
-    console.log("DEBUG: start function after_cooldown")
+    debugging("finish_cooldown");
     
     clr_term()
 
-    console.log("should break here")
+    console.log("crafting should break here")
 
     loot(obj)
 
@@ -52,15 +61,17 @@ function finish_cooldown(obj) {
 }
 
 function loot(obj) {
+    debugging("loot " + obj.name);
+
     loot_list = obj.loot;
     for (i of loot_list) {
-        console.log("i of loot_list " + i);
+        console.log("i of loot_list = " + i);
 
         x = get_rand_int(0,10);
         console.log("randint x = " + x);
 
         increase_item(i, x);
-        message = i + " has increased by " + x 
+        message = i + " + " + x 
 
         // adds new msg to list
         messages.push(message);
@@ -69,23 +80,24 @@ function loot(obj) {
 }
 
 function set_terminal_message(obj) {
-    console.log("DEBUG: starting set_terminal_message with obj=" + obj.name);
-
+    debugging("set_terminal_message");
     message = obj.ind_message;
     messages.push(message);
     msg_hist.push(message);
 }
 
 function get_rand_int(min, max) {
+    debugging("get_rand_int");
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function increase_item(item, quantity) {
+    debugging("increase_item");
     console.log("item: " + item);
-    console.log("quantity: " + quantity);
+    console.log("add quantity: " + quantity);
 
     let item_count = document.getElementById(item).innerHTML;
-    console.log("item_count: " + item_count);
+    debugging("previous item_count: " + item_count);
 
     item_count = parseInt(item_count, 10);
     total = item_count + quantity;
@@ -93,37 +105,41 @@ function increase_item(item, quantity) {
 }
 
 function disable_btns() {
-    console.log("DEBUG: disabling buttons");
+    debugging("disable_btns");
     for (let i = 0; i < parent.length; i++) {
         parent[i].disabled = true;
     }
 }
 
 function enable_btns() {
-    console.log("DEBUG: re-enabling buttons");
+    debugging("enable_btns");
     for (let i = 0; i < parent.length; i++) {
         parent[i].disabled = false;
     }
 }
 
 function update_terminal() {
+    debugging("update_terminal");
 
     // reprints msg list to 'terminal'
     messages.forEach(print_activity);
 }
 
 function print_activity(i) {
+    debugging("print_activity");
     terminal.innerHTML += i + "<br>";
 }
 
 function clr_term() {
+    debugging("clr_term");
     terminal.innerHTML = ""
     messages = []
 }
 
 function SalvageClick(e) {
+    debugging("SalvageClick");
     let sel = e.target.id;
-    console.log("DEBUG: " + sel + " clicked");
+    console.log("debug: " + sel + " clicked");
 
     if (sel === "salvage_btn") {
         start_cooldown(salvage);
@@ -135,8 +151,9 @@ function SalvageClick(e) {
 }
 
 function CraftClick(e) {
+    debugging("CraftClick");
     let sel = e.target.id;
-    console.log("DEBUG: " + sel + "clicked");
+    console.log("debug: " + sel + "clicked");
 
     if (sel === "R1_craft_btn") {
         start_cooldown(r_1);
@@ -150,13 +167,9 @@ function CraftClick(e) {
         start_cooldown(r_3);
     };
 }
-// EVENT HANDLERS
-
-let sal_parent_btn = document.getElementById('sal_parent_btn').addEventListener('click', SalvageClick);
-let craft_parent_btn = document.getElementById('craft_parent_btn').addEventListener('click', CraftClick);
 
 
-// START => Generates Inventory Table from array: inventory
+// START => Generates Tables from arrays
 function generateTableHead(table, data) {
     let thead = table.createTHead();
     let row = thead.insertRow();
@@ -179,22 +192,34 @@ function generateTable(table, data) {
     }
 }
 
-function update_table_ids() {
-    let rowNum = document.getElementById("inventory_table").rows.length;
+function update_table_ids(table_id_name, table_id) {
+    let rowNum = document.getElementById(table_id_name).rows.length;
     for (let i = 0; i < rowNum; i++) {
-        let name = inventory_table.rows[i].cells[1].innerHTML;
-        inventory_table.rows[i].cells[2].id = name;
+        let name = table_id.rows[i].cells[1].innerHTML;
+        table_id.rows[i].cells[2].id = name;
     }
 }
 
-let table = document.querySelector("table");
-let data = Object.keys(inventory[0]);
+// INVENTORY TABLE
 
-generateTable(table, inventory);
-generateTableHead(table, data);
-update_table_ids();
+let table_inv = document.getElementById("table_1");
+let data_inv = Object.keys(inventory[0]);
 
-// end: Generates Inventory Table from array: inventory
+generateTable(table_inv, inventory);
+generateTableHead(table_inv, data_inv);
+update_table_ids("table_1", table_1);
+
+// ASSEMBLIES TABLE
+
+let assemble_inv = document.getElementById("table_2");
+let data_assemblies = Object.keys(assemblies[0]);
+
+generateTable(assemble_inv, assemblies);
+generateTableHead(assemble_inv, data_assemblies);
+update_table_ids("table_2", table_2);
+
+// end: Generates Tables from arrays
+
 
 /* //=========================================================
  // DICE CODE - KEEP 3 FUNCTIONS TOGETHER; run x = dice(quantity,sides)

@@ -10,9 +10,7 @@ player attributes
 integrate die rolls
 */
 
-if (debug === 1) {
-    document.getElementById("debug_1").innerHTML = "DEBUG ON";
-} else {}
+
 
 
 // FUNCTIONS
@@ -52,12 +50,21 @@ function finish_cooldown(obj) {
 
     console.log("crafting should break here")
 
-    loot(obj)
+    if (obj.action === "loot") {
+        loot(obj);
+    } 
+
+    if (obj.action === "craft") {
+        craft(obj);
+    }
+
+    else {};    
 
     update_terminal();
 
     //re-enables button
     enable_btns();
+    check_craft_buttons();
 }
 
 function loot(obj) {
@@ -77,6 +84,13 @@ function loot(obj) {
         messages.push(message);
         msg_hist.push(message);
     }
+
+    
+}
+
+function craft() {
+    debugging("craft");
+    
 }
 
 function set_terminal_message(obj) {

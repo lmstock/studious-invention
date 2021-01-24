@@ -4,14 +4,12 @@ if (debug === 1) {
 
 
 // button states - 1. any way to do it, 2. right way to do it
-
-
 function check_craft_buttons() {
     debugging("check_craft_buttons");
 
     for (x of craftable_units) {
         
-        console.log(x);
+        //console.log(x);  // prints object of current loop
 
         // sets btn_state to 1, missing ingredient will set to zero
         let btn_state = 1;
@@ -27,7 +25,7 @@ function check_craft_buttons() {
             
             // check inventory vs requirements and update btn_state
             if (qua_in_inv >= elem_req) {
-                console.log("yes");
+                console.log("Item: " + x.name + "; qua_in_inv: " + qua_in_inv + "; elem_req: " + elem_req + "; yes");
                 console.log(btn_state);
             } else {
                 btn_state = 0

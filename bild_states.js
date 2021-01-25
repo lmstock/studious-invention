@@ -9,7 +9,7 @@ function check_craft_buttons() {
 
     for (x of craftable_units) {
         
-        //console.log(x);  // prints object of current loop
+        //console.log(x);  // print object of current loop
 
         // sets btn_state to 1, missing ingredient will set to zero
         let btn_state = 1;

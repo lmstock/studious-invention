@@ -6,7 +6,23 @@ ROBOT NOTES:
 
 =====> TO DO:
 
-NEXT: start craft system
+RESEARCH:
+	maintaining session
+	
+
+NEXT: 
+	integrate die rolls
+	tidy
+	making it scalable
+	8bitads
+		randomize - 
+			could probably do all of it in greenshot.
+			ad generator
+  		remove ads button
+	player attributes
+
+	
+
 
 CSS: center main div.
 	  mobile
@@ -23,9 +39,6 @@ JS:
 		remove ads button?
 
 	ADD die rolls
-
-	ADD recipes / crafting system
-		subassemblies
 
 	robot categories: 
 		combat

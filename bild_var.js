@@ -21,71 +21,49 @@ let assemblies = [
 // Plans
 // construct assemblies programmatically
 
-let r1 = {
-    name: "r1",
-    btn: document.getElementById("r1_craft_btn"),
-    assembly_table: document.getElementById("r1"),
-    cooldown: 3000,
-    cool_msg: "you are assembling an r1",
-    action: "craft",
-    ingredients: {
-        plastic_framing: 1,
-        wire_bundle: 1,
-        sensor: 1
-    }
-};
+function Assembly(name, btn, assembly_table, cooldown, action, ingredients) {
+    this.name = name;
+    this.btn = btn;
+    this.assembly_table = assembly_table;
+    this.cooldown = cooldown;
+    this.action = action;
+    this.ingredients = ingredients;
+    this.cool_msg = function() {return "You are assembling an " + this.name;};  
+}
 
-let r2 = {
-    name: "r2",
-    btn: document.getElementById("r2_craft_btn"),
-    cool_msg: "you are assembling an r2",
-    cooldown: 3000,
-    action: "craft",
-    ingredients: {
-        power_supply: 1,
-        wire_bundle: 1,
-        sensor: 1
-    }
-};
+let r1_ingredients = { plastic_framing: 1, wire_bundle: 1, sensor: 1 };
+let r2_ingredients = { power_supply: 1, wire_bundle: 1, sensor: 1 };
+let r3_ingredients = { controller: 1, wire_bundle: 1, sensor: 1 };
 
-let r3 = {
-    name: "r3",
-    btn: document.getElementById("r3_craft_btn"),
-    cool_msg: "you are assembling an r3",
-    cooldown: 3000,
-    action: "craft",
-    ingredients: {
-        controller: 1,
-        wire_bundle: 1,
-        sensor: 1
-    }
-};
+let r1 = new Assembly("r1", document.getElementById("r1_craft_btn"), document.getElementById("r1"), 3000, "craft", r1_ingredients);
+let r2 = new Assembly("r2", document.getElementById("r2_craft_btn"), document.getElementById("r2"), 3000, "craft", r2_ingredients);
+let r3 = new Assembly("r3", document.getElementById("r3_craft_btn"), document.getElementById("r3"), 3000, "craft", r3_ingredients);
 
+//  WHAT AM I USING THIS FOR?? 
+// This list leads the check_craft_buttons, what is a better way?
 let craftable_units = [r1, r2, r3];
 
 // HTML Elements
 let terminal = document.getElementById("terminal");
 let parent = document.querySelectorAll("button");
 
-
 // Lots  
-let junkyard = {
-    name: "junkyard",
-    btn: "junkyard_btn",
-    cooldown: 3000,
-    cool_msg: "you are rummaging through the junkyard...",
-    action: "loot",
-    loot: ["plastic_framing", "wire_bundle", "sensor"],
+
+function Lot(name, btn, cooldown, action, loot) {
+    this.name = name;
+    this.btn = btn;
+    this.cooldown = cooldown;
+    this.action = action;
+    this.loot = loot;
+    this.cool_msg = function() {return "You are rummaging through the " + this.name;};
 }
 
-let salvage = {
-    name: "salvage",
-    btn: "salvage_btn",
-    cooldown: 3000,
-    cool_msg: "you are rummaging through the salvage lot...",
-    action: "loot",
-    loot: ["plastic_framing", "controller", "power_supply"],
-}
+salvage_loot = ["plastic_framing", "controller", "power_supply"];
+junkyard_loot = ["plastic_framing", "wire_bundle", "sensor"];
+
+let salvage = new Lot("salvage", "salvage_btn", 3000, "loot", salvage_loot);
+let junkyard = new Lot("junkyard", "junkyard_btn", 3000, "loot", junkyard_loot);
+
 
 // Terminal Messages
 let messages = []     // current messages

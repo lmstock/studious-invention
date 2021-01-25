@@ -1,12 +1,4 @@
-/*
-TO DO:
-tidy
 
-8bitads
-  remove ads button
-player attributes
-integrate die rolls
-*/
 
 
 
@@ -25,7 +17,7 @@ function start_cooldown(obj) {
 
     // refresh terminal to current activity
     clr_term();
-    msg = obj.cool_msg;
+    msg = obj.cool_msg();
     set_terminal_message(msg);
 
     //disables all btns
@@ -69,7 +61,7 @@ function loot(obj) {
         console.log("randint x = " + x);
 
         increase_item(i, x);
-        increase_msg = i + " + " + x 
+        increase_msg = i + " +" + x 
 
         // adds new msg to list 
         shortlist.push(increase_msg);
@@ -90,9 +82,6 @@ function craft(obj) {
     console.log("crafting obj: " + obj.name);
     console.log(obj.ingredients);
 
-    // set terminal message for wait period
-    let msg = "You are assembling an " + obj.name + "...";
-    set_terminal_message(msg);
 
     Object.keys(obj.ingredients).forEach(element => {
         console.log(element);

@@ -1,9 +1,7 @@
 
-
-
-
-
 // FUNCTIONS
+
+// prints informational updates to console.log when debugg === 1
 function debugging(function_name) {
     if (debug === 1) {
         console.log("DEBUG ON: " + function_name);
@@ -17,8 +15,8 @@ function start_cooldown(obj) {
 
     // refresh terminal to current activity
     clr_term();
-    msg = obj.cool_msg();
-    set_terminal_message(msg);
+    messages.push(obj.cool_msg());
+    set_terminal_message();
 
     //disables all btns
     // will need changed to salvage only btns when this can be automated in game
@@ -33,8 +31,7 @@ function start_cooldown(obj) {
 
 function finish_cooldown(obj) {
     debugging("finish_cooldown");
-    
-    clr_term()
+    clr_term();
 
     if (obj.action === "loot") {
         loot(obj);
@@ -43,7 +40,6 @@ function finish_cooldown(obj) {
     if (obj.action === "craft") {
         craft(obj);
     }  else {};    
-
 
     //re-set button states
     enable_btns();
@@ -58,33 +54,34 @@ function loot(obj) {
     for (i of loot_list) {
 
         x = get_rand_int(0,10);
-        console.log("randint x = " + x);
+        debugging("randint x = " + x);
 
         increase_item(i, x);
         increase_msg = i + " +" + x 
 
         // adds new msg to list 
         shortlist.push(increase_msg);
-        msg_hist.push(increase_msg);
     }
 
-    // update terminal with salvaged items
-    // *note that sending an array to function set_terminal_message prints extra
-    // so we just handle the list in this loot function
-    // as well as the terminal message
-    shortlist.unshift("Your rummaging has yielded: ");
+    // adds terminal message to list
+    shortlist.unshift("Your rummaging has yielded: <br>");
+
+    // updates messages
     for (i of shortlist) {
-        terminal.innerHTML += i + "<br>";
-}}
+        messages.push(i);
+    }
+
+    set_terminal_message();
+}
 
 function craft(obj) {
     debugging("craft");
-    console.log("crafting obj: " + obj.name);
-    console.log(obj.ingredients);
+    debugging("crafting obj: " + obj.name);
+    debugging(obj.ingredients);
 
 
     Object.keys(obj.ingredients).forEach(element => {
-        console.log(element);
+        debugging(element);
 
         // get quantity from inv and assign to variable
         let inv_qua = document.getElementById(element).innerHTML;
@@ -105,20 +102,16 @@ function craft(obj) {
     assembly_amt = parseInt(assembly_amt, 10);
     total = assembly_amt + 1;
     document.getElementById(obj.name).innerHTML = total;
-    console.log("total " + total);
 
-    // update closing terminal message
-    msg = "you have assembled an " + obj.name;
-    set_terminal_message(msg);
-
+    // refresh terminal to current activity
+    clr_term();
+    messages.push("you have assembled an " + obj.name);
+    set_terminal_message();
     
 }
 
-function set_terminal_message(msg) {
+function set_terminal_message() {
     debugging("set_terminal_message");
-    clr_term();
-    messages.push(msg);
-    msg_hist.push(msg);
     for (i of messages) {
         terminal.innerHTML += i + "<br>";
     }
@@ -131,13 +124,10 @@ function get_rand_int(min, max) {
 
 function increase_item(item, quantity) {
     debugging("increase_item");
-    console.log("item: " + item);
-    console.log("add quantity: " + quantity);
 
     let item_count = document.getElementById(item).innerHTML;
-    debugging("previous item_count: " + item_count);
-
     item_count = parseInt(item_count, 10);
+
     total = item_count + quantity;
     document.getElementById(item).innerHTML = total;
 }
@@ -181,7 +171,6 @@ function CraftClick(e) {
 
     if (sel === "r1_craft_btn") {
         start_cooldown(r1);
-        console.log("test");
     };
     
     if (sel === "r2_craft_btn") {

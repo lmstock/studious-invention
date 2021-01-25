@@ -1,6 +1,6 @@
 // VARIABLES
 
-let debug = 1;
+let debug = 0;
 
 let inventory = [
     { ID: 101, item: "plastic_framing", qua: 3 },
@@ -18,9 +18,7 @@ let assemblies = [
     {ID: 205, item: "r5" , qua: 0 },
 ]
 
-// Plans
-// construct assemblies programmatically
-
+// PLAB}NS
 function Assembly(name, btn, assembly_table, cooldown, action, ingredients) {
     this.name = name;
     this.btn = btn;
@@ -39,7 +37,7 @@ let r1 = new Assembly("r1", document.getElementById("r1_craft_btn"), document.ge
 let r2 = new Assembly("r2", document.getElementById("r2_craft_btn"), document.getElementById("r2"), 3000, "craft", r2_ingredients);
 let r3 = new Assembly("r3", document.getElementById("r3_craft_btn"), document.getElementById("r3"), 3000, "craft", r3_ingredients);
 
-//  WHAT AM I USING THIS FOR?? 
+
 // This list leads the check_craft_buttons, what is a better way?
 let craftable_units = [r1, r2, r3];
 
@@ -55,13 +53,13 @@ function Lot(name, btn, cooldown, action, loot) {
     this.cooldown = cooldown;
     this.action = action;
     this.loot = loot;
-    this.cool_msg = function() {return "You are rummaging through the " + this.name;};
+    this.cool_msg = function() {return "You are rummaging through the " + this.name + "...<br>";};
 }
 
 salvage_loot = ["plastic_framing", "controller", "power_supply"];
 junkyard_loot = ["plastic_framing", "wire_bundle", "sensor"];
 
-let salvage = new Lot("salvage", "salvage_btn", 3000, "loot", salvage_loot);
+let salvage = new Lot("salvage lot", "salvage_btn", 3000, "loot", salvage_loot);
 let junkyard = new Lot("junkyard", "junkyard_btn", 3000, "loot", junkyard_loot);
 
 

@@ -8,10 +8,8 @@ function check_craft_buttons() {
     debugging("check_craft_buttons");
 
     for (x of craftable_units) {
-        
-        //console.log(x);  // print object of current loop
 
-        // sets btn_state to 1, missing ingredient will set to zero
+        // sets btn_state to 1, any missing ingredient will set to zero
         let btn_state = 1;
 
         Object.keys(x.ingredients).forEach(element => {
@@ -25,12 +23,9 @@ function check_craft_buttons() {
             
             // check inventory vs requirements and update btn_state
             if (qua_in_inv >= elem_req) {
-                console.log("Item: " + x.name + "; qua_in_inv: " + qua_in_inv + "; elem_req: " + elem_req + "; yes");
-                console.log(btn_state);
+
             } else {
                 btn_state = 0
-                console.log("no");
-                console.log(btn_state);
             }
             
             // enable/disable craft button based on state
@@ -39,12 +34,8 @@ function check_craft_buttons() {
             } else {
                 x.btn.disabled = false;
             }
-
-
         });
-  
-
     } 
-}  // button states need checked after inventory changes
+} 
 
 check_craft_buttons()

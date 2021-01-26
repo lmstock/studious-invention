@@ -21,10 +21,11 @@ NEXT:
   		remove ads button
 	player attributes
 
-	
+ADS:
+	"for a better morning"	
 
 
-CSS: center main div.
+CSS: 
 	  mobile
 	  tigers bots
 

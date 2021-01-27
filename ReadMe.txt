@@ -2,28 +2,29 @@ ROBOT NOTES:
 
 =====> LINKS:
 	http://www.electronicsteacher.com/robotics/robotics-technology/
-
+	https://www.valentinog.com/blog/html-table/
 
 =====> TO DO:
 
+	integrate die rolls js
+	fix tables for uniformity css
+
 RESEARCH:
+
 	maintaining session
 	
-
-NEXT: 
-	integrate die rolls
-	tidy
-	making it scalable
-	8bitads
-		randomize - 
-			could probably do all of it in greenshot.
-			ad generator
-  		remove ads button
-	player attributes
-
-ADS:
+ADS IDEAS:
 	"for a better morning"	
-
+	"PRO"
+	"HOT"
+	"You're Worth It"
+	"x is forever"
+	"Save x"
+	"Every Little Bit"
+	"Advancement"
+	"Through Technology"
+	"We are There"
+	"Accelerate Yesterday"
 
 CSS: 
 	  mobile
@@ -31,15 +32,11 @@ CSS:
 
 JS:
 
-	ADD player attributes - money, buffs; add now, integrate later
+	ADD player atts - money, moderators; add space now, integrate later
 
-	ADD 8bit ads - css div between columns and footer
+	ADD 8bit ads? - 
 	wigabits, ads for lots, ecma, airadio
 	quick tiger drawings to start. imgs
-		automate ads
-		remove ads button?
-
-	ADD die rolls
 
 	robot categories: 
 		combat
@@ -97,11 +94,5 @@ FUTURE:
 	
 	Random breakage.
 	psychic paper (esp badge) - get into lots free or early
-	integrate local time - local weather?
-
-
-REFERENCES:
-
-	https://www.valentinog.com/blog/html-table/
-
+	integrate local weather?
 

@@ -48,4 +48,4 @@ function change_ad() {
     adList[repAdIndex].src = ads[new_ad_index];
 }
 
-setInterval(change_ad, 2000);
+setInterval(change_ad, 20000);

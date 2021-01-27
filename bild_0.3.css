@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: rgb(lightgrey);
+    background-color: lightgray;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 0;
 }
@@ -55,7 +55,7 @@ body {
 
 #wrapper {
     position: relative;
-    background-color: lightgrey;
+    background-color: lightgray;
     width:1020px;
     min-height: 1000px;
     margin: auto;

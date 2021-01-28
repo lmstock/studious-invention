@@ -8,10 +8,12 @@ ROBOT NOTES:
 
 	integrate die rolls js
 	fix tables for uniformity css
+		one inventory table?
+	no duplicate adds except cherries
 
 RESEARCH:
 
-	maintaining session
+	local storage
 	
 ADS IDEAS:
 	"for a better morning"	

@@ -34,7 +34,7 @@ let ads = [
 ]
 
 function change_ad() {
-    debugging("change_ad");
+ // replace debug function
 
     // get random integer to choose ad being replaced
     let adLen = adList.length;

@@ -1,17 +1,11 @@
 
 // FUNCTIONS
 
-// prints informational updates to console.log when debugg === 1
-function debugging(function_name) {
-    if (debug === 1) {
-        console.log("DEBUG ON: " + function_name);
-    } else {}
-}
+
 
 // When a btn is pressed triggers cooldown to specific lot
 // That lot is then sent to get loot function
 function start_cooldown(obj) {
-    debugging("start_cooldown");
 
     // refresh terminal to current activity
     clr_term();
@@ -30,14 +24,14 @@ function start_cooldown(obj) {
 }
 
 function finish_cooldown(obj) {
-    debugging("finish_cooldown");
+
     clr_term();
 
-    if (obj.action === "loot") {
+    if (obj.type === "lot") {
         loot(obj);
     } 
 
-    if (obj.action === "craft") {
+    if (obj.type === "bot") {
         craft(obj);
     }  else {};    
 
@@ -47,14 +41,14 @@ function finish_cooldown(obj) {
 }
 
 function loot(obj) {
-    debugging("loot " + obj.name);
+
     let shortlist = [];
 
     loot_list = obj.loot;
     for (i of loot_list) {
 
         x = get_rand_int(0,10);
-        debugging("randint x = " + x);
+
 
         increase_item(i, x);
         increase_msg = i + " +" + x 
@@ -75,13 +69,8 @@ function loot(obj) {
 }
 
 function craft(obj) {
-    debugging("craft");
-    debugging("crafting obj: " + obj.name);
-    debugging(obj.ingredients);
-
 
     Object.keys(obj.ingredients).forEach(element => {
-        debugging(element);
 
         // get quantity from inv and assign to variable
         let inv_qua = document.getElementById(element).innerHTML;
@@ -111,19 +100,16 @@ function craft(obj) {
 }
 
 function set_terminal_message() {
-    debugging("set_terminal_message");
     for (i of messages) {
         terminal.innerHTML += i + "<br>";
     }
 }
 
 function get_rand_int(min, max) {
-    debugging("get_rand_int");
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function increase_item(item, quantity) {
-    debugging("increase_item");
 
     let item_count = document.getElementById(item).innerHTML;
     item_count = parseInt(item_count, 10);
@@ -133,27 +119,23 @@ function increase_item(item, quantity) {
 }
 
 function disable_btns() {
-    debugging("disable_btns");
     for (let i = 0; i < parent.length; i++) {
         parent[i].disabled = true;
     }
 }
 
 function enable_btns() {
-    debugging("enable_btns");
     for (let i = 0; i < parent.length; i++) {
         parent[i].disabled = false;
     }
 }
 
 function clr_term() {
-    debugging("clr_term");
     terminal.innerHTML = ""
     messages = []
 }
 
 function SalvageClick(e) {
-    debugging("SalvageClick");
     let sel = e.target.id;
 
     if (sel === "salvage_btn") {
@@ -166,7 +148,6 @@ function SalvageClick(e) {
 }
 
 function CraftClick(e) {
-    debugging("CraftClick");
     let sel = e.target.id;
 
     if (sel === "r1_craft_btn") {
@@ -209,8 +190,8 @@ function generateTable(table, data) {
 function update_table_ids(table_id_name, table_id) {
     let rowNum = document.getElementById(table_id_name).rows.length;
     for (let i = 0; i < rowNum; i++) {
-        let name = table_id.rows[i].cells[1].innerHTML;
-        table_id.rows[i].cells[2].id = name;
+        let name = table_id.rows[i].cells[0].innerHTML;
+        table_id.rows[i].cells[1].id = name;
     }
 }
 

@@ -1,11 +1,8 @@
-if (debug === 1) {
-    document.getElementById("debug_1").innerHTML = "DEBUG ON";
-} else {}
+
 
 
 // button states - 1. any way to do it, 2. right way to do it
 function check_craft_buttons() {
-    debugging("check_craft_buttons");
 
     for (x of craftable_units) {
 
@@ -23,14 +20,16 @@ function check_craft_buttons() {
             
             // check inventory vs requirements and update btn_state
             if (qua_in_inv >= elem_req) {
+                // do nothing
 
             } else {
                 btn_state = 0
             }
-            
+
             // enable/disable craft button based on state
-            if (btn_state == 0) {
+            if (btn_state === 0) {
                 x.btn.disabled = true;
+                
             } else {
                 x.btn.disabled = false;
             }

@@ -1,8 +1,10 @@
 ROBOT NOTES:
 
 =====> LINKS:
+	https://youtu.be/MfxBfRD0FVU  - inheritance in JS
 	http://www.electronicsteacher.com/robotics/robotics-technology/
 	https://www.valentinog.com/blog/html-table/
+
 
 =====> TO DO:
 
@@ -19,9 +21,9 @@ ADS IDEAS:
 	"for a better morning"	
 	"PRO"
 	"HOT"
-	"You're Worth It"
-	"x is forever"
-	"Save x"
+	"You're Worth X"
+	"X is forever"
+	"Save X"
 	"Every Little Bit"
 	"Advancement"
 	"Through Technology"
@@ -97,4 +99,6 @@ FUTURE:
 	Random breakage.
 	psychic paper (esp badge) - get into lots free or early
 	integrate local weather?
+
+	kennedy miles
 

@@ -8,16 +8,24 @@ ROBOT NOTES:
 
 =====> TO DO:
 
-	integrate die rolls js
-	fix tables for uniformity css
-		one inventory table?
-	no duplicate adds except cherries
+	formatting on table css
+	integrate die rolls js - is there a better way?
+	modifiers
+	how will we dynamically add rows?
+	Cherry ad slots
+	more ads
 
 RESEARCH:
 
 	local storage
 	
 ADS IDEAS:
+
+	ADD 8bit ads? - 
+	wigabits, ads for lots, ecma, airadio
+	quick tiger drawings to start. imgs
+	kennedy miles
+
 	"for a better morning"	
 	"PRO"
 	"HOT"
@@ -36,11 +44,7 @@ CSS:
 
 JS:
 
-	ADD player atts - money, moderators; add space now, integrate later
-
-	ADD 8bit ads? - 
-	wigabits, ads for lots, ecma, airadio
-	quick tiger drawings to start. imgs
+ROBOTS: 	
 
 	robot categories: 
 		combat
@@ -100,5 +104,5 @@ FUTURE:
 	psychic paper (esp badge) - get into lots free or early
 	integrate local weather?
 
-	kennedy miles
+	
 

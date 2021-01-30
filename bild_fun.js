@@ -164,7 +164,9 @@ function CraftClick(e) {
 }
 
 
-// START => Generates Tables from arrays
+// START => Generates Tables from objects
+
+
 function generateTableHead(table, data) {
     let thead = table.createTHead();
     let row = thead.insertRow();
@@ -206,12 +208,12 @@ update_table_ids("table_1", table_1);
 
 // ASSEMBLIES TABLE
 
-let assemble_inv = document.getElementById("table_2");
+/* let assemble_inv = document.getElementById("table_2");
 let data_assemblies = Object.keys(assemblies[0]);
 
 generateTable(assemble_inv, assemblies);
 generateTableHead(assemble_inv, data_assemblies);
-update_table_ids("table_2", table_2);
+update_table_ids("table_2", table_2); */
 
 // end: Generates Tables from arrays
 

@@ -4,16 +4,21 @@ ROBOT NOTES:
 	https://youtu.be/MfxBfRD0FVU  - inheritance in JS
 	http://www.electronicsteacher.com/robotics/robotics-technology/
 	https://www.valentinog.com/blog/html-table/
+	https://medium.com/@bretcameron/how-to-build-a-web-scraper-using-javascript-11d7cd9f77f2
 
 
 =====> TO DO:
 
-	formatting on table css
 	integrate die rolls js - is there a better way?
-	modifiers
-	how will we dynamically add rows?
-	Cherry ad slots
+	
 	more ads
+		Cherry ad slots
+
+	csv game content
+		how will we dynamically add rows?
+		achievements
+		modifiers
+
 
 RESEARCH:
 

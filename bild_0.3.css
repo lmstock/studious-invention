@@ -9,6 +9,22 @@ body {
     padding: 0;
 }
 
+table {
+    outline-style: solid;
+    outline-color: lightslategray;
+    width: 100%;
+}
+
+#inv_label {
+    padding: 5px;
+}
+
+th, td {
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: lightslategray;
+}
+
 .header, .footer, .ads {
     position: fixed;
     width: 100%;
@@ -40,7 +56,6 @@ body {
 
 .imgDiv {
     background-image: url("lilads/faces.png");
-    
     height: 100px;
     width: 250px;
     margin: 0;
@@ -71,7 +86,6 @@ body {
 
 .center {
     background-color: rgb(230, 230, 230);
-
 }
 
 .container {
@@ -81,3 +95,4 @@ body {
     outline-style: solid;
     outline-color: lightslategray;
 }
+

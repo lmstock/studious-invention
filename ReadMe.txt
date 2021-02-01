@@ -1,6 +1,9 @@
 ROBOT NOTES:
 
 =====> LINKS:
+
+	the spreadsheet https://docs.google.com/spreadsheets/d/14TXMDzZkfL3mTpIjvksJIMLdS3f7xjeLOFpIGviCEMk/edit#gid=94843435
+
 	https://youtu.be/MfxBfRD0FVU  - inheritance in JS
 	http://www.electronicsteacher.com/robotics/robotics-technology/
 	https://www.valentinog.com/blog/html-table/
@@ -10,98 +13,74 @@ ROBOT NOTES:
 =====> TO DO:
 
 	integrate die rolls js - is there a better way?
+	Change "crafting" to "assembling"
 	
 	more ads
 		Cherry ad slots
 
 	csv game content
-		how will we dynamically add rows?
+		research dynamical table work
+		
 		achievements
 		modifiers
 
+	handle compromises:
+		underscore in table name
+
+	loot tables needed for salvage and junkyard.
 
 RESEARCH:
 
 	local storage
 	
-ADS IDEAS:
+ADS SECTION:
+	A small side art project. Homebrew ads. 
+		possibly link to other pages
+		slots mechanism using atomic cherry ad
+			TODO: allow atomic cherry to duplicate (browser alert)
 
-	ADD 8bit ads? - 
-	wigabits, ads for lots, ecma, airadio
-	quick tiger drawings to start. imgs
-	kennedy miles
+		8 bit ads - 
+		wigabits, ads for lots, ecma, airadio
+		quick tiger drawings to start. imgs
+		kennedy miles
 
-	"for a better morning"	
-	"PRO"
-	"HOT"
-	"You're Worth X"
-	"X is forever"
-	"Save X"
-	"Every Little Bit"
-	"Advancement"
-	"Through Technology"
-	"We are There"
-	"Accelerate Yesterday"
+		"for a better morning"	
+		"PRO"
+		"HOT"
+		"You're Worth X"
+		"X is forever"
+		"Save X"
+		"Every Little Bit"
+		"Advancement"
+		"Through Technology"
+		"We are There"
+		"Accelerate Yesterday"
+		"subassembly surprise!" chicken
 
 CSS: 
 	  mobile
 	  tigers bots
+	  pages
 
 JS:
 
 ROBOTS: 	
 
 	robot categories: 
-		combat
-		builders
 		scavengers
+		builders
+		combat
 		assemblers
 		dissemblers
-		transportation unit (the robot bus)
+		transportation unit (default = bus)
 		animals mod
 		add on modules
 		misc
 
 
-
-	flesh out inventory tables, 
-		list of random parts:
-			Common types include Magnetic Sensor, Piezo Sensor, Capacitive Sensor, Resistive Sensor, Geomagnetic Sensor, and Pressure Sensor.
-			actuator
-			sensors
-			axles
-			microcontroller
-			adapters
-			relay
-			transistors
-			voltage sensors
-			temp sensor
-			sound sensor
-			sensor cables
-			battery wiring harness
-			interface kit
-			thermocouple adapter
-			accelerometer
-			gps
-			light emitting diodes (LED)
-			port hub
-			rotation sensor
-			tilt sensor
-			solenoid
-			wheels
-			treads
-			gears
-			
-		organized categories
-			sensors
-			effectors
-			control systems
-
-
 FUTURE:
 
 	rare find! (Pinball surprisement!)
-	Sub assembly surprise!
 	Catalog
 	Teeth - Shady Fellow
 	
@@ -109,5 +88,37 @@ FUTURE:
 	psychic paper (esp badge) - get into lots free or early
 	integrate local weather?
 
+	new lots:
 	
+	"Tinnery Shred"
+	"Steel Building"
+	"River City Pic N Pull"
+	"Coal Gas Kingdom"
+	"Bridgewater"
+	"Roy's Premium"
 
+
+PAGES:
+
+Salvage page - 3 div
+	table representing item list and player quantity (left div)
+	salvage buttons (center div) 
+	assembly buttons (center div) 
+	terminal (right div - top)
+	city map / local weather (right div - bottom)
+
+Assembly page - 2 divs
+	table representing inventory, quantity, item "health", assemblies (left div)
+		https://mdn.github.io/learning-area/html/tables/assessment-finished/planets-data.html
+	smaller right div with terminal output and buttons for:
+		disassembly
+		repairs
+
+Reference page ("Schematics")
+	table of assembly requirements
+
+power
+controller
+chassis
+arm 
+end effector

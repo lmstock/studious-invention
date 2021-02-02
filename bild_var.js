@@ -52,11 +52,15 @@ class Bot extends Item {
 
 // Lots
     // loot lists
-salvage_loot = ["plastic_framing", "controller", "power_supply"];
+cityDump_loot = [
+                    {"wires bundle": [1,8]},
+                    {"electronic components": [9,16]},
+]
+
 junkyard_loot = ["plastic_framing", "wire_bundle", "sensor"];
 
     // define lots
-let salvage = new Lot("salvage", "lot", "salvage_btn", 3000, salvage_loot);
+let cityDump = new Lot("cityDump", "lot", "cityDump_btn", 3000, cityDump_loot);
 let junkyard = new Lot("junkyard", "lot", "junkyard_btn", 3000, junkyard_loot);
 
 
@@ -96,4 +100,9 @@ for (i of to_inventory) {
     this_obj["qua"] = 0;
     inventory.push(this_obj);
 }
+
+let roll = 6;
+
+console.log(typeof(cityDump))
+
 

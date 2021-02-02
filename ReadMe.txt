@@ -4,6 +4,8 @@ ROBOT NOTES:
 
 	the spreadsheet https://docs.google.com/spreadsheets/d/14TXMDzZkfL3mTpIjvksJIMLdS3f7xjeLOFpIGviCEMk/edit#gid=94843435
 
+	https://youtu.be/rRgD1yVwIvE
+	https://anydice.com/
 	https://youtu.be/MfxBfRD0FVU  - inheritance in JS
 	http://www.electronicsteacher.com/robotics/robotics-technology/
 	https://www.valentinog.com/blog/html-table/
@@ -13,7 +15,11 @@ ROBOT NOTES:
 =====> TO DO:
 
 	integrate die rolls js - is there a better way?
+	new pages
+	new looting tables
 	Change "crafting" to "assembling"
+	salvage > city dump
+	id #s for bots
 	
 	more ads
 		Cherry ad slots

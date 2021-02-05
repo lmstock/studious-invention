@@ -6,6 +6,7 @@
 // When a btn is pressed triggers cooldown to specific lot
 // That lot is then sent to get loot function
 function start_cooldown(obj) {
+    console.log(obj);
 
     // refresh terminal to current activity
     clr_term();
@@ -16,7 +17,7 @@ function start_cooldown(obj) {
     // will need changed to salvage only btns when this can be automated in game
     disable_btns();
 
-    // Ananymous function to send arguments into and start second function
+    // Anonymous function to send arguments into and start second function
     start_timer()
     function start_timer() {
         setTimeout(function() {finish_cooldown(obj);},obj.cooldown);
@@ -41,34 +42,54 @@ function finish_cooldown(obj) {
 }
 
 function loot(obj) {
+    // REMOVE unnecessary function
+    looting(obj);
+}
 
+function looting(obj) {
+
+    // part of messages
     let shortlist = [];
 
-    loot_list = obj.loot;
-    for (i of loot_list) {
+    let count = dice(2,3);
+    console.log(" count, # of finds = " + count);
 
-        x = get_rand_int(0,10);
+    for (c = 0; c < count; c++) {
 
+        let x = dice(1,100);
+        console.log(x);
+        
+        Object.entries(obj.loot).forEach(element => {
+            let min = element[1][0];
+            let max = element[1][1];
 
-        increase_item(i, x);
-        increase_msg = i + " +" + x 
+            if (x >= min && x <= max) {
+                let item_find = element[0];
+                console.log("selection :" + item_find);
 
-        // adds new msg to list 
-        shortlist.push(increase_msg);
-    }
+            // ADD TO INVENTORY
+            increase_item(item_find, 1);
+            increase_msg = item_find + " +" + 1;
 
-    // adds terminal message to list
-    shortlist.unshift("Your rummaging has yielded: <br>");
+            // adds new msg to list 
+            shortlist.push(increase_msg);
+            }
+        });
+    } 
 
-    // updates messages
-    for (i of shortlist) {
-        messages.push(i);
-    }
+        // adds terminal message to list
+        shortlist.unshift("Your rummaging has yielded: <br>");
 
-    set_terminal_message();
+        // updates messages
+        for (i of shortlist) {
+            messages.push(i);
+        }
+    
+        set_terminal_message();
 }
 
 function craft(obj) {
+    console.log(obj)
 
     Object.keys(obj.ingredients).forEach(element => {
 
@@ -138,8 +159,8 @@ function clr_term() {
 function SalvageClick(e) {
     let sel = e.target.id;
 
-    if (sel === "salvage_btn") {
-        start_cooldown(salvage);
+    if (sel === "cityDump_btn") {
+        start_cooldown(cityDump);
     };
     
     if (sel === "junkyard_btn") {
@@ -149,8 +170,13 @@ function SalvageClick(e) {
 
 function CraftClick(e) {
     let sel = e.target.id;
+    let test = e.target.innerHTML;
+    console.log(e.target.innerHTML);
 
-    if (sel === "r1_craft_btn") {
+    start_cooldown(test);
+
+
+/*     if (sel === "r1_craft_btn") {
         start_cooldown(r1);
     };
     
@@ -160,13 +186,10 @@ function CraftClick(e) {
 
     if (sel === "r3_craft_btn") {
         start_cooldown(r3);
-    };
+    }; */
 }
 
-
 // START => Generates Tables from objects
-
-
 function generateTableHead(table, data) {
     let thead = table.createTHead();
     let row = thead.insertRow();
@@ -198,7 +221,6 @@ function update_table_ids(table_id_name, table_id) {
 }
 
 // INVENTORY TABLE
-
 let table_inv = document.getElementById("table_1");
 let data_inv = Object.keys(inventory[0]);
 
@@ -206,24 +228,10 @@ generateTable(table_inv, inventory);
 generateTableHead(table_inv, data_inv);
 update_table_ids("table_1", table_1);
 
-// ASSEMBLIES TABLE
 
-/* let assemble_inv = document.getElementById("table_2");
-let data_assemblies = Object.keys(assemblies[0]);
+ //=========================================================
+ // DICE CODE // x = dice(quantity,sides) //
 
-generateTable(assemble_inv, assemblies);
-generateTableHead(assemble_inv, data_assemblies);
-update_table_ids("table_2", table_2); */
-
-// end: Generates Tables from arrays
-
-
-/* //=========================================================
- // DICE CODE - KEEP 3 FUNCTIONS TOGETHER; run x = dice(quantity,sides)
-function get_rand_int(min, max) {
-    x = Math.floor(Math.random() * (max - min + 1)) + min; 
-    return x;
-}
 
 function roll(sides) {
     rand = get_rand_int(1, sides);
@@ -231,20 +239,18 @@ function roll(sides) {
 }
 
 function dice(quantity, sides) {
-    console.log("Rolling " + quantity + "d" + sides);
+    //console.log("Rolling " + quantity + "d" + sides);
     let total = 0;
     for (i = 0; i < quantity; i++) {
         x = roll(sides);
-        console.log("roll #" + i + " - " + x);
+        //console.log("roll #" + i + " - " + x);
         total = total + x;
-        console.log("total: " + total)   
+        //console.log("total: " + total)   
     }
     return total;
 }
 
-x = dice(3,100);
-console.log(x)
-//=============================================================== */
+//===============================================================
 
 
 

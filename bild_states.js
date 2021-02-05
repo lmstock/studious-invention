@@ -13,6 +13,7 @@ function check_craft_buttons() {
 
             // assigns quantity from inventory to variable and converts to number
             let qua_in_inv = document.getElementById(element).innerHTML;
+
             qua_in_inv = parseInt(qua_in_inv, 10);
             
             // assigns quantity of ingredient required to a variable

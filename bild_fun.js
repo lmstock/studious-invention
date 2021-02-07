@@ -25,25 +25,25 @@ function start_cooldown(obj) {
 }
 
 function finish_cooldown(obj) {
+    console.log("start of fin cool function ");
 
     clr_term();
 
     if (obj.type === "lot") {
-        loot(obj);
+        looting(obj);
     } 
+
+    if (obj.type === "assembly") {
+        craft(obj);
+    }  else {};    
 
     if (obj.type === "bot") {
         craft(obj);
-    }  else {};    
+    }  else {};  
 
     //re-set button states
     enable_btns();
     check_craft_buttons();
-}
-
-function loot(obj) {
-    // REMOVE unnecessary function
-    looting(obj);
 }
 
 function looting(obj) {
@@ -51,12 +51,14 @@ function looting(obj) {
     // part of messages
     let shortlist = [];
 
-    let count = dice(2,3);
+    // dice(2,3)
+    let count = dice(6,3);
     console.log(" count, # of finds = " + count);
 
     for (c = 0; c < count; c++) {
 
         let x = dice(1,100);
+        // let x = 99     // intentional pulls for debug
         console.log(x);
         
         Object.entries(obj.loot).forEach(element => {
@@ -65,11 +67,31 @@ function looting(obj) {
 
             if (x >= min && x <= max) {
                 let item_find = element[0];
-                console.log("selection :" + item_find);
+                console.log("selection: " + item_find);
+
+
+        // Change font color for tiers, misc = blue, assembly = warm        
+                // Misc Selections
+                if (item_find === "misc") {
+                    select = get_rand_int(0, misc_list.length - 1);
+                    item_find = misc_list[select].name;
+                    console.log("item_find: " + item_find);
+                    misc_message = "<br>You found a " + item_find + "!";
+                    shortlist.push(misc_message);
+                }
+
+                // Assembly Selections
+                if (item_find === "assembly") {
+                    select = get_rand_int(0, assembly_list.length - 1);
+                    item_find = assembly_list[select].name;
+                    console.log("item_find: " + item_find);
+                    assembly_message = "<br>You found a subassembly!";
+                    shortlist.push(assembly_message);
+                }
 
             // ADD TO INVENTORY
             increase_item(item_find, 1);
-            increase_msg = item_find + " +" + 1;
+            increase_msg = " +1 "  + item_find;
 
             // adds new msg to list 
             shortlist.push(increase_msg);
@@ -78,7 +100,7 @@ function looting(obj) {
     } 
 
         // adds terminal message to list
-        shortlist.unshift("Your rummaging has yielded: <br>");
+        shortlist.unshift("Your rummaging yields: <br>");
 
         // updates messages
         for (i of shortlist) {
@@ -89,13 +111,14 @@ function looting(obj) {
 }
 
 function craft(obj) {
-    console.log(obj)
+    console.log("start craft function " + obj)
 
     Object.keys(obj.ingredients).forEach(element => {
 
         // get quantity from inv and assign to variable
         let inv_qua = document.getElementById(element).innerHTML;
         inv_qua = parseInt(inv_qua, 10);
+        console.log(inv_qua);
 
         // assign required quantity, set to number
         let req = obj.ingredients[element];
@@ -168,25 +191,37 @@ function SalvageClick(e) {
     };
 }
 
+// THERE MUST BE A BETTER WAY
 function CraftClick(e) {
     let sel = e.target.id;
-    let test = e.target.innerHTML;
-    console.log(e.target.innerHTML);
 
-    start_cooldown(test);
-
-
-/*     if (sel === "r1_craft_btn") {
-        start_cooldown(r1);
+    if (sel === "pwr_sub") {
+        start_cooldown(power_subsystem);
     };
     
-    if (sel === "r2_craft_btn") {
-        start_cooldown(r2);
+    if (sel === "ctr_ass") {
+        start_cooldown(controller_assembly);
     };
 
-    if (sel === "r3_craft_btn") {
-        start_cooldown(r3);
-    }; */
+    if (sel === "sm_chass") {
+        start_cooldown(small_chassis);
+    };
+
+    if (sel === "arm_ass") {
+        start_cooldown(arm_assembly);
+    }; 
+
+    if (sel === "salv_assembly_btn") {
+        start_cooldown(salvage_bot);
+    }; 
+
+    if (sel === "bild_assembly_btn") {
+        start_cooldown(bild_bot);
+    }; 
+
+    if (sel === "explorer_assembly_btn") {
+        start_cooldown(explorer_bot);
+    }; 
 }
 
 // START => Generates Tables from objects

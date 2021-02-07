@@ -14,18 +14,17 @@ ROBOT NOTES:
 
 =====> TO DO:
 
-	integrate die rolls js - is there a better way?
 	new pages
 	new looting tables
 	Change "crafting" to "assembling"
-	salvage > city dump
+
 	id #s for bots
 	
 	more ads
 		Cherry ad slots
 
 	csv game content
-		research dynamical table work
+		research dynamic table work
 		
 		achievements
 		modifiers
@@ -33,11 +32,12 @@ ROBOT NOTES:
 	handle compromises:
 		underscore in table name
 
-	loot tables needed for salvage and junkyard.
 
 RESEARCH:
 
 	local storage
+	Error in parsing value for ‘transform’.  Declaration dropped.
+		=> stray h3 html tag
 	
 ADS SECTION:
 	A small side art project. Homebrew ads. 

@@ -6,7 +6,7 @@
 // When a btn is pressed triggers cooldown to specific lot
 // That lot is then sent to get loot function
 function start_cooldown(obj) {
-    console.log(obj);
+    console.log(obj.name);
 
     // refresh terminal to current activity
     clr_term();
@@ -15,7 +15,7 @@ function start_cooldown(obj) {
 
     //disables all btns
     // will need changed to salvage only btns when this can be automated in game
-    disable_btns();
+    disable_btns()
 
     // Anonymous function to send arguments into and start second function
     start_timer()
@@ -42,8 +42,9 @@ function finish_cooldown(obj) {
     }  else {};  
 
     //re-set button states
-    enable_btns();
-    check_craft_buttons();
+    enable_btns()
+    check_craft_buttons()
+    
 }
 
 function looting(obj) {
@@ -53,13 +54,11 @@ function looting(obj) {
 
     // dice(2,3)
     let count = dice(6,3);
-    console.log(" count, # of finds = " + count);
 
     for (c = 0; c < count; c++) {
 
         let x = dice(1,100);
         // let x = 99     // intentional pulls for debug
-        console.log(x);
         
         Object.entries(obj.loot).forEach(element => {
             let min = element[1][0];
@@ -67,15 +66,13 @@ function looting(obj) {
 
             if (x >= min && x <= max) {
                 let item_find = element[0];
-                console.log("selection: " + item_find);
-
 
         // Change font color for tiers, misc = blue, assembly = warm        
                 // Misc Selections
                 if (item_find === "misc") {
                     select = get_rand_int(0, misc_list.length - 1);
                     item_find = misc_list[select].name;
-                    console.log("item_find: " + item_find);
+
                     misc_message = "<br>You found a " + item_find + "!";
                     shortlist.push(misc_message);
                 }
@@ -84,7 +81,7 @@ function looting(obj) {
                 if (item_find === "assembly") {
                     select = get_rand_int(0, assembly_list.length - 1);
                     item_find = assembly_list[select].name;
-                    console.log("item_find: " + item_find);
+
                     assembly_message = "<br>You found a subassembly!";
                     shortlist.push(assembly_message);
                 }
@@ -111,14 +108,12 @@ function looting(obj) {
 }
 
 function craft(obj) {
-    console.log("start craft function " + obj)
 
     Object.keys(obj.ingredients).forEach(element => {
 
         // get quantity from inv and assign to variable
         let inv_qua = document.getElementById(element).innerHTML;
         inv_qua = parseInt(inv_qua, 10);
-        console.log(inv_qua);
 
         // assign required quantity, set to number
         let req = obj.ingredients[element];
@@ -128,13 +123,19 @@ function craft(obj) {
         let total = inv_qua - req;
         document.getElementById(element).innerHTML = total;
 
+        // remove from storage
+        localStorage.setItem(element, total);
+
     })
 
-    // add assembly to assemblies table
+    // add assembly to table
     let assembly_amt = document.getElementById(obj.name).innerHTML;
     assembly_amt = parseInt(assembly_amt, 10);
     total = assembly_amt + 1;
     document.getElementById(obj.name).innerHTML = total;
+
+    // add to storage
+    localStorage.setItem(obj.name, total);
 
     // refresh terminal to current activity
     clr_term();
@@ -160,17 +161,35 @@ function increase_item(item, quantity) {
 
     total = item_count + quantity;
     document.getElementById(item).innerHTML = total;
+
+    // ALSO set storage
+    localStorage.setItem(item, total)
 }
 
 function disable_btns() {
-    for (let i = 0; i < parent.length; i++) {
-        parent[i].disabled = true;
+    console.log("disable buttons")
+    let assemble_btns_list = document.getElementsByClassName("assemble");
+    for (i of assemble_btns_list) {
+        i.disabled = true;
     }
+
+    let salvage_btns_list = document.getElementsByClassName("salvage");
+    for (i of salvage_btns_list) {
+        i.disabled = true;
+    }
+
 }
 
 function enable_btns() {
-    for (let i = 0; i < parent.length; i++) {
-        parent[i].disabled = false;
+    console.log("enable buttons")
+    let assemble_btns_list = document.getElementsByClassName("assemble");
+    for (i of assemble_btns_list) {
+        i.disabled = false;
+    }
+
+    let salvage_btns_list = document.getElementsByClassName("salvage");
+    for (i of salvage_btns_list) {
+        i.disabled = false;
     }
 }
 
@@ -192,22 +211,22 @@ function SalvageClick(e) {
 }
 
 // THERE MUST BE A BETTER WAY
-function CraftClick(e) {
+function AssembleClick(e) {
     let sel = e.target.id;
 
-    if (sel === "pwr_sub") {
+    if (sel === "pwr_sub_btn") {
         start_cooldown(power_subsystem);
     };
     
-    if (sel === "ctr_ass") {
+    if (sel === "ctr_ass_btn") {
         start_cooldown(controller_assembly);
     };
 
-    if (sel === "sm_chass") {
+    if (sel === "sm_chass_btn") {
         start_cooldown(small_chassis);
     };
 
-    if (sel === "arm_ass") {
+    if (sel === "arm_ass_btn") {
         start_cooldown(arm_assembly);
     }; 
 
@@ -255,19 +274,58 @@ function update_table_ids(table_id_name, table_id) {
     }
 }
 
-// INVENTORY TABLE
-let table_inv = document.getElementById("table_1");
-let data_inv = Object.keys(inventory[0]);
+// button states - 1. any way to do it, 2. right way to do it
+function check_craft_buttons() {
 
-generateTable(table_inv, inventory);
-generateTableHead(table_inv, data_inv);
-update_table_ids("table_1", table_1);
+    for (x of craftable_units) {
 
+        // sets btn_state to 1, any missing ingredient will set to zero
+        let btn_state = 1;
+
+        Object.keys(x.ingredients).forEach(element => {
+
+            // assigns quantity from inventory to variable and converts to number
+            let qua_in_inv = document.getElementById(element).innerHTML;
+
+            qua_in_inv = parseInt(qua_in_inv, 10);
+            
+            // assigns quantity of ingredient required to a variable
+            let elem_req = x.ingredients[element];
+            
+            // check inventory vs requirements and update btn_state
+            if (qua_in_inv >= elem_req) {
+                // do nothing
+
+            } else {
+                btn_state = 0
+            }
+
+            // enable/disable craft button based on state
+            if (btn_state === 0) {
+                x.btn.disabled = true;
+                
+            } else {
+                x.btn.disabled = false;
+            }
+        });
+    } 
+} 
+
+/* // build basic inventory table
+function build_inventory_table() {
+    for (i of to_inventory) {
+        let this_obj = {}
+        this_obj["item"] = i;
+        console.log(i);
+        this_obj["qua"] = 4;
+        inventory.push(this_obj);
+
+        // also save to local storage
+        localStorage.setItem(i, 4);
+    }} */
 
  //=========================================================
  // DICE CODE // x = dice(quantity,sides) //
-
-
 function roll(sides) {
     rand = get_rand_int(1, sides);
     return rand;
@@ -287,5 +345,33 @@ function dice(quantity, sides) {
 
 //===============================================================
 
+// initialize inventory table with local storage
+function init_inventory_table() {
+    let set_inventory = [];
+    for (i of Object.entries(localStorage)) {
+        //console.log(i[0]);
+        //console.log(i[1]);
+        
+        let this_obj = {}
+        this_obj["item"] = i[0];
+        this_obj["qua"] = i[1];
+        set_inventory.push(this_obj);
+    }
 
+        // INVENTORY TABLE
+    let table_inv = document.getElementById("table_1");
+    let data_inv = ["Item", "Quantity"];
 
+    generateTable(table_inv, set_inventory);
+    generateTableHead(table_inv, data_inv);
+    update_table_ids("table_1", table_1);    
+}
+
+function reset() {
+    for (i of Object.entries(localStorage)) {
+        localStorage.setItem(i[0], 0);
+        document.getElementById(i[0]).innerHTML = 0;
+    }
+
+    
+}

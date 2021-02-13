@@ -1,10 +1,13 @@
+
+
+
 // VARIABLES
 
-    // accept info from class constructors for building inventory table
-let to_inventory = [];
-let inventory = [];
+
+let craftable_units = [];
 let misc_list = [];
 let assembly_list = [];
+let messages = []
 
     // Lots, Raws, and Bots are all Items
 class Item {
@@ -26,21 +29,18 @@ class Lot extends Item {
 
 class Raw extends Item {
     constructor(name, type) {
-        super(name, type);
-        to_inventory.push(this.name);
+        super(name, type,);
+        localStorage.setItem(name, 4);
         }
     }
 
 class Misc extends Item {
     constructor(name, type) {
         super(name, type);
-        to_inventory.push(this.name);
+        localStorage.setItem(name, 1);
         misc_list.push(this);
     }
 }
-
-    // This list leads the check_craft_buttons
-let craftable_units = [];
 
 class Assembly extends Item {
     constructor(name, type, cooldown, btn, ingredients) {
@@ -49,7 +49,7 @@ class Assembly extends Item {
         this.btn = btn;
         this.ingredients = ingredients;
         this.cool_msg = function() {return "You are assembling an " + this.name;};
-        to_inventory.push(this.name);
+        localStorage.setItem(name, 4);
         craftable_units.push(this);
         assembly_list.push(this);
     }
@@ -62,9 +62,43 @@ class Bot extends Item {
         this.btn = btn;
         this.ingredients = ingredients;
         this.cool_msg = function() {return "You are assembling an " + this.name;};
-        to_inventory.push(this.name);
+        localStorage.setItem(name, 0);
         craftable_units.push(this);
     }
+}
+
+// LOOT LISTS
+
+let cityDump_loot = {
+    wire_bundle: [1,8],
+    electronic_components: [9,16],
+    rechargeable_batteries: [18,24],
+    hardware_bits: [25,40],
+    plastic_framing: [41,48],
+    mounting_brackets: [ 49,56],
+    misc: [57,60],
+    claw: [61,69],
+    screwdriver: [70,78],
+    pliers: [79,85],
+    gear_set: [86, 90],
+    CTREMCAT1_board: [90,97],
+    assembly: [98,100]
+}
+
+let junkyard_loot = {
+    wire_bundle: [1,8],
+    electronic_components: [9,16],
+    rechargeable_batteries: [18,24],
+    hardware_bits: [25,40],
+    plastic_framing: [41,48],
+    mounting_brackets: [49,56],
+    misc: [57,60],
+    claw: [61,69],
+    screwdriver: [70,78],
+    pliers:	[79,85],
+    gear_set: [86,90],
+    CTREMCAT1_board: [90,97],
+    assembly: [98,100],
 }
 
 // define lots
@@ -101,10 +135,10 @@ let controller_assembly_ingredients = {wire_bundle: 1, CTREMCAT1_board: 1};
 let small_chassis_ingredients = {plastic_framing: 1, hardware_bits: 1, mounting_brackets: 1};
 let arm_assembly_ingredients = {wire_bundle: 1, plastic_framing: 1, hardware_bits: 1, electronic_components: 1, gear_set: 1}
 
-let power_subsystem = new Assembly("power_subsystem", "assembly", 3000, document.getElementById("pwr_sub"), power_subsystem_ingredients);
-let controller_assembly = new Assembly("controller_assembly", "assembly", 3000, document.getElementById("ctr_ass"), controller_assembly_ingredients);
-let small_chassis = new Assembly("small_chassis", "assembly", 3000, document.getElementById("sm_chass"), small_chassis_ingredients);
-let arm_assembly = new Assembly("arm_assembly", "assembly", 3000, document.getElementById("arm_ass"), arm_assembly_ingredients);
+let power_subsystem = new Assembly("power_subsystem", "assembly", 3000, "pwr_sub_btn", power_subsystem_ingredients);
+let controller_assembly = new Assembly("controller_assembly", "assembly", 3000, "ctr_ass_btn", controller_assembly_ingredients);
+let small_chassis = new Assembly("small_chassis", "assembly", 3000, "sm_chass_btn", small_chassis_ingredients);
+let arm_assembly = new Assembly("arm_assembly", "assembly", 3000, "arm_ass_btn", arm_assembly_ingredients);
 
 
 // Bots
@@ -116,29 +150,10 @@ let bild_ingredients = { power_subsystem: 1, controller_assembly: 2, small_chass
 let explorer_ingredients = { power_subsystem: 1, controller_assembly: 2, small_chassis: 1, pliers: 1, screwdriver: 1};
 
     // define bots
-let salvage_bot = new Bot("salvage_bot", "bot", 3000, document.getElementById("salv_assembly_btn"), salv_ingredients);
-let bild_bot = new Bot("bild_bot", "bot", 3000, document.getElementById("bild_assembly_btn"), bild_ingredients);
-let explorer_bot = new Bot("explorer_bot", "bot", 3000, document.getElementById("explorer_assembly_btn"), explorer_ingredients);
+let salvage_bot = new Bot("salvage_bot", "bot", 3000, "salv_assembly_btn", salv_ingredients);
+let bild_bot = new Bot("bild_bot", "bot", 3000, "bild_assembly_btn", bild_ingredients);
+let explorer_bot = new Bot("explorer_bot", "bot", 3000, "explorer_assembly_btn", explorer_ingredients);
 
 
 // HTML Elements
 let terminal = document.getElementById("terminal");
-let parent = document.querySelectorAll("button");
-
-
-// Terminal Messages
-let messages = []     // current messages
-
-
-
-
-// build basic inventory table
-function build_inventory_table() {
-    for (i of to_inventory) {
-        let this_obj = {}
-        this_obj["item"] = i;
-        this_obj["qua"] = 4;
-        inventory.push(this_obj);
-    }}
-
-build_inventory_table()

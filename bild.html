@@ -19,7 +19,7 @@
 
     <div class="header">
         <h2>Robot builder</h2>
-        <p><a href="assemblyPage.html">HTML Images</a></p>
+        <button type="button" class="reset" id="reset">reset</button>
     </div>
 
         <div id="wrapper">
@@ -42,22 +42,22 @@
 
                 <h3>Salvage Buttons</h3><br>
 
-                <div id="sal_parent_btn">
-                    <button type="button" class="gather" id=cityDump_btn>City Dump</button><br><br>
-                    <button type="button" class="gather" id=junkyard_btn>Junkyard</button><br><br>
+                <div id="salvage_parent_btn">
+                    <button type="button" class="salvage" id=cityDump_btn>City Dump</button><br><br>
+                    <button type="button" class="salvage" id=junkyard_btn>Junkyard</button><br><br>
                 </div>
 
                 <h3>Assembling Buttons</h3><br>
 
-                <div id="craft_parent_btn">
+                <div id="assemble_parent_btn">
 
-                    <button type="button" class="craft" id=pwr_sub>power_subsystem</button><br><br>
-                    <button type="button" class="craft" id=ctr_ass>controller_assembly</button><br><br>
-                    <button type="button" class="craft" id=sm_chass>small_chassis</button><br><br>
-                    <button type="button" class="craft" id=arm_ass>arm_assembly</button><br><br>
-                    <button type="button" class="craft" id=salv_assembly_btn>salv</button><br><br>
-                    <button type="button" class="craft" id=bild_assembly_btn>bild</button><br><br>
-                    <button type="button" class="craft" id=explorer_assembly_btn>explorer</button><br><br>
+                    <button type="button" class="assemble" id=pwr_sub_btn>power_subsystem</button><br><br>
+                    <button type="button" class="assemble" id=ctr_ass_btn>controller_assembly</button><br><br>
+                    <button type="button" class="assemble" id=sm_chass_btn>small_chassis</button><br><br>
+                    <button type="button" class="assemble" id=arm_ass_btn>arm_assembly</button><br><br>
+                    <button type="button" class="assemble" id=salv_assembly_btn>salv</button><br><br>
+                    <button type="button" class="assemble" id=bild_assembly_btn>bild</button><br><br>
+                    <button type="button" class="assemble" id=explorer_assembly_btn>explorer</button><br><br>
                 </div>
             </div>
 
@@ -112,13 +112,11 @@
         </p>
     </div>
 
-    <script src="bild_lots.js"></script>
     <script src="bild_var.js"></script>
-    
-    <script src="bild_fun.js"></script>
+    <script src="bild_fun.js"></script> 
     <script src="bild_event.js"></script>
-    <script src="bild_states.js"></script>
     <script src="bild_ads.js"></script>
+    <script src="bild_game.js"></script>
  
 
 </body>

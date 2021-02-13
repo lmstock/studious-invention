@@ -14,6 +14,12 @@ ROBOT NOTES:
 
 =====> TO DO:
 
+	=====> OVERHAUL
+
+		init page
+			use localstorge if present
+				
+
 	new pages
 	new looting tables
 	Change "crafting" to "assembling"

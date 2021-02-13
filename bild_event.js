@@ -1,15 +1,8 @@
 // EVENT HANDLERS
 
-let sal_parent_btn = document.getElementById('sal_parent_btn').addEventListener('click', SalvageClick);
+let salvage_parent_btn = document.getElementById('salvage_parent_btn').addEventListener('click', SalvageClick);
 
-let craft_parent_btn = document.getElementById('craft_parent_btn').addEventListener('click', CraftClick);
+let assemble_parent_btn = document.getElementById('assemble_parent_btn').addEventListener('click', AssembleClick);
 
-
-// TESTING
-
-
-
-
-
-
+document.getElementById("reset").addEventListener("click", reset);
 

@@ -1,4 +1,6 @@
-    // set ad variables
+  function run_ads() {
+  
+  // set ad variables
     var ad1 = document.getElementById("ad1");
     var ad2 = document.getElementById("ad2");
     var ad3 = document.getElementById("ad3");
@@ -48,9 +50,9 @@ function change_ad() {
 
     let is_duplicate = "no";
 
-    for (i of adList) {
+    for (ad of adList) {
 
-        if (i.src.includes(with_this)) {
+        if (ad.src.includes(with_this)) {
             // if ad is already displayed, do nothing
             // this also introduces varying times
             is_duplicate = "yes";
@@ -66,4 +68,6 @@ function change_ad() {
 
 }
 
-setInterval(change_ad, 300000);
+setInterval(change_ad, 3000);
+
+  }

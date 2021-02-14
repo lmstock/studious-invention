@@ -6,3 +6,10 @@ let assemble_parent_btn = document.getElementById('assemble_parent_btn').addEven
 
 document.getElementById("reset").addEventListener("click", reset);
 
+// run_ads()
+
+
+
+init_vars()
+
+init_inventory_table()

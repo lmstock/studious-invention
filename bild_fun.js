@@ -6,11 +6,11 @@
 // When a btn is pressed triggers cooldown to specific lot
 // That lot is then sent to get loot function
 function start_cooldown(obj) {
-    console.log(obj.name);
+    console.log(obj);
 
-    // refresh terminal to current activity
+   // refresh terminal to current activity
     clr_term();
-    messages.push(obj.cool_msg());
+    messages.push(obj.cool_msg);
     set_terminal_message();
 
     //disables all btns
@@ -18,14 +18,14 @@ function start_cooldown(obj) {
     disable_btns()
 
     // Anonymous function to send arguments into and start second function
-    start_timer()
+      start_timer()
     function start_timer() {
-        setTimeout(function() {finish_cooldown(obj);},obj.cooldown);
+        setTimeout(function() {finish_cooldown(obj);},obj.cooldown); 
     }
 }
 
 function finish_cooldown(obj) {
-    console.log("start of fin cool function ");
+    console.log("finish_cooldown function ");
 
     clr_term();
 
@@ -48,6 +48,11 @@ function finish_cooldown(obj) {
 }
 
 function looting(obj) {
+    console.log("looting function")
+
+    let misc_list = JSON.parse(localStorage.getItem('misc_list'));
+    let assembly_list = JSON.parse(localStorage.getItem('assembly_list'));
+    
 
     // part of messages
     let shortlist = [];
@@ -156,14 +161,26 @@ function get_rand_int(min, max) {
 
 function increase_item(item, quantity) {
 
-    let item_count = document.getElementById(item).innerHTML;
+    let this_item = JSON.parse(localStorage.getItem('local_inv'));
+
+    for (i of Object.values(this_item)) {
+        if (item === i.item) {
+            i.qua = quantity;
+        }
+
+    localStorage.setItem("local_inv", JSON.stringify(this_item))
+    }
+ 
+    update_inv()
+
+/*     let item_count = document.getElementById(item).innerHTML;
     item_count = parseInt(item_count, 10);
 
     total = item_count + quantity;
     document.getElementById(item).innerHTML = total;
 
     // ALSO set storage
-    localStorage.setItem(item, total)
+    localStorage.setItem(item, total) */
 }
 
 function disable_btns() {
@@ -200,13 +217,16 @@ function clr_term() {
 
 function SalvageClick(e) {
     let sel = e.target.id;
+    let lot = JSON.parse(localStorage.getItem('lots'))
+
+    console.log(lot[0]);
 
     if (sel === "cityDump_btn") {
-        start_cooldown(cityDump);
+        start_cooldown(lot[0]);
     };
     
     if (sel === "junkyard_btn") {
-        start_cooldown(junkyard);
+        start_cooldown(lot[1]);
     };
 }
 
@@ -277,7 +297,11 @@ function update_table_ids(table_id_name, table_id) {
 // button states - 1. any way to do it, 2. right way to do it
 function check_craft_buttons() {
 
+    let craftable_units = JSON.parse(localStorage.getItem('craftable_units'));
+
+    console.log("here")
     for (x of craftable_units) {
+        console.log(craftable_units)
 
         // sets btn_state to 1, any missing ingredient will set to zero
         let btn_state = 1;
@@ -302,10 +326,10 @@ function check_craft_buttons() {
 
             // enable/disable craft button based on state
             if (btn_state === 0) {
-                x.btn.disabled = true;
+                document.getElementById(x.btn).disabled = true;
                 
             } else {
-                x.btn.disabled = false;
+                document.getElementById(x.btn).disabled = false;
             }
         });
     } 
@@ -348,13 +372,14 @@ function dice(quantity, sides) {
 // initialize inventory table with local storage
 function init_inventory_table() {
     let set_inventory = [];
-    for (i of Object.entries(localStorage)) {
-        //console.log(i[0]);
-        //console.log(i[1]);
+
+    let storage = JSON.parse(localStorage.getItem('local_inv'));
+
+    for (i of Object.values(storage)) {
         
         let this_obj = {}
-        this_obj["item"] = i[0];
-        this_obj["qua"] = i[1];
+        this_obj["item"] = i.item;
+        this_obj["qua"] = i.qua;
         set_inventory.push(this_obj);
     }
 
@@ -375,3 +400,26 @@ function reset() {
 
     
 }
+
+// Set Local Storage
+function init_local_inventory(x) {
+    let set_local_inv = []
+    for (i of x) {
+        let obj = {}
+        obj["item"] = i;
+        obj["qua"] = 0;
+        set_local_inv.push(obj);
+    }
+
+    localStorage.setItem("local_inv", JSON.stringify(set_local_inv))
+}
+
+// Update inventory table with localStorage.local_inv
+function update_inv() {
+    let storage = JSON.parse(localStorage.getItem('local_inv'));
+
+    for (i of Object.values(storage)) {
+        document.getElementById(i.item).innerHTML = i.qua;
+    }}
+
+

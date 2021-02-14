@@ -1,13 +1,13 @@
 
-
+function init_vars() {
 
 // VARIABLES
-
-
+let inventory = [];
 let craftable_units = [];
 let misc_list = [];
 let assembly_list = [];
 let messages = []
+let lots = []
 
     // Lots, Raws, and Bots are all Items
 class Item {
@@ -23,22 +23,23 @@ class Lot extends Item {
         this.btn = btn;
         this.cooldown = cooldown;
         this.loot = loot;
-        this.cool_msg = function() {return "You are rummaging through the " + this.name + "...<br>";};
+        this.cool_msg = "You are rummaging through the " + this.name + "...<br>";
+        lots.push(this);
       }   
     }
 
 class Raw extends Item {
     constructor(name, type) {
-        super(name, type,);
-        localStorage.setItem(name, 4);
+        super(name, type);
+        inventory.push(this.name);
         }
     }
 
 class Misc extends Item {
     constructor(name, type) {
         super(name, type);
-        localStorage.setItem(name, 1);
-        misc_list.push(this);
+        misc_list.push(this.name);
+        inventory.push(this.name);
     }
 }
 
@@ -48,10 +49,10 @@ class Assembly extends Item {
         this.cooldown = cooldown;
         this.btn = btn;
         this.ingredients = ingredients;
-        this.cool_msg = function() {return "You are assembling an " + this.name;};
-        localStorage.setItem(name, 4);
-        craftable_units.push(this);
-        assembly_list.push(this);
+        this.cool_msg = "You are assembling an " + this.name;
+        craftable_units.push(this.name);
+        assembly_list.push(this.name);
+        inventory.push(this.name);
     }
 }
 
@@ -61,9 +62,9 @@ class Bot extends Item {
         this.cooldown = cooldown;
         this.btn = btn;
         this.ingredients = ingredients;
-        this.cool_msg = function() {return "You are assembling an " + this.name;};
-        localStorage.setItem(name, 0);
-        craftable_units.push(this);
+        this.cool_msg = "You are assembling an " + this.name;
+        craftable_units.push(this.name);
+        inventory.push(this.name);
     }
 }
 
@@ -153,6 +154,18 @@ let explorer_ingredients = { power_subsystem: 1, controller_assembly: 2, small_c
 let salvage_bot = new Bot("salvage_bot", "bot", 3000, "salv_assembly_btn", salv_ingredients);
 let bild_bot = new Bot("bild_bot", "bot", 3000, "bild_assembly_btn", bild_ingredients);
 let explorer_bot = new Bot("explorer_bot", "bot", 3000, "explorer_assembly_btn", explorer_ingredients);
+
+
+init_local_inventory(inventory)
+
+localStorage.setItem("craftable_units", JSON.stringify(craftable_units))
+localStorage.setItem("misc_list", JSON.stringify(misc_list))
+localStorage.setItem("assembly_list", JSON.stringify(assembly_list))
+localStorage.setItem("messages", JSON.stringify(messages))
+localStorage.setItem("lots", JSON.stringify(lots))
+
+}
+
 
 
 // HTML Elements

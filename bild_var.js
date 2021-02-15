@@ -50,7 +50,7 @@ class Assembly extends Item {
         this.btn = btn;
         this.ingredients = ingredients;
         this.cool_msg = "You are assembling an " + this.name;
-        craftable_units.push(this.name);
+        craftable_units.push(this);
         assembly_list.push(this.name);
         inventory.push(this.name);
     }
@@ -63,7 +63,7 @@ class Bot extends Item {
         this.btn = btn;
         this.ingredients = ingredients;
         this.cool_msg = "You are assembling an " + this.name;
-        craftable_units.push(this.name);
+        craftable_units.push(this);
         inventory.push(this.name);
     }
 }
@@ -157,6 +157,7 @@ let explorer_bot = new Bot("explorer_bot", "bot", 3000, "explorer_assembly_btn",
 
 
 init_local_inventory(inventory)
+
 
 localStorage.setItem("craftable_units", JSON.stringify(craftable_units))
 localStorage.setItem("misc_list", JSON.stringify(misc_list))

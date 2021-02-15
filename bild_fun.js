@@ -263,17 +263,22 @@ function AssembleClick(e) {
     }; 
 }
 
-// START => Generates Tables from objects
-function generateTableHead(table, data) {
-    let thead = table.createTHead();
+// Generates Table Headers - 
+function generateTableHead() {
+
+    let table_inv = document.getElementById("table_1");
+    let data_inv = ["Item", "Quantity"];
+
+    let thead = table_inv.createTHead();
     let row = thead.insertRow();
-    for (let key of data) {
+    for (let key of data_inv) {
         let th = document.createElement("th");
         let text = document.createTextNode(key);
         th.appendChild(text);
         row.appendChild(th);
     }
 }
+
 
 function generateTable(table, data) {
     for ( let element of data) {
@@ -296,12 +301,13 @@ function update_table_ids(table_id_name, table_id) {
 
 // button states - 1. any way to do it, 2. right way to do it
 function check_craft_buttons() {
+    console.log("start check_craft_buttons")
 
     let craftable_units = JSON.parse(localStorage.getItem('craftable_units'));
-
-    console.log("here")
+    console.log(craftable_units)
+    
     for (x of craftable_units) {
-        console.log(craftable_units)
+        
 
         // sets btn_state to 1, any missing ingredient will set to zero
         let btn_state = 1;
@@ -369,14 +375,14 @@ function dice(quantity, sides) {
 
 //===============================================================
 
-// initialize inventory table with local storage
+// Build full inventory table from localStorage.local_inv first time only
 function init_inventory_table() {
     let set_inventory = [];
 
     let storage = JSON.parse(localStorage.getItem('local_inv'));
 
     for (i of Object.values(storage)) {
-        
+
         let this_obj = {}
         this_obj["item"] = i.item;
         this_obj["qua"] = i.qua;
@@ -388,17 +394,15 @@ function init_inventory_table() {
     let data_inv = ["Item", "Quantity"];
 
     generateTable(table_inv, set_inventory);
-    generateTableHead(table_inv, data_inv);
+    generateTableHead();
     update_table_ids("table_1", table_1);    
 }
 
 function reset() {
-    for (i of Object.entries(localStorage)) {
-        localStorage.setItem(i[0], 0);
-        document.getElementById(i[0]).innerHTML = 0;
-    }
-
-    
+    localStorage.clear()
+    init_vars()
+    update_inv()
+    enable_btns()
 }
 
 // Set Local Storage
@@ -414,12 +418,65 @@ function init_local_inventory(x) {
     localStorage.setItem("local_inv", JSON.stringify(set_local_inv))
 }
 
-// Update inventory table with localStorage.local_inv
+ // Update inventory table with localStorage.local_inv
 function update_inv() {
+    console.log("test")
+
+    let x = !!document.getElementById("Item");
+
+    if (x === true) {
+    } else {
+
+    generateTableHead();
+    update_table_ids("table_1", table_1);
+    };}
+
+    console.log("part2")
+
     let storage = JSON.parse(localStorage.getItem('local_inv'));
 
     for (i of Object.values(storage)) {
-        document.getElementById(i.item).innerHTML = i.qua;
-    }}
+        let element = document.getElementById(i.item);
 
+        try {
+            element.innerHTML = i.qua;
+        } catch {
+            let row = table_1.insertRow();
+            for (key in i) {
+                let cell = row.insertCell();
+                let text = document.createTextNode(i[key]);
+                cell.appendChild(text);
+            }
+
+        }
+    }
+
+
+
+
+
+
+// PAGE LOAD
+function check_storage() {
+
+    if (localStorage.length != 0) {
+        console.log("not empty")
+        update_inv();
+
+    } else {
+        init_vars()
+        init_inventory_table()
+        enable_btns()
+    }
+}
+
+/* function remove_table() {
+    let remove_this = document.getElementById('table_1');
+    let tableParent = remove_this.parentElement;
+    tableParent.removeChild(remove_this);
+}
+
+function replace_table() {
+    const newHead = document.createElement("table");
+    document.getElementById("placeholder").appendChild(newHead); */
 

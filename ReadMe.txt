@@ -14,17 +14,10 @@ ROBOT NOTES:
 
 =====> TO DO:
 
-	=====> OVERHAUL
-
-		init page
-			use localstorge if present
-				
-
-	new pages
-	new looting tables
-	Change "crafting" to "assembling"
-
-	id #s for bots
+	*DO THIS FIRST*
+		FIX - looting deletes assemblies in inventory
+		test new pages
+	
 	
 	more ads
 		Cherry ad slots

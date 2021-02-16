@@ -6,7 +6,7 @@
 // When a btn is pressed triggers cooldown to specific lot
 // That lot is then sent to get loot function
 function start_cooldown(obj) {
-    console.log(obj);
+    console.log("start_cooldown" + obj.name);
 
    // refresh terminal to current activity
     clr_term();
@@ -165,9 +165,9 @@ function increase_item(item, quantity) {
 
     for (i of Object.values(this_item)) {
         if (item === i.item) {
-            i.qua = quantity;
+            //i.qua = quantity;
+            i.qua = i.qua + quantity;
         }
-
     localStorage.setItem("local_inv", JSON.stringify(this_item))
     }
  
@@ -216,10 +216,9 @@ function clr_term() {
 }
 
 function SalvageClick(e) {
+    console.log("SalvageClick");
     let sel = e.target.id;
-    let lot = JSON.parse(localStorage.getItem('lots'))
-
-    console.log(lot[0]);
+    let lot = JSON.parse(localStorage.getItem('lots'));
 
     if (sel === "cityDump_btn") {
         start_cooldown(lot[0]);
@@ -233,33 +232,35 @@ function SalvageClick(e) {
 // THERE MUST BE A BETTER WAY
 function AssembleClick(e) {
     let sel = e.target.id;
+    let assembly = JSON.parse(localStorage.getItem('assembly_list'));
+    let bot = JSON.parse(localStorage.getItem('bots_list'));
 
     if (sel === "pwr_sub_btn") {
-        start_cooldown(power_subsystem);
+        start_cooldown(assembly[0]);
     };
     
     if (sel === "ctr_ass_btn") {
-        start_cooldown(controller_assembly);
+        start_cooldown(assembly[1]);
     };
 
     if (sel === "sm_chass_btn") {
-        start_cooldown(small_chassis);
+        start_cooldown(assembly[2]);
     };
 
     if (sel === "arm_ass_btn") {
-        start_cooldown(arm_assembly);
+        start_cooldown(assembly[3]);
     }; 
 
     if (sel === "salv_assembly_btn") {
-        start_cooldown(salvage_bot);
+        start_cooldown(bot[0]);
     }; 
 
     if (sel === "bild_assembly_btn") {
-        start_cooldown(bild_bot);
+        start_cooldown(bot[1]);
     }; 
 
     if (sel === "explorer_assembly_btn") {
-        start_cooldown(explorer_bot);
+        start_cooldown(bot[2]);
     }; 
 }
 
@@ -291,11 +292,12 @@ function generateTable(table, data) {
     }
 }
 
-function update_table_ids(table_id_name, table_id) {
-    let rowNum = document.getElementById(table_id_name).rows.length;
+function update_table_ids() {
+    console.log("update_table_ids");
+    let rowNum = document.getElementById("table_1").rows.length;
     for (let i = 0; i < rowNum; i++) {
-        let name = table_id.rows[i].cells[0].innerHTML;
-        table_id.rows[i].cells[1].id = name;
+        let name = table_1.rows[i].cells[0].innerHTML;
+        table_1.rows[i].cells[1].id = name;
     }
 }
 
@@ -303,8 +305,9 @@ function update_table_ids(table_id_name, table_id) {
 function check_craft_buttons() {
     console.log("start check_craft_buttons")
 
-    let craftable_units = JSON.parse(localStorage.getItem('craftable_units'));
-    console.log(craftable_units)
+    let assemblies = JSON.parse(localStorage.getItem('assembly_list'));
+    let bots = JSON.parse(localStorage.getItem('bots_list'));
+    let craftable_units = assemblies.concat(bots);
     
     for (x of craftable_units) {
         
@@ -340,19 +343,6 @@ function check_craft_buttons() {
         });
     } 
 } 
-
-/* // build basic inventory table
-function build_inventory_table() {
-    for (i of to_inventory) {
-        let this_obj = {}
-        this_obj["item"] = i;
-        console.log(i);
-        this_obj["qua"] = 4;
-        inventory.push(this_obj);
-
-        // also save to local storage
-        localStorage.setItem(i, 4);
-    }} */
 
  //=========================================================
  // DICE CODE // x = dice(quantity,sides) //
@@ -395,18 +385,20 @@ function init_inventory_table() {
 
     generateTable(table_inv, set_inventory);
     generateTableHead();
-    update_table_ids("table_1", table_1);    
+    update_table_ids();    
 }
 
+// Clear localStorage & reload page
 function reset() {
-    localStorage.clear()
-    init_vars()
-    update_inv()
-    enable_btns()
+    
+    localStorage.clear();
+    location.reload();
+    window.alert("Your game has been reset.")
 }
 
 // Set Local Storage
 function init_local_inventory(x) {
+    console.log("init_local_inventory");
     let set_local_inv = []
     for (i of x) {
         let obj = {}
@@ -420,7 +412,7 @@ function init_local_inventory(x) {
 
  // Update inventory table with localStorage.local_inv
 function update_inv() {
-    console.log("test")
+    console.log("starting update_inv");
 
     let x = !!document.getElementById("Item");
 
@@ -428,10 +420,9 @@ function update_inv() {
     } else {
 
     generateTableHead();
-    update_table_ids("table_1", table_1);
-    };}
+    };
 
-    console.log("part2")
+    console.log("part2 of update_inv")
 
     let storage = JSON.parse(localStorage.getItem('local_inv'));
 
@@ -447,17 +438,15 @@ function update_inv() {
                 let text = document.createTextNode(i[key]);
                 cell.appendChild(text);
             }
-
         }
     }
-
-
-
-
+    update_table_ids();
+}
 
 
 // PAGE LOAD
 function check_storage() {
+    console.log("check_storage")
 
     if (localStorage.length != 0) {
         console.log("not empty")
@@ -468,6 +457,8 @@ function check_storage() {
         init_inventory_table()
         enable_btns()
     }
+
+    check_craft_buttons()
 }
 
 /* function remove_table() {

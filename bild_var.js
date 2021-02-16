@@ -3,7 +3,7 @@ function init_vars() {
 
 // VARIABLES
 let inventory = [];
-let craftable_units = [];
+let bots_list = [];
 let misc_list = [];
 let assembly_list = [];
 let messages = []
@@ -50,8 +50,7 @@ class Assembly extends Item {
         this.btn = btn;
         this.ingredients = ingredients;
         this.cool_msg = "You are assembling an " + this.name;
-        craftable_units.push(this);
-        assembly_list.push(this.name);
+        assembly_list.push(this);
         inventory.push(this.name);
     }
 }
@@ -63,7 +62,7 @@ class Bot extends Item {
         this.btn = btn;
         this.ingredients = ingredients;
         this.cool_msg = "You are assembling an " + this.name;
-        craftable_units.push(this);
+        bots_list.push(this);
         inventory.push(this.name);
     }
 }
@@ -159,12 +158,11 @@ let explorer_bot = new Bot("explorer_bot", "bot", 3000, "explorer_assembly_btn",
 init_local_inventory(inventory)
 
 
-localStorage.setItem("craftable_units", JSON.stringify(craftable_units))
+localStorage.setItem("bots_list", JSON.stringify(bots_list))
 localStorage.setItem("misc_list", JSON.stringify(misc_list))
 localStorage.setItem("assembly_list", JSON.stringify(assembly_list))
 localStorage.setItem("messages", JSON.stringify(messages))
 localStorage.setItem("lots", JSON.stringify(lots))
-
 }
 
 

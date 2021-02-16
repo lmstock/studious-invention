@@ -68,6 +68,6 @@ function change_ad() {
 
 }
 
-setInterval(change_ad, 3000);
+setInterval(change_ad, 300000);
 
   }

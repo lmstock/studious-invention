@@ -15,28 +15,30 @@ ROBOT NOTES:
 =====> TO DO:
 
 	*DO THIS FIRST*
-		FIX - looting deletes assemblies in inventory
-		test new pages
-	
+		
+		test new pages - is this going to work the way I think it is?
+		style up terminal
+		prevent assembly and misc from appearing in table
+
 	
 	more ads
 		Cherry ad slots
-
-	csv game content
-		research dynamic table work
 		
+	expanding	
 		achievements
 		modifiers
 
 	handle compromises:
 		underscore in table name
 
+	COMPLETED: 
+		FIX - looting deletes assemblies in inventory
+
 
 RESEARCH:
 
-	local storage
-	Error in parsing value for ‘transform’.  Declaration dropped.
-		=> stray h3 html tag
+	local db
+	map & weather
 	
 ADS SECTION:
 	A small side art project. Homebrew ads. 

@@ -364,17 +364,17 @@ function dice(quantity, sides) {
 function init_inventory_table() {
     let set_inventory = [];
 
-    let storage = JSON.parse(localStorage.getItem('local_inv'));
+    let r = JSON.parse(localStorage.getItem('local_inv'));
 
-    for (i of Object.values(storage)) {
-        console.log(i.item);
+    for (x of r) {
+        console.log(x.item);
         // prevent "assemblies" and "misc" from appearing in inventory table
-        if ( i.item !== "assembly" || i.item !== "misc") { //you are here
-            // investigate js comparison operators
+        if ( x.item === "assembly" || x.item === "misc") {
+        } else {
 
         let this_obj = {}
-        this_obj["item"] = i.item;
-        this_obj["qua"] = i.qua;
+        this_obj["item"] = x.item;
+        this_obj["qua"] = x.qua;
         set_inventory.push(this_obj);
     }};
 
@@ -411,37 +411,41 @@ function init_local_inventory(x) {
 }
 
  // Update inventory table with localStorage.local_inv
-function update_inv() {
+function update_inv() { //1
     console.log("starting update_inv");
 
+    // generate table head only if absent
     let x = !!document.getElementById("Item");
-
     if (x === true) {
     } else {
-
     generateTableHead();
     };
 
-    console.log("part2 of update_inv")
 
-    let storage = JSON.parse(localStorage.getItem('local_inv'));
+    let r = JSON.parse(localStorage.getItem('local_inv'));
 
-    for (i of Object.values(storage)) {
-        let element = document.getElementById(i.item);
+    
+    for (x of r) {
+        let element = document.getElementById(x.item);
 
-        try {
-            element.innerHTML = i.qua;
-        } catch {
-            let row = table_1.insertRow();
-            for (key in i) {
-                let cell = row.insertCell();
-                let text = document.createTextNode(i[key]);
-                cell.appendChild(text);
+        // dont add assembly or misc to table
+        if ( x.item === "assembly" || x.item === "misc") {
+
+        } else {
+
+            try {
+                element.innerHTML = x.qua;
+            } catch {
+                let row = table_1.insertRow();
+                for (key in x) {
+                    let cell = row.insertCell();
+                    let text = document.createTextNode(x[key]);
+                    cell.appendChild(text);
+                }
             }
-        }
-    }
+    }}
     update_table_ids();
-}
+} // 1
 
 
 // PAGE LOAD

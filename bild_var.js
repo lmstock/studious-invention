@@ -38,7 +38,7 @@ class Raw extends Item {
 class Misc extends Item {
     constructor(name, type) {
         super(name, type);
-        misc_list.push(this.name);
+        misc_list.push(this);
         inventory.push(this.name);
     }
 }

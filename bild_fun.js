@@ -58,7 +58,7 @@ function looting(obj) {
     let shortlist = [];
 
     // dice(2,3)
-    let count = dice(6,3);
+    let count = dice(2,3);
 
     for (c = 0; c < count; c++) {
 
@@ -114,39 +114,34 @@ function looting(obj) {
 
 function craft(obj) {
 
+
+    // Removes ingredients from inventory (localStorage);
     Object.keys(obj.ingredients).forEach(element => {
 
-        // get quantity from inv and assign to variable
-        let inv_qua = document.getElementById(element).innerHTML;
-        inv_qua = parseInt(inv_qua, 10);
+        let r = JSON.parse(localStorage.getItem("local_inv"));
+        let inv_qua = 0;
+        let req = 0;
+        let total = 0;
 
-        // assign required quantity, set to number
-        let req = obj.ingredients[element];
-        req = parseInt(req, 10);
+        for (x of r) {
+            if (x.item === element) {
+                req = obj.ingredients[element];
+                // req = parseInt(req, 10);
+                x.qua = x.qua - req;
+            }
+        }
         
-        // calculate total and update inventory table
-        let total = inv_qua - req;
-        document.getElementById(element).innerHTML = total;
-
-        // remove from storage
-        localStorage.setItem(element, total);
+        localStorage.setItem("local_inv", JSON.stringify(r));
 
     })
 
-    // add assembly to table
-    let assembly_amt = document.getElementById(obj.name).innerHTML;
-    assembly_amt = parseInt(assembly_amt, 10);
-    total = assembly_amt + 1;
-    document.getElementById(obj.name).innerHTML = total;
-
     // add to storage
-    localStorage.setItem(obj.name, total);
+    increase_item(obj.name, 1);
 
     // refresh terminal to current activity
     clr_term();
     messages.push("you have assembled an " + obj.name);
     set_terminal_message();
-    
 }
 
 function set_terminal_message() {
@@ -372,16 +367,20 @@ function init_inventory_table() {
     let storage = JSON.parse(localStorage.getItem('local_inv'));
 
     for (i of Object.values(storage)) {
+        console.log(i.item);
+        // prevent "assemblies" and "misc" from appearing in inventory table
+        if ( i.item !== "assembly" || i.item !== "misc") { //you are here
+            // investigate js comparison operators
 
         let this_obj = {}
         this_obj["item"] = i.item;
         this_obj["qua"] = i.qua;
         set_inventory.push(this_obj);
-    }
+    }};
 
         // INVENTORY TABLE
     let table_inv = document.getElementById("table_1");
-    let data_inv = ["Item", "Quantity"];
+
 
     generateTable(table_inv, set_inventory);
     generateTableHead();
@@ -401,13 +400,14 @@ function init_local_inventory(x) {
     console.log("init_local_inventory");
     let set_local_inv = []
     for (i of x) {
+
         let obj = {}
         obj["item"] = i;
         obj["qua"] = 0;
         set_local_inv.push(obj);
-    }
+    };
 
-    localStorage.setItem("local_inv", JSON.stringify(set_local_inv))
+    localStorage.setItem("local_inv", JSON.stringify(set_local_inv));
 }
 
  // Update inventory table with localStorage.local_inv

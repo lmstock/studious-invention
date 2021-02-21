@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<!--working test copy
+
+    table specs
+    center div 1047px?
+    mobile reqs
+-->
+
+<html lang="en">
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <link rel="stylesheet" href="salvage.css">
+        <title>bild.html</title>
+    </head>
+
+<body onload="load_salvage()">
+
+    <div class="header">
+        <h2>Robot builder</h2>
+        <button type="button" class="reset" id="reset">reset</button>
+        <button type="button" class="nav" id="assembly" onclick="document.location='assembly.html'"" >Assembly</button>
+        <button type="button" class="test" id="test">test</button>
+    </div>
+
+        <div id="wrapper">
+
+            <div class="column">
+
+                <h2 id="inv_label">INVENTORY</h2>
+
+                <table id="table_1"></table><br>
+                <br>
+                
+
+                <h2 id="inv_label">TEST update cron 4</h2>
+
+                <table id="table_2"></table>
+                <br>
+
+            </div>
+
+            <div class="column center">
+
+                <h3>Salvage Buttons</h3><br>
+
+                <div id="salvage_parent_btn">
+                    <button type="button" class="salvage" id=cityDump_btn>City Dump</button><br><br>
+                    <button type="button" class="salvage" id=junkyard_btn>Junkyard</button><br><br>
+                </div>
+
+                <h3>Assembly Buttons</h3><br>
+
+                <div id="assemble_parent_btn">
+
+                    <button type="button" class="assemble" id=pwr_sub_btn>power_subsystem</button><br><br>
+                    <button type="button" class="assemble" id=ctr_ass_btn>controller_assembly</button><br><br>
+                    <button type="button" class="assemble" id=sm_chass_btn>small_chassis</button><br><br>
+                    <button type="button" class="assemble" id=arm_ass_btn>arm_assembly</button><br><br>
+                    <button type="button" class="assemble" id=salv_assembly_btn>salv</button><br><br>
+                    <button type="button" class="assemble" id=bild_assembly_btn>bild</button><br><br>
+                    <button type="button" class="assemble" id=explorer_assembly_btn>explorer</button><br><br>
+                </div>
+            </div>
+
+            <div class="column">
+
+                <div class="terminal container">
+
+                <h2>Terminal</h2><br>
+                <p id=terminal><br></p>
+                </div>
+
+                <div class="debug container">
+                    <p><strong>DEBUG</strong></p><br>
+                    <p id=MyClockDisplay ></p>
+                    <p id=weather ></p>
+                </div>
+            </div>
+
+        </div>
+
+    <div class="ads">
+
+        <div class="adWrap">
+
+            <div class="imgDiv">
+                <img id=ad1 src="lilads/atomic.png">
+        </div>
+        
+        <div class="imgDiv">
+                <img id=ad2 src="lilads/cateyes.png">
+        </div>
+        
+        <div class="imgDiv">
+                <img id=ad3 src="lilads/runcat.png">
+        </div>
+        
+        <div class="imgDiv">
+                <img id=ad4 src="lilads/house.png">
+        </div>
+        
+        <div class="imgDiv">
+                <img id=ad5 src="lilads/boat.png">
+        </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <h3>Radioparts 2021</h3>
+        <p><small>This feature is experimental and rudimentary. You probably do not want to use it.</small>
+        </p>
+    </div>
+
+    <script src="bild_var.js"></script>
+    <script src="bild_fun.js"></script> 
+    
+    <script src="bild_ads.js"></script>
+    <script src="bild_event.js"></script>
+ 
+
+</body>
+</html>

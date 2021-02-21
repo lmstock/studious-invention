@@ -367,7 +367,7 @@ function init_inventory_table() {
     let r = JSON.parse(localStorage.getItem('local_inv'));
 
     for (x of r) {
-        console.log(x.item);
+
         // prevent "assemblies" and "misc" from appearing in inventory table
         if ( x.item === "assembly" || x.item === "misc") {
         } else {
@@ -404,6 +404,7 @@ function init_local_inventory(x) {
         let obj = {}
         obj["item"] = i;
         obj["qua"] = 0;
+        obj["health"] = 10;
         set_local_inv.push(obj);
     };
 
@@ -448,9 +449,9 @@ function update_inv() { //1
 } // 1
 
 
-// PAGE LOAD
-function check_storage() {
-    console.log("check_storage")
+// PAGE LOADS
+function load_salvage() {
+    console.log("load_salvage")
 
     if (localStorage.length != 0) {
         console.log("not empty")
@@ -464,6 +465,8 @@ function check_storage() {
 
     check_craft_buttons()
 }
+
+
 
 /* function remove_table() {
     let remove_this = document.getElementById('table_1');

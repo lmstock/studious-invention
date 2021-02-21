@@ -11,57 +11,41 @@
     <head>
         <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
         <meta content="utf-8" http-equiv="encoding">
-        <link rel="stylesheet" href="bild_0.3.css">
-        <title>bild.html</title>
+        <link rel="stylesheet" href="assembly.css">
+        <title>Assembly</title>
     </head>
 
-<body onload="check_storage()">
+<body onload="load_assembly()">
 
     <div class="header">
         <h2>Robot builder</h2>
         <button type="button" class="reset" id="reset">reset</button>
-        <button type="button" class="update" id="update">update</button>
-        <button type="button" class="test" id="update_ids">update_ids</button>
+        <button type="button" class="nav" id="salvage" onclick="document.location='salvage.html'"">Salvage</button>
+        <button type="button" class="test" id="test">test</button>
     </div>
 
         <div id="wrapper">
 
             <div class="column">
 
-                <h2 id="inv_label">INVENTORY</h2>
+                <h2>INVENTORY [id="table_2]</h2>
 
-                <table id="table_1"></table><br>
+                <table id="table_2"></table><br>
                 <br>
                 
 
-                <h2 id="inv_label">TEST update cron 4</h2>
+                <h2>TERMINAL</h2>
 
-                <table id="table_2"></table>
+                <table id="table_3"></table>
                 <br>
 
             </div>
 
             <div class="column center">
 
-                <h3>Salvage Buttons</h3><br>
+                <h3>column center</h3><br>
 
-                <div id="salvage_parent_btn">
-                    <button type="button" class="salvage" id=cityDump_btn>City Dump</button><br><br>
-                    <button type="button" class="salvage" id=junkyard_btn>Junkyard</button><br><br>
-                </div>
-
-                <h3>Assembly Buttons</h3><br>
-
-                <div id="assemble_parent_btn">
-
-                    <button type="button" class="assemble" id=pwr_sub_btn>power_subsystem</button><br><br>
-                    <button type="button" class="assemble" id=ctr_ass_btn>controller_assembly</button><br><br>
-                    <button type="button" class="assemble" id=sm_chass_btn>small_chassis</button><br><br>
-                    <button type="button" class="assemble" id=arm_ass_btn>arm_assembly</button><br><br>
-                    <button type="button" class="assemble" id=salv_assembly_btn>salv</button><br><br>
-                    <button type="button" class="assemble" id=bild_assembly_btn>bild</button><br><br>
-                    <button type="button" class="assemble" id=explorer_assembly_btn>explorer</button><br><br>
-                </div>
+                
             </div>
 
             <div class="column">
@@ -114,13 +98,29 @@
         <p><small>This feature is experimental and rudimentary. You probably do not want to use it.</small>
         </p>
     </div>
-
+    <script src="assembly.js"></script>
     <script src="bild_var.js"></script>
     <script src="bild_fun.js"></script> 
+
     
     <script src="bild_ads.js"></script>
-    <script src="bild_event.js"></script>
- 
+   <!-- <script src="bild_event.js"></script> 
+ -->
 
 </body>
 </html>
+
+
+<!-- The assembly page
+
+  contains same header and footer
+  contains 2 div
+    first div is a table of the inventory with the addition of a radio button on the left or right to select item
+      will not be able to select raws from this page - separate in table?
+      needs to read from localStorage
+      add item health var
+    second div is smaller and contains 3 buttons, assemble, disassemble, repair as well as the terminal
+
+
+
+the end -->

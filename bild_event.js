@@ -6,10 +6,6 @@ let assemble_parent_btn = document.getElementById('assemble_parent_btn').addEven
 
 document.getElementById("reset").addEventListener("click", reset);
 
-document.getElementById("update").addEventListener("click", update_inv);
-
-document.getElementById("update_ids").addEventListener("click", update_table_ids);
-
 
 
 run_ads()

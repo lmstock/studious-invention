@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 
-<!--working test copy
+<!--
+    
+    radio buttons to list assemble-able items
+    assemble button to execute that action
+    debug = informational (respond to radio btns)
+    add color to terminal texts
 
-    table specs
-    center div 1047px?
-    mobile reqs
 -->
 
 <html lang="en">
@@ -28,7 +30,7 @@
 
             <div class="column">
 
-                <h2>INVENTORY [id="table_2]</h2>
+                <h2>INVENTORY</h2>
 
                 <table id="table_2"></table><br>
                 <br>
@@ -43,7 +45,28 @@
 
             <div class="column center">
 
-                <h3>column center</h3><br>
+                <h2>Assembly</h2><br>
+
+                <input type="radio" id="pwr_sub_radio" name="assembly" value="power_subsystem">
+                <label for="other">power_subsystem</label><br>
+                <input type="radio" id="ctr_ass_radio" name="assembly" value="controller_assembly">
+                <label for="other">controller_assembly</label><br>
+                <input type="radio" id="sm_chassis_radio" name="assembly" value="small_chassis">
+                <label for="other">small_chassis</label><br>
+                <input type="radio" id="arm_ass_radio" name="assembly" value="arm_assembly">
+                <label for="other">arm_assembly</label><br>
+                <input type="radio" id="salv_radio" name="assembly" value="salv">
+                <label for="other">salv</label><br>
+                <input type="radio" id="bild_radio" name="assembly" value="bild">
+                <label for="other">bild</label><br>
+                <input type="radio" id="exp_radio" name="assembly" value="explorer">
+                <label for="other">explorer</label><br>
+
+                <br><br>
+
+                <div id="ingredients"></div>
+
+                <!-- Generate ingredient headers and radio btns dynamically -->
 
                 
             </div>

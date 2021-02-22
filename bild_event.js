@@ -16,3 +16,10 @@ run_ads()
 
 
 
+
+
+// SAVE STORAGE QUERY
+/* navigator.storage.estimate().then(function(estimate) {
+    console.log("Total Storage Available: " + estimate.quota);
+    console.log("Storage Used: " + estimate.usage);
+}) */

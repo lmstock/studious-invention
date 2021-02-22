@@ -60,11 +60,11 @@ function looting(obj) {
     // dice(2,3)
     let count = dice(2,3);
 
+    // for # of finds
     for (c = 0; c < count; c++) {
 
+        // roll for item
         let x = dice(1,100);
-        // let x = 99     // intentional pulls for debug
-        
         Object.entries(obj.loot).forEach(element => {
             let min = element[1][0];
             let max = element[1][1];
@@ -91,9 +91,13 @@ function looting(obj) {
                     shortlist.push(assembly_message);
                 }
 
-            // ADD TO INVENTORY
+            // ADD TO INVENTORY list ***
+            // ===== update to get info from det_inv
             increase_item(item_find, 1);
             increase_msg = " +1 "  + item_find;
+
+            // ADD TO det_inv
+            add_item(item_find)
 
             // adds new msg to list 
             shortlist.push(increase_msg);
@@ -178,6 +182,21 @@ function increase_item(item, quantity) {
     localStorage.setItem(item, total) */
 }
 
+function add_item(itemName) {
+    let r = JSON.parse(localStorage.getItem("user_inv"));
+    
+    // get item number of new item
+    itemNo = r.length;
+
+    let this_obj = {};
+    this_obj["item_no"] = itemNo;
+    this_obj["item_name"] = itemName;
+    this_obj["health"] = 10;
+    r.push(this_obj);
+
+    localStorage.setItem("user_inv",JSON.stringify(r));
+}
+
 function disable_btns() {
     console.log("disable buttons")
     let assemble_btns_list = document.getElementsByClassName("assemble");
@@ -259,7 +278,7 @@ function AssembleClick(e) {
     }; 
 }
 
-// Generates Table Headers - 
+// Generates Inventory Table - 
 function generateTableHead() {
 
     let table_inv = document.getElementById("table_1");
@@ -274,7 +293,6 @@ function generateTableHead() {
         row.appendChild(th);
     }
 }
-
 
 function generateTable(table, data) {
     for ( let element of data) {
@@ -404,7 +422,6 @@ function init_local_inventory(x) {
         let obj = {}
         obj["item"] = i;
         obj["qua"] = 0;
-        obj["health"] = 10;
         set_local_inv.push(obj);
     };
 

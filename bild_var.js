@@ -6,8 +6,9 @@ let inventory = [];
 let bots_list = [];
 let misc_list = [];
 let assembly_list = [];
-let messages = []
-let lots = []
+let messages = [];
+let lots = [];
+let user_inv = [];
 
     // Lots, Raws, and Bots are all Items
 class Item {
@@ -158,11 +159,12 @@ let explorer_bot = new Bot("explorer_bot", "bot", 3000, "explorer_assembly_btn",
 init_local_inventory(inventory)
 
 
-localStorage.setItem("bots_list", JSON.stringify(bots_list))
-localStorage.setItem("misc_list", JSON.stringify(misc_list))
-localStorage.setItem("assembly_list", JSON.stringify(assembly_list))
-localStorage.setItem("messages", JSON.stringify(messages))
-localStorage.setItem("lots", JSON.stringify(lots))
+localStorage.setItem("bots_list", JSON.stringify(bots_list));
+localStorage.setItem("misc_list", JSON.stringify(misc_list));
+localStorage.setItem("assembly_list", JSON.stringify(assembly_list));
+localStorage.setItem("messages", JSON.stringify(messages));
+localStorage.setItem("lots", JSON.stringify(lots));
+localStorage.setItem("user_inv", JSON.stringify(user_inv));
 }
 
 

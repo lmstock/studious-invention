@@ -46,7 +46,8 @@
             <div class="column center">
 
                 <h2>Assembly</h2><br>
-
+                
+                <div id="assembly_radio" />
                 <input type="radio" id="pwr_sub_radio" name="assembly" value="power_subsystem">
                 <label for="other">power_subsystem</label><br>
                 <input type="radio" id="ctr_ass_radio" name="assembly" value="controller_assembly">
@@ -61,7 +62,7 @@
                 <label for="other">bild</label><br>
                 <input type="radio" id="exp_radio" name="assembly" value="explorer">
                 <label for="other">explorer</label><br>
-
+                </div>
                 <br><br>
 
                 <div id="ingredients"></div>
@@ -80,7 +81,7 @@
                 </div>
 
                 <div class="debug container">
-                    <p><strong>DEBUG</strong></p><br>
+                    <p id="debug" >DEBUG</p><br>
                     <p id=MyClockDisplay ></p>
                     <p id=weather ></p>
                 </div>

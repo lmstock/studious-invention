@@ -306,7 +306,7 @@ function generateTable(table, data) {
 }
 
 function update_table_ids() {
-    console.log("update_table_ids");
+    // console.log("update_table_ids");
     let rowNum = document.getElementById("table_1").rows.length;
     for (let i = 0; i < rowNum; i++) {
         let name = table_1.rows[i].cells[0].innerHTML;

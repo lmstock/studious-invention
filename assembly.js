@@ -55,6 +55,8 @@ function radio_check(e) {
     let radio_target = e.target.value;
     let a = JSON.parse(localStorage.assembly_list);
     let r = JSON.parse(localStorage.user_inv);
+    sub_btn = document.getElementById("submit_btn").disabled = false;
+    
 
     // Information about selection posted to terminal
     debug.textContent = "Information about the " + radio_target;
@@ -73,8 +75,7 @@ function radio_check(e) {
                 for (x of r) {
                     if (x.item_name === element) {
                         let name = x.item_no + " - " + x.item_name + " - h." + x.health
-                        console.log(name);
-                        create_radio(x.item_name, name);
+                        create_radio(x.item_name, name, x.item_no);
                     }
                 }
 // YOU ARE HERE - CREATE RADIO FUNCTIONS IS CRAZY
@@ -84,22 +85,19 @@ function radio_check(e) {
 
 
 }}
-
-function selection_input() {
-}
   
   // Creates radio button
-function create_radio(id, text) {
+function create_radio(id, text, id_num) {
       let radiobox = document.createElement('input');
       radiobox.type = 'radio';
-      radiobox.id = id;  // id
+      radiobox.id = id_num;  // id
       radiobox.name = id;  // group
       radiobox.value = id;  // input
 
       let label = document.createElement('label');  // 
-      label.htmlFor = text;
+      label.htmlFor = id;
 
-      let description = document.createTextNode(" " + id);
+      let description = document.createTextNode(text + " " + id);
       label.appendChild(description);
 
       let newline = document.createElement('br');
@@ -110,7 +108,9 @@ function create_radio(id, text) {
       container.appendChild(newline);
   }
 
-create_radio("fish", "name", "value")
+function submit_selection() {
+
+}
 
 
 

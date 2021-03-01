@@ -49,42 +49,65 @@ function a_update_table_ids() {
 // Assembly Section
 
 // take input from assembly selection and display required ingredients
-// including all item options as radio buttons
-// --i think-- add onchange event to each btn to trigger function 
 function radio_check(e) {
     let radio_target = e.target.value;
     let a = JSON.parse(localStorage.assembly_list);
     let r = JSON.parse(localStorage.user_inv);
-    sub_btn = document.getElementById("submit_btn").disabled = false;
-    
 
     // Information about selection posted to terminal
     debug.textContent = "Information about the " + radio_target;
 
-    // for assembly selection, print ingredients
+    // Clear DOM section
+    clear_section('ing_section');
+
+    // for assembly selection
     for (i of a) {
         if (i.name === radio_target) {
-            console.log(i.name, radio_target)
 
-            // Prints Assembly Title
-            ingredients.innerHTML = i.name + "<br><br>";
+            // Print Assembly Subheading
+            let a_head = document.createElement('h3');
+            let newline = document.createElement('br');
+            a_head.textContent = radio_target;
+            ing_section.appendChild(a_head);
+            ing_section.appendChild(newline);
 
+            // for each ingredient
             Object.keys(i.ingredients).forEach(element => {
-                console.log(element);
 
+                // ingredient heading
+                let i_head = document.createElement('h4');
+                i_head.textContent = element;
+                ing_section.appendChild(i_head);
+
+                // get user inventory of 
                 for (x of r) {
                     if (x.item_name === element) {
+
+                        // if none of ingredient, add to info box
+
+                        // create radio buttons for user's set of ingredient
                         let name = x.item_no + " - " + x.item_name + " - h." + x.health
                         create_radio(x.item_name, name, x.item_no);
                     }
                 }
-// YOU ARE HERE - CREATE RADIO FUNCTIONS IS CRAZY
-             
+
+            // space between ingredient selection sections    
+            let newline = document.createElement('br');
+            ing_section.appendChild(newline);
         })
-        }
-
-
+    }
 }}
+
+// disable submit button until all ingredients are selected
+sub_btn = document.getElementById("submit_btn").disabled = false;
+
+  // Clear ing_section
+function clear_section(section) {
+    const parent = document.getElementById(section);
+    while (parent.firstChild) {
+        parent.firstChild.remove();
+    }
+}
   
   // Creates radio button
 function create_radio(id, text, id_num) {
@@ -97,26 +120,75 @@ function create_radio(id, text, id_num) {
       let label = document.createElement('label');  // 
       label.htmlFor = id;
 
-      let description = document.createTextNode(text + " " + id);
+      let description = document.createTextNode(text + " ");
       label.appendChild(description);
 
       let newline = document.createElement('br');
 
-      let container = document.getElementById('ingredients');
+      let container = document.getElementById('ing_section');
       container.appendChild(radiobox);
       container.appendChild(label);
       container.appendChild(newline);
+      container.appendChild(newline);
   }
 
+  // calculate new inventory 
 function submit_selection() {
+    console.log('wired up');
 
+    // Access user_inv and assembly_list 
+    let a = JSON.parse(localStorage.assembly_list);
+    let r = JSON.parse(localStorage.user_inv);
+
+    // Get assembly item from radio button
+    let ass_list = document.getElementsByName('assembly');
+    
+    function get_assembly_item() {
+    for (y of ass_list) {
+        if (y.checked === true) {
+            return y.value;
+        };
+    }
 }
 
+    assembly_item = get_assembly_item();
+
+    // Get ingredients list
+    function get_ing_list() {
+        for (b of a) {
+            if (b.name === assembly_item) {
+                return b.ingredients;
+            }
+        }
+    }
+
+    let ing_list = get_ing_list();
+    console.log(ing_list);
+
+    // Get inputs from radio buttons
+    values_list = ing_section.querySelectorAll("input");
+    for (c of values_list) {
+        console.log(c.id);
+    } // YOU ARE HERE, GET RADIO BUTTON SETS AND IDENTIFY SELECTION
+      // UTILIZE ARROW FUNCTIONS
+      // LOOK BACK FOR OTHER OPPORTUNITES TO RETURN
+
+    // Subtract ingredients from inventory
+
+    // Calculate Assembly Health
+
+    // Add assembly to inventory
+
+
+} // End submit_selection
 
 
   // EVENTS
 
+  // displays assembly info when new radio button is selected
 const assembly_radio = document.getElementById('assembly_radio').addEventListener('input', radio_check);
+const submit = document.getElementById('submit_btn').addEventListener('click', submit_selection);
+
 const log = document.getElementById('terminal');
 
 

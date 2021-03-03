@@ -109,6 +109,7 @@ function clear_section(section) {
     }
 }
   
+// Set one as default
   // Creates radio button
 function create_radio(id, text, id_num) {
       let radiobox = document.createElement('input');
@@ -165,13 +166,26 @@ function submit_selection() {
     let ing_list = get_ing_list();
     console.log(ing_list);
 
+    Object.keys(ing_list).forEach(element => {
+        let test = get_checked_value(element);
+        console.log(test);  // id #s
+        
+        console.log(r[2].item_no); 
+    })
+
+
     // Get inputs from radio buttons
-    values_list = ing_section.querySelectorAll("input");
-    for (c of values_list) {
-        console.log(c.id);
-    } // YOU ARE HERE, GET RADIO BUTTON SETS AND IDENTIFY SELECTION
-      // UTILIZE ARROW FUNCTIONS
-      // LOOK BACK FOR OTHER OPPORTUNITES TO RETURN
+    function get_checked_value(group_name) {
+        let frog = document.getElementsByName(group_name);
+        for (d = 0; d < frog.length; d++) {
+            if (frog[d].checked) {
+            return frog[d].id;
+            }
+        }
+    }
+    
+    
+
 
     // Subtract ingredients from inventory
 
@@ -192,6 +206,7 @@ const submit = document.getElementById('submit_btn').addEventListener('click', s
 const log = document.getElementById('terminal');
 
 
-
+      // UTILIZE ARROW FUNCTIONS
+      // LOOK BACK FOR OTHER OPPORTUNITES TO RETURN
 
 

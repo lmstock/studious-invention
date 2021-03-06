@@ -16,9 +16,15 @@ ROBOT NOTES:
 
 	*DO THIS FIRST*
 		
-		test new pages - is this going to work the way I think it is?
+		restructure assemblies
 		style up terminal
-		prevent assembly and misc from appearing in table
+
+	*DO THIS NEXT*
+
+		look at canvas
+		db
+		mobile
+		logins	
 
 	
 	more ads
@@ -29,10 +35,9 @@ ROBOT NOTES:
 		modifiers
 
 	handle compromises:
-		underscore in table name
-
-	COMPLETED: 
-		FIX - looting deletes assemblies in inventory
+		underscore in table names
+		prevent assembly and misc from appearing in table
+		test new pages
 
 
 RESEARCH:
@@ -70,6 +75,11 @@ CSS:
 	  pages
 
 JS:
+
+Assemblies:
+	are groups of items
+	randomized ones should be built from randomized parts
+	to JSON and back
 
 ROBOTS: 	
 

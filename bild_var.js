@@ -51,6 +51,8 @@ class Assembly extends Item {
         this.btn = btn;
         this.ingredients = ingredients;
         this.cool_msg = "You are assembling an " + this.name;
+        this.parts = {};  //
+        this.health = 100 // calculate from parts health: health = total_of_parts_health / #_of_parts - METHOD
         assembly_list.push(this);
         inventory.push(this.name);
     }

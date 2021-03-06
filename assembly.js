@@ -185,7 +185,7 @@ function submit_selection() {
     }
     
     
-
+// RETURN HERE AFTER REWIRING ASSEMBLY
 
     // Subtract ingredients from inventory
 
@@ -196,6 +196,7 @@ function submit_selection() {
 
 } // End submit_selection
 
+function gen_rand_assembly(lot) {};
 
   // EVENTS
 

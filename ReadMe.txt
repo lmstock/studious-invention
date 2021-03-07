@@ -14,18 +14,11 @@ ROBOT NOTES:
 
 =====> TO DO:
 
-	*DO THIS FIRST*
+	*DO THIS NEXT*
 		
 		restructure assemblies
-		style up terminal
-
-	*DO THIS NEXT*
-
-		look at canvas
-		db
-		mobile
-		logins	
-
+		style up terminal / overhaul messages
+		ads should work on all pages
 	
 	more ads
 		Cherry ad slots
@@ -44,6 +37,9 @@ RESEARCH:
 
 	local db
 	map & weather
+	canvas
+	mobile
+	logins
 	
 ADS SECTION:
 	A small side art project. Homebrew ads. 
@@ -129,13 +125,9 @@ Assembly page - 2 divs
 		https://mdn.github.io/learning-area/html/tables/assessment-finished/planets-data.html
 	smaller right div with terminal output and buttons for:
 		disassembly
-		repairs
+		
+Repairs page - 
 
-Reference page ("Schematics")
-	table of assembly requirements
 
-power
-controller
-chassis
-arm 
-end effector
+Reference page -
+

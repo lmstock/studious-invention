@@ -33,6 +33,7 @@ function finish_cooldown(obj) {
         looting(obj);
     } 
 
+    // may not need these ---
     if (obj.type === "assembly") {
         craft(obj);
     }  else {};    
@@ -40,37 +41,34 @@ function finish_cooldown(obj) {
     if (obj.type === "bot") {
         craft(obj);
     }  else {};  
+    // ----------------------
 
     //re-set button states
     enable_btns()
-    check_craft_buttons()
+    // check_craft_buttons()
     
 }
 
 function looting(obj) {
     console.log("looting function")
 
+    let u = JSON.parse(localStorage.getItem("user_inv"));
     let misc_list = JSON.parse(localStorage.getItem('misc_list'));
     let assembly_list = JSON.parse(localStorage.getItem('assembly_list'));
-    
+    let item_find = 0;
 
+    
     // part of messages
     let shortlist = [];
 
-    // dice(2,3)
-    let count = dice(2,3);
+    // determine quantity of finds
+    let count = dice(4,3);
 
     // for # of finds
     for (c = 0; c < count; c++) {
 
-        // roll for item
-        let x = dice(1,100);
-        Object.entries(obj.loot).forEach(element => {
-            let min = element[1][0];
-            let max = element[1][1];
+        item_find = generate_item(obj);
 
-            if (x >= min && x <= max) {
-                let item_find = element[0];
 
         // Change font color for tiers, misc = blue, assembly = warm        
                 // Misc Selections
@@ -93,17 +91,15 @@ function looting(obj) {
 
             // ADD TO INVENTORY list ***
             // ===== update to get info from det_inv
-            increase_item(item_find, 1);
-            increase_msg = " +1 "  + item_find;
+            increase_item(item_find.name, 1);
+            increase_msg = " +1 "  + item_find.name + " /h." + item_find.health;
 
             // ADD TO det_inv
-            add_item(item_find)
+            add_item(item_find.name, item_find.health)
 
             // adds new msg to list 
-            shortlist.push(increase_msg);
-            }
-        });
-    } 
+            shortlist.push(increase_msg);    
+    }
 
         // adds terminal message to list
         shortlist.unshift("Your rummaging yields: <br>");
@@ -116,36 +112,31 @@ function looting(obj) {
         set_terminal_message();
 }
 
-function craft(obj) {
+function generate_item(lot) {
+    console.log("generate_item()");
+    let new_item = {};
+    let name = "safo";
 
+    // roll for item
+    let x = dice(1,100);
 
-    // Removes ingredients from inventory (localStorage);
-    Object.keys(obj.ingredients).forEach(element => {
+    // cycle through loot list and returns item
+    Object.entries(lot.loot).forEach(element => {
+        let min = element[1][0];
+        let max = element[1][1];
 
-        let r = JSON.parse(localStorage.getItem("local_inv"));
-        let inv_qua = 0;
-        let req = 0;
-        let total = 0;
+        if (x >= min && x <= max) {
+            name = element[0];
+        }   
 
-        for (x of r) {
-            if (x.item === element) {
-                req = obj.ingredients[element];
-                // req = parseInt(req, 10);
-                x.qua = x.qua - req;
-            }
-        }
-        
-        localStorage.setItem("local_inv", JSON.stringify(r));
+    // roll for health
+    let h = dice(5,20);
+
+    new_item.name = name;
+    new_item.health = h;
 
     })
-
-    // add to storage
-    increase_item(obj.name, 1);
-
-    // refresh terminal to current activity
-    clr_term();
-    messages.push("you have assembled an " + obj.name);
-    set_terminal_message();
+    return new_item;
 }
 
 function set_terminal_message() {
@@ -160,29 +151,22 @@ function get_rand_int(min, max) {
 
 function increase_item(item, quantity) {
 
-    let this_item = JSON.parse(localStorage.getItem('local_inv'));
+    let l = JSON.parse(localStorage.getItem('local_inv'));
 
-    for (i of Object.values(this_item)) {
+    for (i of Object.values(l)) {
         if (item === i.item) {
             //i.qua = quantity;
             i.qua = i.qua + quantity;
+            // i.health ?
         }
-    localStorage.setItem("local_inv", JSON.stringify(this_item))
     }
+
+    localStorage.setItem("local_inv", JSON.stringify(l));
  
     update_inv()
-
-/*     let item_count = document.getElementById(item).innerHTML;
-    item_count = parseInt(item_count, 10);
-
-    total = item_count + quantity;
-    document.getElementById(item).innerHTML = total;
-
-    // ALSO set storage
-    localStorage.setItem(item, total) */
 }
 
-function add_item(itemName) {
+function add_item(name, health) {
     let r = JSON.parse(localStorage.getItem("user_inv"));
     
     // get item number of new item
@@ -190,8 +174,8 @@ function add_item(itemName) {
 
     let this_obj = {};
     this_obj["item_no"] = itemNo;
-    this_obj["item_name"] = itemName;
-    this_obj["health"] = 10;
+    this_obj["item_name"] = name;
+    this_obj["health"] = health;
     r.push(this_obj);
 
     localStorage.setItem("user_inv",JSON.stringify(r));
@@ -199,10 +183,10 @@ function add_item(itemName) {
 
 function disable_btns() {
     console.log("disable buttons")
-    let assemble_btns_list = document.getElementsByClassName("assemble");
+/*     let assemble_btns_list = document.getElementsByClassName("assemble");
     for (i of assemble_btns_list) {
         i.disabled = true;
-    }
+    } */
 
     let salvage_btns_list = document.getElementsByClassName("salvage");
     for (i of salvage_btns_list) {
@@ -213,10 +197,10 @@ function disable_btns() {
 
 function enable_btns() {
     console.log("enable buttons")
-    let assemble_btns_list = document.getElementsByClassName("assemble");
+/*     let assemble_btns_list = document.getElementsByClassName("assemble");
     for (i of assemble_btns_list) {
         i.disabled = false;
-    }
+    } */
 
     let salvage_btns_list = document.getElementsByClassName("salvage");
     for (i of salvage_btns_list) {
@@ -244,7 +228,7 @@ function SalvageClick(e) {
 }
 
 // THERE MUST BE A BETTER WAY
-function AssembleClick(e) {
+/* function AssembleClick(e) {
     let sel = e.target.id;
     let assembly = JSON.parse(localStorage.getItem('assembly_list'));
     let bot = JSON.parse(localStorage.getItem('bots_list'));
@@ -276,7 +260,7 @@ function AssembleClick(e) {
     if (sel === "explorer_assembly_btn") {
         start_cooldown(bot[2]);
     }; 
-}
+} */
 
 // Generates Inventory Table - 
 function generateTableHead() {
@@ -314,8 +298,7 @@ function update_table_ids() {
     }
 }
 
-// button states - 1. any way to do it, 2. right way to do it
-function check_craft_buttons() {
+/* function check_craft_buttons() {
     console.log("start check_craft_buttons")
 
     let assemblies = JSON.parse(localStorage.getItem('assembly_list'));
@@ -355,10 +338,9 @@ function check_craft_buttons() {
             }
         });
     } 
-} 
+}  */
 
- //=========================================================
- // DICE CODE // x = dice(quantity,sides) //
+
 function roll(sides) {
     rand = get_rand_int(1, sides);
     return rand;
@@ -375,8 +357,6 @@ function dice(quantity, sides) {
     }
     return total;
 }
-
-//===============================================================
 
 // Build full inventory table from localStorage.local_inv first time only
 function init_inventory_table() {
@@ -479,19 +459,5 @@ function load_salvage() {
         init_inventory_table()
         enable_btns()
     }
-
-    check_craft_buttons()
 }
-
-
-
-/* function remove_table() {
-    let remove_this = document.getElementById('table_1');
-    let tableParent = remove_this.parentElement;
-    tableParent.removeChild(remove_this);
-}
-
-function replace_table() {
-    const newHead = document.createElement("table");
-    document.getElementById("placeholder").appendChild(newHead); */
 

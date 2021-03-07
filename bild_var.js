@@ -32,6 +32,7 @@ class Lot extends Item {
 class Raw extends Item {
     constructor(name, type) {
         super(name, type);
+        this.health = 0
         inventory.push(this.name);
         }
     }
@@ -52,7 +53,7 @@ class Assembly extends Item {
         this.ingredients = ingredients;
         this.cool_msg = "You are assembling an " + this.name;
         this.parts = {};  //
-        this.health = 100 // calculate from parts health: health = total_of_parts_health / #_of_parts - METHOD
+        this.health = 0 // calculate from health of ingredients = total_of_parts_health / #_of_parts - METHOD
         assembly_list.push(this);
         inventory.push(this.name);
     }
@@ -65,6 +66,7 @@ class Bot extends Item {
         this.btn = btn;
         this.ingredients = ingredients;
         this.cool_msg = "You are assembling an " + this.name;
+        this.health = 0 // calculate from health of ingredients
         bots_list.push(this);
         inventory.push(this.name);
     }

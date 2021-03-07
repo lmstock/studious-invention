@@ -1,11 +1,11 @@
   function run_ads() {
   
   // set ad variables
-    var ad1 = document.getElementById("ad1");
-    var ad2 = document.getElementById("ad2");
-    var ad3 = document.getElementById("ad3");
-    var ad4 = document.getElementById("ad4");
-    var ad5 = document.getElementById("ad5");
+    let ad1 = document.getElementById("ad1");
+    let ad2 = document.getElementById("ad2");
+    let ad3 = document.getElementById("ad3");
+    let ad4 = document.getElementById("ad4");
+    let ad5 = document.getElementById("ad5");
 
 let adList = [ad1, ad2, ad3, ad4, ad5]
 
@@ -68,6 +68,6 @@ function change_ad() {
 
 }
 
-setInterval(change_ad, 300000);
+setInterval(change_ad, 3000);
 
   }

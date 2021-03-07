@@ -133,6 +133,36 @@ function create_radio(id, text, id_num) {
       container.appendChild(newline);
   }
 
+  function craft(obj) {
+    // Removes ingredients from inventory (localStorage);
+    Object.keys(obj.ingredients).forEach(element => {
+
+        let r = JSON.parse(localStorage.getItem("local_inv"));
+        let inv_qua = 0;
+        let req = 0;
+        let total = 0;
+
+        for (x of r) {
+            if (x.item === element) {
+                req = obj.ingredients[element];
+                // req = parseInt(req, 10);
+                x.qua = x.qua - req;
+            }
+        }
+        
+        localStorage.setItem("local_inv", JSON.stringify(r));
+
+    })
+
+    // add to storage
+    increase_item(obj.name, 1);
+
+    // refresh terminal to current activity
+    clr_term();
+    messages.push("you have assembled an " + obj.name);
+    set_terminal_message();
+}
+
   // calculate new inventory 
 function submit_selection() {
     console.log('wired up');
@@ -195,6 +225,8 @@ function submit_selection() {
 
 
 } // End submit_selection
+
+
 
 function gen_rand_assembly(lot) {};
 

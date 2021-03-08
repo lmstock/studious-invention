@@ -162,7 +162,6 @@ let explorer_bot = new Bot("explorer_bot", "bot", 3000, "explorer_assembly_btn",
 
 init_local_inventory(inventory)
 
-
 localStorage.setItem("bots_list", JSON.stringify(bots_list));
 localStorage.setItem("misc_list", JSON.stringify(misc_list));
 localStorage.setItem("assembly_list", JSON.stringify(assembly_list));

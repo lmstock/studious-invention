@@ -163,13 +163,19 @@ function create_radio(id, text, id_num) {
     set_terminal_message();
 }
 
-  // calculate new inventory 
+  // SUBMIT BUTTON
 function submit_selection() {
-    console.log('wired up');
+    console.log('function = submit button');
 
     // Access user_inv and assembly_list 
     let a = JSON.parse(localStorage.assembly_list);
     let r = JSON.parse(localStorage.user_inv);
+
+    // New Assembly
+    let selections = [];
+    let new_obj = [];
+
+
 
     // Get assembly item from radio button
     let ass_list = document.getElementsByName('assembly');
@@ -181,10 +187,12 @@ function submit_selection() {
         };
     }
 }
-
     assembly_item = get_assembly_item();
+    console.log("assembly_item = " + assembly_item);
 
-    // Get ingredients list
+
+
+    // Get ingredients list for chosen assembly
     function get_ing_list() {
         for (b of a) {
             if (b.name === assembly_item) {
@@ -192,36 +200,52 @@ function submit_selection() {
             }
         }
     }
-
     let ing_list = get_ing_list();
-    console.log(ing_list);
+    console.log("ing_list = " + ing_list);
 
+
+    // Loop through ingredient list of chosen assembly and finds ids of selected units
     Object.keys(ing_list).forEach(element => {
-        let test = get_checked_value(element);
-        console.log(test);  // id #s
-        
-        console.log(r[2].item_no); 
+        let checked = get_checked_value(element);
+        console.log("id # = " + checked);  // id #s
+        console.log("typeof = " + typeof(checked));
+        selections.push(checked); 
     })
-
-
-    // Get inputs from radio buttons
-    function get_checked_value(group_name) {
-        let frog = document.getElementsByName(group_name);
-        for (d = 0; d < frog.length; d++) {
-            if (frog[d].checked) {
-            return frog[d].id;
+        // Get inputs from radio buttons
+        function get_checked_value(group_name) {
+            let frog = document.getElementsByName(group_name);
+            for (d = 0; d < frog.length; d++) {
+                if (frog[d].checked) {
+                return frog[d].id;
+                }
             }
         }
+    
+
+    console.log(selections);
+    for ( m of selections ) {
+        console.log(m);
+        let m = parseInt(m, 10);
+
+        for ( u of r ) {
+            console.log(u.item_no);
+
+            if ( u.item_no === m ) {
+                console.log("yes " + m);
+            }
+            
+            
+            
+            
+        }
+        
+        // add to new object with slice
+
+
+        // remove from inventory with splice
+
+        //add new_obj to r
     }
-    
-    
-// RETURN HERE AFTER REWIRING ASSEMBLY
-
-    // Subtract ingredients from inventory
-
-    // Calculate Assembly Health
-
-    // Add assembly to inventory
 
 
 } // End submit_selection

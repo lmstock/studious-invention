@@ -80,14 +80,14 @@ function looting(obj) {
                     shortlist.push(misc_message);
                 }
 
-                // Assembly Selections
+/*                 // Assembly Selections
                 if (item_find === "assembly") {
                     select = get_rand_int(0, assembly_list.length - 1);
                     item_find = assembly_list[select].name;
 
                     assembly_message = "<br>You found a subassembly!";
                     shortlist.push(assembly_message);
-                }
+                } */
 
             // ADD TO INVENTORY list ***
             // ===== update to get info from det_inv

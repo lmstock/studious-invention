@@ -177,7 +177,7 @@ function submit_selection() {
 
 
 
-    // Get assembly item from radio button
+    // Get assembly selection from radio button
     let ass_list = document.getElementsByName('assembly');
     
     function get_assembly_item() {
@@ -221,17 +221,17 @@ function submit_selection() {
             }
         }
     
-
+    // THE ACTUAL CHANGES
     console.log(selections);
     for ( m of selections ) {
         console.log(m);
-        let m = parseInt(m, 10);
+        m = parseInt(m, 10);
 
         for ( u of r ) {
-            console.log(u.item_no);
 
             if ( u.item_no === m ) {
                 console.log("yes " + m);
+                new_obj.push(u);
             }
             
             
@@ -247,6 +247,8 @@ function submit_selection() {
         //add new_obj to r
     }
 
+    console.log(new_obj);
+    let assembly_item = new Assembly(assembly_item, "assembly", 3000, )
 
 } // End submit_selection
 

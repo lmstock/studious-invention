@@ -106,6 +106,15 @@ let junkyard_loot = {
     assembly: [98,100],
 }
 
+let manuals = [
+    {power_subsystem : {wire_bundle: 1, electronic_components: 1, rechargeable_batteries: 1}},
+    {controller_assembly : {wire_bundle: 1, CTREMCAT1_board: 1}},
+    {small_chassis : {plastic_framing: 1, hardware_bits: 1, mounting_brackets: 1}},
+    {arm_assembly : {wire_bundle: 1, plastic_framing: 1, hardware_bits: 1, electronic_components: 1, gear_set: 1}}
+];
+
+
+
 // define lots
     // add new lots to SalvageClick function
 let cityDump = new Lot("city dump", "lot", "cityDump_btn", 3000, cityDump_loot);
@@ -135,7 +144,7 @@ let beer_bottle = new Misc("beer_bottle", "misc");
 
 // Assemblies
     // ingredients lists
-let power_subsystem_ingredients = {wire_bundle: 1, electronic_components: 1, rechargeable_batteries: 1}
+let power_subsystem_ingredients = {wire_bundle: 1, electronic_components: 1, rechargeable_batteries: 1};
 let controller_assembly_ingredients = {wire_bundle: 1, CTREMCAT1_board: 1};
 let small_chassis_ingredients = {plastic_framing: 1, hardware_bits: 1, mounting_brackets: 1};
 let arm_assembly_ingredients = {wire_bundle: 1, plastic_framing: 1, hardware_bits: 1, electronic_components: 1, gear_set: 1}
@@ -174,3 +183,5 @@ localStorage.setItem("user_inv", JSON.stringify(user_inv));
 
 // HTML Elements
 let terminal = document.getElementById("terminal");
+
+

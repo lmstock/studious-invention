@@ -2,13 +2,14 @@
 function init_vars() {
 
 // VARIABLES
-let inventory = [];
+
 let bots_list = [];
 let misc_list = [];
 let assembly_list = [];
-let messages = [];
 let lots = [];
-let user_inv = [];
+let user_inv = [1];
+let messages = [];
+let hist = [];
 
     // Lots, Raws, and Bots are all Items
 class Item {
@@ -29,11 +30,11 @@ class Lot extends Item {
       }   
     }
 
-class Raw extends Item {
+/* class Raw extends Item {
     constructor(name, type) {
         super(name, type);
         this.health = 0
-        inventory.push(this.name);
+//        inventory.push(this.name);
         }
     }
 
@@ -41,7 +42,7 @@ class Misc extends Item {
     constructor(name, type) {
         super(name, type);
         misc_list.push(this);
-        inventory.push(this.name);
+ //       inventory.push(this.name);
     }
 }
 
@@ -55,7 +56,7 @@ class Assembly extends Item {
         this.parts = {};  //
         this.health = 0 // calculate from health of ingredients = total_of_parts_health / #_of_parts - METHOD
         assembly_list.push(this);
-        inventory.push(this.name);
+//        inventory.push(this.name);
     }
 }
 
@@ -68,9 +69,9 @@ class Bot extends Item {
         this.cool_msg = "You are assembling an " + this.name;
         this.health = 0 // calculate from health of ingredients
         bots_list.push(this);
-        inventory.push(this.name);
+ //       inventory.push(this.name);
     }
-}
+} */
 
 // LOOT LISTS
 
@@ -121,7 +122,7 @@ let cityDump = new Lot("city dump", "lot", "cityDump_btn", 3000, cityDump_loot);
 let junkyard = new Lot("junkyard", "lot", "junkyard_btn", 3000, junkyard_loot);
 
 
-// Raws
+/* // Raws
 let wire_bundle = new Raw("wire_bundle", "raw");
 let electronic_components = new Raw("electronic_components", "raw");
 let rechargeable_batteries = new Raw("rechargeable_batteries", "raw");
@@ -167,9 +168,9 @@ let explorer_ingredients = { power_subsystem: 1, controller_assembly: 2, small_c
 let salvage_bot = new Bot("salvage_bot", "bot", 3000, "salv_assembly_btn", salv_ingredients);
 let bild_bot = new Bot("bild_bot", "bot", 3000, "bild_assembly_btn", bild_ingredients);
 let explorer_bot = new Bot("explorer_bot", "bot", 3000, "explorer_assembly_btn", explorer_ingredients);
+ */
 
 
-init_local_inventory(inventory)
 
 localStorage.setItem("bots_list", JSON.stringify(bots_list));
 localStorage.setItem("misc_list", JSON.stringify(misc_list));

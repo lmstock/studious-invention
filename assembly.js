@@ -1,49 +1,38 @@
+function set_storage(name, list) {
+    localStorage.setItem(name, JSON.stringify(list))
+}
+
+function get_storage(list) {
+    let l = JSON.parse(localStorage.getItem(list));
+    return l;
+}
+
 function load_assembly() {
 
     // get local_inv from localStorage
     let r = JSON.parse(localStorage.getItem("user_inv"));
+    console.log(r)
 
-    // run table functions from below
-    a_generateTableHead();
     a_generateTable(table_2, r);
-    a_update_table_ids();
-}
-
-
-// Generates Table Headers - 
-function a_generateTableHead() {
-
-    let table_inv = document.getElementById("table_2");
-    let data_inv = ["Id", "Item", "Health"];
-
-    let thead = table_2.createTHead();
-    let row = thead.insertRow();
-    for (let key of data_inv) {
-        let th = document.createElement("th");
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
-    }
 }
 
 function a_generateTable(table, data) {
-    for ( let element of data) {
+    for ( let x of data) {
+        console.log(x.item_name)
         let row = table.insertRow();
-        for (key in element) {
-            let cell = row.insertCell();
-            let text = document.createTextNode(element[key]);
-            cell.appendChild(text);
-        }
-    }
-}
 
-function a_update_table_ids() {
-    let rowNum = document.getElementById("table_2").rows.length;
-    for (let i = 0; i < rowNum; i++) {
-        let name = table_2.rows[i].cells[0].innerHTML;
-        table_2.rows[i].cells[1].id = name;
-    }
-}
+        let cell_id = row.insertCell();
+        let text_id = document.createTextNode(x.id);
+        cell_id.appendChild(text_id);
+
+        let cell_item_name = row.insertCell();
+        let text_item_name = document.createTextNode(x.item_name);
+        cell_item_name.appendChild(text_item_name);
+
+        let cell_health = row.insertCell();
+        let text_health = document.createTextNode(x.health);
+        cell_health.appendChild(text_health)
+    }}
 
 
 // Assembly Section
@@ -51,8 +40,8 @@ function a_update_table_ids() {
 // take input from assembly selection and display required ingredients
 function radio_check(e) {
     let radio_target = e.target.value;
-    let a = JSON.parse(localStorage.assembly_list);
-    let r = JSON.parse(localStorage.user_inv);
+    let a = get_storage("manuals");
+    let r = get_storage("user_inv");
 
     // Information about selection posted to terminal
     debug.textContent = "Information about the " + radio_target;
@@ -168,8 +157,8 @@ function submit_selection() {
     console.log('function = submit button');
 
     // Access user_inv and assembly_list 
-    let a = JSON.parse(localStorage.assembly_list);
-    let r = JSON.parse(localStorage.user_inv);
+    let m = get_storage("manuals");
+    let r = get_storage("user_inv");
 
     // New Assembly
     let selections = [];
@@ -252,7 +241,12 @@ function submit_selection() {
 
 } // End submit_selection
 
-
+function reset() {
+    
+    localStorage.clear();
+    location.reload();
+    window.alert("Your game has been reset.")
+}
 
 
 

@@ -1,8 +1,4 @@
-// EVENT HANDLERS
 
-let salvage_parent_btn = document.getElementById('salvage_parent_btn').addEventListener('click', SalvageClick);
-
-document.getElementById("reset").addEventListener("click", reset);
 
 
 // some of this probably needs to be in LS.
@@ -22,3 +18,6 @@ for each checked item
     add to group
 
  */
+
+
+    document.getElementById("reset").addEventListener("click", reset);

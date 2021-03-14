@@ -1,10 +1,6 @@
 
 // FUNCTIONS
 
-
-
-// When a btn is pressed triggers cooldown to specific lot
-// That lot is then sent to get loot function
 function start_cooldown(obj) {
     console.log("start_cooldown" + obj.name);
 
@@ -80,18 +76,6 @@ function looting(obj) {
                     shortlist.push(misc_message);
                 }
 
-/*                 // Assembly Selections
-                if (item_find === "assembly") {
-                    select = get_rand_int(0, assembly_list.length - 1);
-                    item_find = assembly_list[select].name;
-
-                    assembly_message = "<br>You found a subassembly!";
-                    shortlist.push(assembly_message);
-                } */
-
-            // ADD TO INVENTORY list ***
-            // ===== update to get info from det_inv
-
             increase_msg = " +1 "  + item_find.name + " /h." + item_find.health;
 
             // ADD TO det_inv
@@ -150,26 +134,6 @@ function get_rand_int(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// increases local_inv
-/* function increase_item(item, quantity) {
-
-    let l = count;
-    console.log(l);
-
-    for (i of Object.values(l)) {
-        if (item === i.item) {
-            //i.qua = quantity;
-            i.qua = i.qua + quantity;
-            // i.health ?
-        }
-    }
-
-    localStorage.setItem("local_inv", JSON.stringify(l));
- 
-    update_inv()
-} */
-
-// adds to user_inv
 function add_item(name, health) {
     
     let r = get_storage("user_inv");
@@ -178,7 +142,7 @@ function add_item(name, health) {
     itemNo = r.length;
 
     let this_obj = {};
-    this_obj["item_no"] = itemNo;
+    this_obj["id"] = itemNo;
     this_obj["item_name"] = name;
     this_obj["health"] = health;
     r.push(this_obj);
@@ -233,42 +197,6 @@ function SalvageClick(e) {
     };
 }
 
-// Generates Inventory Table - 
-function generateTableHead() {
-
-    let table_inv = document.getElementById("table_1");
-    let data_inv = ["Item", "Quantity"];
-
-    let thead = table_inv.createTHead();
-    let row = thead.insertRow();
-    for (let key of data_inv) {
-        let th = document.createElement("th");
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
-    }
-}
-
-function generateTable(table, data) {
-    for ( let element of data) {
-        let row = table.insertRow();
-        for (key in element) {
-            let cell = row.insertCell();
-            let text = document.createTextNode(element[key]);
-            cell.appendChild(text);
-        }
-    }
-}
-
-function update_table_ids() {
-    // console.log("update_table_ids");
-    let rowNum = document.getElementById("table_1").rows.length;
-    for (let i = 0; i < rowNum; i++) {
-        let name = table_1.rows[i].cells[0].innerHTML;
-        table_1.rows[i].cells[1].id = name;
-    }
-}
-
 function roll(sides) {
     rand = get_rand_int(1, sides);
     return rand;
@@ -285,35 +213,6 @@ function dice(quantity, sides) {
     }
     return total;
 }
-
-// marked for removal - think update_inv replaces this
-// Build full inventory table from localStorage.local_inv first time only
-/* function init_inventory_table() {
-    let set_inventory = [];
-
-    let r = inv_count();
-    console.log(" arrrr " + r)
-
-    for (x in r) {
-
-        // prevent "assemblies" and "misc" from appearing in inventory table
-        if ( x.item === "assembly" || x.item === "misc") {
-        } else {
-
-        let this_obj = {}
-        this_obj["item"] = x.item;
-        this_obj["qua"] = x.qua;
-        set_inventory.push(this_obj);
-    }};
-
-        // INVENTORY TABLE
-    let table_inv = document.getElementById("table_1");
-
-
-    generateTable(table_1, set_inventory);
-    generateTableHead();
-   // update_table_ids();    
-} */
 
 // Clear localStorage & reload page
 function reset() {
@@ -341,18 +240,13 @@ function init_local_inventory(x) {
 // Update inventory table with localStorage.local_inv
 function update_inv() { 
     console.log("starting update_inv");
-
-    // generate table head only if absent
-    let x = !!document.getElementById("Item");
-    if (x === true) {
-    } else {
-    generateTableHead();
-    };
-
-    // build table
     let r = abstract_hist(inv_count());
-    generateTable(table_1, r);
-}
+
+    // get document ids
+    for ( i of r ) {
+        let x = i.item_name;
+        document.getElementById(x).innerHTML = i.qua;
+    }}
 
 // PAGE LOAD
 function load_salvage() {
@@ -369,7 +263,7 @@ function load_salvage() {
     }
 }
 
-// sets "count" for inventory table
+// pull item count for update_inv
 function inv_count() {
     console.log("inv_count");
     let r = get_storage("user_inv");
@@ -386,25 +280,10 @@ function inv_count() {
             hist[x] = 1;
         }}
 
-/*     for ( i of r ) {
-        for ( j of hist ) {
-            obj = {};
-            let x = i.item_name;
-            let y = j.item_name;
-            if ( x === y ) {
-                j.qua = j.qua + 1;
-                console.log(j.item_name);
-                console.log(j.qua);
-            } else {
-                obj["item_name"] = i.item_name;
-                obj["qua"] = 1;
-                hist.push(obj);
-            }
-        }
-    } */
     return hist;
 }
 
+// puts inventory count into array of objects for update_inv
 function abstract_hist(inv_count) {
     let hist = inv_count;
     let obj = {};
@@ -412,9 +291,7 @@ function abstract_hist(inv_count) {
     let inv_table = [];
     
     for ( let [key, value] of Object.entries(hist)) {
-
         obj = make_obj(key, value)
-
         inv_table.push(obj);
         obj = {};
     };
@@ -485,6 +362,10 @@ function create_item(type) {
     set_storage("user_inv", r);
 }
 
+
+// EVENT HANDLER
+
+let salvage_parent_btn = document.getElementById('salvage_parent_btn').addEventListener('click', SalvageClick);
 
 
 

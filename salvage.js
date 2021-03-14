@@ -62,7 +62,7 @@ function looting(obj) {
     let shortlist = [];
 
     // determine quantity of finds
-    let count = dice(4,3);
+    let count = dice(2,3);
 
     // for # of finds
     for (c = 0; c < count; c++) {
@@ -91,7 +91,7 @@ function looting(obj) {
 
             // ADD TO INVENTORY list ***
             // ===== update to get info from det_inv
-            increase_item(item_find.name, 1);
+
             increase_msg = " +1 "  + item_find.name + " /h." + item_find.health;
 
             // ADD TO det_inv
@@ -109,6 +109,7 @@ function looting(obj) {
             messages.push(i);
         }
     
+        update_inv();
         set_terminal_message();
 }
 
@@ -150,7 +151,7 @@ function get_rand_int(min, max) {
 }
 
 // increases local_inv
-function increase_item(item, quantity) {
+/* function increase_item(item, quantity) {
 
     let l = count;
     console.log(l);
@@ -166,11 +167,12 @@ function increase_item(item, quantity) {
     localStorage.setItem("local_inv", JSON.stringify(l));
  
     update_inv()
-}
+} */
 
 // adds to user_inv
 function add_item(name, health) {
-    let r = JSON.parse(localStorage.getItem("user_inv"));
+    
+    let r = get_storage("user_inv");
     
     // get item number of new item
     itemNo = r.length;
@@ -181,7 +183,8 @@ function add_item(name, health) {
     this_obj["health"] = health;
     r.push(this_obj);
 
-    localStorage.setItem("user_inv",JSON.stringify(r));
+    set_storage("user_inv", r);
+
 }
 
 function disable_btns() {
@@ -348,8 +351,6 @@ function update_inv() {
 
     // build table
     let r = abstract_hist(inv_count());
-    console.log("frogg")
-    console.log(r)
     generateTable(table_1, r);
 }
 
@@ -370,29 +371,20 @@ function load_salvage() {
 
 // sets "count" for inventory table
 function inv_count() {
+    console.log("inv_count");
     let r = get_storage("user_inv");
-    console.log("user_inv = ");
-    console.log(r);
     let obj = {};
     let hist = {
         wire_bundle : 0
     };
-    console.log(hist)
 
     for ( i of r ) {
-        console.log(i.item_name)
         let x = i.item_name;
         if (x in hist) {
-            console.log("yes");
             hist[x] = hist[x] + 1;
-            console.log(hist[x])
-
         } else {
-            console.log("no");
             hist[x] = 1;
-            console.log(hist[x]);
-        }
-    }
+        }}
 
 /*     for ( i of r ) {
         for ( j of hist ) {
@@ -410,17 +402,13 @@ function inv_count() {
             }
         }
     } */
-
-    console.log("hist = ");
-    console.log(hist);
     return hist;
 }
 
 function abstract_hist(inv_count) {
     let hist = inv_count;
     let obj = {};
-    console.log("you are here")
-    console.log(hist)
+    console.log("abstract_hist")
     let inv_table = [];
     
     for ( let [key, value] of Object.entries(hist)) {
@@ -428,18 +416,15 @@ function abstract_hist(inv_count) {
         obj = make_obj(key, value)
 
         inv_table.push(obj);
-        console.log(inv_table)
         obj = {};
     };
 
     function make_obj(k, v) {
-        console.log(k, v);
         obj["item_name"] = k;
         obj["qua"] = v;
         return obj;
     };
 
-    console.log(inv_table)
     return inv_table;
     
         

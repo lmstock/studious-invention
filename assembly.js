@@ -254,7 +254,7 @@ function submit_selection() {
 
 
 
-function gen_rand_assembly(lot) {};
+
 
   // EVENTS
 

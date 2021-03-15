@@ -4,10 +4,14 @@ function init_vars() {
 // VARIABLES
 
 let bots_list = [];
-let misc_list = [];
+
 let lots = [];
-let user_inv = [1];
+let user_inv = [];
 let messages = [];
+
+let tracking = {
+    id_num : 0
+};
 
 
 class Item {
@@ -36,8 +40,8 @@ let cityDump_loot = {
     rechargeable_batteries: [18,24],
     hardware_bits: [25,40],
     plastic_framing: [41,48],
-    mounting_brackets: [ 49,56],
-    misc: [57,60],
+    mounting_brackets: [ 49,60],
+    // misc: [57,60],
     claw: [61,69],
     screwdriver: [70,78],
     pliers: [79,85],
@@ -52,8 +56,8 @@ let junkyard_loot = {
     rechargeable_batteries: [18,24],
     hardware_bits: [25,40],
     plastic_framing: [41,48],
-    mounting_brackets: [49,56],
-    misc: [57,60],
+    mounting_brackets: [49,60],
+    // misc: [57,60],
     claw: [61,69],
     screwdriver: [70,78],
     pliers:	[79,85],
@@ -79,9 +83,9 @@ let junkyard = new Lot("junkyard", "lot", "junkyard_btn", 3000, junkyard_loot);
 set_storage("user_inv", user_inv);
 set_storage("lots", lots);
 set_storage("manuals", manuals);
+set_storage("tracking", tracking);
 
-localStorage.setItem("bots_list", JSON.stringify(bots_list));
-localStorage.setItem("misc_list", JSON.stringify(misc_list));
+
 localStorage.setItem("messages", JSON.stringify(messages));
 
 }

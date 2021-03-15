@@ -48,12 +48,9 @@ function finish_cooldown(obj) {
 function looting(obj) {
     console.log("looting function")
 
-    let u = JSON.parse(localStorage.getItem("user_inv"));
-    let misc_list = JSON.parse(localStorage.getItem('misc_list'));
-    let assembly_list = JSON.parse(localStorage.getItem('assembly_list'));
+    let u = get_storage("user_inv");
     let item_find = 0;
 
-    
     // part of messages
     let shortlist = [];
 
@@ -64,7 +61,7 @@ function looting(obj) {
     for (c = 0; c < count; c++) {
 
         item_find = generate_item(obj);
-
+        console.log(item_find)
 
         // Change font color for tiers, misc = blue, assembly = warm        
                 // Misc Selections
@@ -76,10 +73,10 @@ function looting(obj) {
                     shortlist.push(misc_message);
                 }
 
-            increase_msg = " +1 "  + item_find.name + " /h." + item_find.health;
+            increase_msg = " +1 "  + item_find.item_name + " /h." + item_find.health;
 
-            // ADD TO det_inv
-            add_item(item_find.name, item_find.health)
+            // add new item to user_inv
+            u.push(item_find);
 
             // adds new msg to list 
             shortlist.push(increase_msg);    
@@ -93,6 +90,7 @@ function looting(obj) {
             messages.push(i);
         }
     
+        set_storage("user_inv", u);
         update_inv();
         set_terminal_message();
 }
@@ -112,16 +110,26 @@ function generate_item(lot) {
 
         if (x >= min && x <= max) {
             name = element[0];
-        }   
 
-    // roll for health
-    let h = dice(5,20);
+            // roll for health
+            let h = dice(5,20);
 
-    new_item.name = name;
-    new_item.health = h;
+            let id = get_item_no();
 
+            new_item.item_name = name;
+            new_item.health = h;
+            new_item.id = id;
+        } 
     })
-    return new_item;
+    return new_item;  
+}
+
+function get_item_no() {
+    let n = get_storage("tracking");
+    console.log(typeof(n.id_num));
+    n.id_num = n.id_num + 1;
+    set_storage("tracking", n);
+    return n.id_num
 }
 
 function set_terminal_message() {
@@ -134,22 +142,18 @@ function get_rand_int(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function add_item(name, health) {
+/* function add_item(name, health, id) {
     
     let r = get_storage("user_inv");
-    
-    // get item number of new item
-    itemNo = r.length;
 
     let this_obj = {};
-    this_obj["id"] = itemNo;
+    this_obj["id"] = id;
     this_obj["item_name"] = name;
     this_obj["health"] = health;
     r.push(this_obj);
 
     set_storage("user_inv", r);
-
-}
+} */
 
 function disable_btns() {
     console.log("disable buttons")
@@ -250,14 +254,16 @@ function update_inv() {
 
 // PAGE LOAD
 function load_salvage() {
-    console.log("page load_salvage")
+    console.log("function load_salvage")
 
+    // update inventory if local storage is not empty
     if (localStorage.length != 0) {
         update_inv();
 
+    // set up game if local storage is empty
     } else {
         init_vars();
-        create_initial_inv();
+        // create_initial_inv();
         enable_btns();
         update_inv();
     }
@@ -322,7 +328,8 @@ function get_storage(list) {
     return l;
 }
 
-function create_initial_inv() {
+// Queued for removal
+/* function create_initial_inv() {
     console.log("function create_initial_inv");
     let r = [];
     let id = 1;
@@ -342,16 +349,21 @@ function create_initial_inv() {
     make("hardware_bits")
 
     set_storage("user_inv", r);
-}
+} */
 
-function create_item(type) {
+// Queued for removal
+/* function create_item(type) {
     console.log("function create_item()");
+
     let r = get_storage("user_inv");
-    console.log(r)
-    let id = r[0];
+    let n = get_storage("tracking");
+
+
+    let id = n.id_num;
+    console.log(id)
 
     // increment id
-    r[0] = r[0] + 1;
+    id = id + 1;
 
     let obj = {};
     obj["item_name"] = type;
@@ -360,7 +372,8 @@ function create_item(type) {
     r.push(obj);
 
     set_storage("user_inv", r);
-}
+    set_storage("tracking", id);
+} */
 
 
 // EVENT HANDLER

@@ -4,11 +4,8 @@ function init_vars() {
 // VARIABLES
 
 let bots_list = [];
-
 let lots = [];
 let user_inv = [];
-let messages = [];
-
 let tracking = {
     id_num : 0
 };
@@ -75,6 +72,7 @@ let manuals = [
 
 
 
+
 // define lots
     // add new lots to SalvageClick function
 let cityDump = new Lot("city dump", "lot", "cityDump_btn", 3000, cityDump_loot);
@@ -84,15 +82,4 @@ set_storage("user_inv", user_inv);
 set_storage("lots", lots);
 set_storage("manuals", manuals);
 set_storage("tracking", tracking);
-
-
-localStorage.setItem("messages", JSON.stringify(messages));
-
 }
-
-
-
-// HTML Elements
-let terminal = document.getElementById("terminal");
-
-

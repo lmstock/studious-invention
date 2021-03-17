@@ -16,9 +16,18 @@ ROBOT NOTES:
 
 	*DO THIS NEXT*
 		
-		restructure assemblies
-		style up terminal / overhaul messages
-		ads should work on all pages
+		Salvage
+			add soldering iron
+			re-add misc
+
+		Assembly 
+			restructure assemblies
+				readd to salvaging
+			styles to terminal / overhaul messages
+			ads should work on all pages
+
+		Repairs
+
 	
 	more ads
 		Cherry ad slots
@@ -29,9 +38,6 @@ ROBOT NOTES:
 
 	handle compromises:
 		underscore in table names
-		prevent assembly and misc from appearing in table
-		test new pages
-
 
 RESEARCH:
 
@@ -43,7 +49,7 @@ RESEARCH:
 	
 ADS SECTION:
 	A small side art project. Homebrew ads. 
-		possibly link to other pages
+		link to other pages
 		slots mechanism using atomic cherry ad
 			TODO: allow atomic cherry to duplicate (browser alert)
 
@@ -68,7 +74,7 @@ ADS SECTION:
 CSS: 
 	  mobile
 	  tigers bots
-	  pages
+	  pages tidy
 
 JS:
 
@@ -131,3 +137,29 @@ Repairs page -
 
 Reference page -
 
+Notes -
+	
+
+assembly:
+	displays table of user items: Id, Item_name, and health
+
+	second column contains radio buttons for all sub assemblies.
+
+		when selected:
+			the submit button will be enabled
+			the debug box will display information about the part
+			the space below the submit button will populate 
+				with list of ingredients for selected item 
+				users actual inventory of each ingredient presented as radio buttons
+
+		The user should be able to select the ingredients from their inventory
+		in this way and on clicking the submit button, the items will be 
+		pulled from the inventory and grouped into the assembly with name and 
+		health being automatically calculated.
+
+	do completed subassemblies belong in this inventory table?
+
+	how to generate ids for subassemblies 
+		use tracking in LS. starts with s; "S1", "S2", etc.
+
+	health - uses the avg of the ingredients. wear and tear happens to the ingredients.

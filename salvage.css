@@ -9,15 +9,21 @@ body {
     padding: 0;
 }
 
-table, th, td {
+table {
     outline-style: solid;
     outline-color: lightslategray;
     width: 100%;
-    outline-width: 1px;
+
 }
 
 #inv_label {
     padding: 5px;
+}
+
+th, td {
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: lightslategray;
 }
 
 .header, .footer, .ads {

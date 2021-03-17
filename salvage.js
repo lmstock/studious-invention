@@ -2,47 +2,26 @@
 // FUNCTIONS
 
 function start_cooldown(obj) {
-    console.log("start_cooldown" + obj.name);
+    console.log("start_cooldown " + obj.name);
 
-   // refresh terminal to current activity
     clr_term();
-    messages.push(obj.cool_msg);
-    set_terminal_message();
+    set_terminal_message(obj.cool_msg);
+    disable_btns();
 
-    //disables all btns
-    // will need changed to salvage only btns when this can be automated in game
-    disable_btns()
-
-    // Anonymous function to send arguments into and start second function
-      start_timer()
+    // Send arguments into and start second function
     function start_timer() {
         setTimeout(function() {finish_cooldown(obj);},obj.cooldown); 
     }
+
+    start_timer();
 }
 
 function finish_cooldown(obj) {
     console.log("finish_cooldown function ");
 
     clr_term();
-
-    if (obj.type === "lot") {
-        looting(obj);
-    } 
-
-    // may not need these ---
-    if (obj.type === "assembly") {
-        craft(obj);
-    }  else {};    
-
-    if (obj.type === "bot") {
-        craft(obj);
-    }  else {};  
-    // ----------------------
-
-    //re-set button states
-    enable_btns()
-    // check_craft_buttons()
-    
+    looting(obj);
+    enable_btns();
 }
 
 function looting(obj) {
@@ -50,9 +29,9 @@ function looting(obj) {
 
     let u = get_storage("user_inv");
     let item_find = 0;
+    let msglist = [];
 
-    // part of messages
-    let shortlist = [];
+    set_terminal_message("Your rummaging yields: <br><br>");
 
     // determine quantity of finds
     let count = dice(2,3);
@@ -65,34 +44,24 @@ function looting(obj) {
 
         // Change font color for tiers, misc = blue, assembly = warm        
                 // Misc Selections
-                if (item_find === "misc") {
+/*                 if (item_find === "misc") {
                     select = get_rand_int(0, misc_list.length - 1);
                     item_find = misc_list[select].name;
 
                     misc_message = "<br>You found a " + item_find + "!";
                     shortlist.push(misc_message);
-                }
-
+                } */
+            
             increase_msg = " +1 "  + item_find.item_name + " /h." + item_find.health;
+            msglist.push(increase_msg);
 
             // add new item to user_inv
             u.push(item_find);
-
-            // adds new msg to list 
-            shortlist.push(increase_msg);    
     }
-
-        // adds terminal message to list
-        shortlist.unshift("Your rummaging yields: <br>");
-
-        // updates messages
-        for (i of shortlist) {
-            messages.push(i);
-        }
     
         set_storage("user_inv", u);
         update_inv();
-        set_terminal_message();
+        set_terminal_message(msglist);
 }
 
 function generate_item(lot) {
@@ -132,11 +101,19 @@ function get_item_no() {
     return n.id_num
 }
 
-function set_terminal_message() {
-    for (i of messages) {
-        terminal.innerHTML += i + "<br>";
+// accepts array as parameter
+function set_terminal_message(msg) {
+    let terminal = document.getElementById("terminal");
+    let msg_type = typeof(msg);
+    if ( msg_type === "string" ) {
+        terminal.innerHTML = msg;
     }
-}
+
+    if (msg_type === "object" ) {
+        for ( i of msg ) {
+            terminal.innerHTML += i + "<br>";
+        }
+    }}
 
 function get_rand_int(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -382,5 +359,11 @@ let salvage_parent_btn = document.getElementById('salvage_parent_btn').addEventL
 
 
 
+function test(thisArray) {
+    console.log(typeof(thisArray));
+}
 
-
+let ray = ["this is an array", "a list of things"];
+let strings = "this is a string";
+test(strings)
+test(ray)

@@ -8,17 +8,14 @@ function get_storage(list) {
 }
 
 function load_assembly() {
-
-    // get local_inv from localStorage
-    let r = JSON.parse(localStorage.getItem("user_inv"));
-    console.log(r)
-
+    console.log("load_assembly");
+    let r = get_storage("user_inv");
     a_generateTable(table_2, r);
 }
 
 function a_generateTable(table, data) {
+    console.log("a_generateTable")
     for ( let x of data) {
-        console.log(x.item_name)
         let row = table.insertRow();
 
         let cell_id = row.insertCell();
@@ -43,15 +40,20 @@ function radio_check(e) {
     let a = get_storage("manuals");
     let r = get_storage("user_inv");
 
-    // Information about selection posted to terminal
+    // Post information about selection in debug window
     debug.textContent = "Information about the " + radio_target;
 
-    // Clear DOM section
+    // Clear ingredients section
     clear_section('ing_section');
 
-    // for assembly selection
-    for (i of a) {
-        if (i.name === radio_target) {
+
+    // YOU ARE HERE TRYING TO MATCH SELECTION WITH CORRECT MANUAL
+    // loop through manuals
+    for (i in a) {
+        console.log(i)
+        if (i === radio_target) {
+
+            console.log("yes")
 
             // Print Assembly Subheading
             let a_head = document.createElement('h3');
@@ -90,7 +92,7 @@ function radio_check(e) {
 // disable submit button until all ingredients are selected
 sub_btn = document.getElementById("submit_btn").disabled = false;
 
-  // Clear ing_section
+// Clear ing_section
 function clear_section(section) {
     const parent = document.getElementById(section);
     while (parent.firstChild) {
@@ -242,7 +244,6 @@ function submit_selection() {
 } // End submit_selection
 
 function reset() {
-    
     localStorage.clear();
     location.reload();
     window.alert("Your game has been reset.")
@@ -252,14 +253,13 @@ function reset() {
 
   // EVENTS
 
-  // displays assembly info when new radio button is selected
+// displays assembly info when new radio button is selected
 const assembly_radio = document.getElementById('assembly_radio').addEventListener('input', radio_check);
+
+
 const submit = document.getElementById('submit_btn').addEventListener('click', submit_selection);
 
 const log = document.getElementById('terminal');
 
-
-      // UTILIZE ARROW FUNCTIONS
-      // LOOK BACK FOR OTHER OPPORTUNITES TO RETURN
 
 

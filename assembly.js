@@ -37,7 +37,7 @@ function a_generateTable(table, data) {
 // take input from assembly selection and display required ingredients
 function radio_check(e) {
     let radio_target = e.target.value;
-    let a = get_storage("manuals");
+    let manual = get_storage("manuals");
     let r = get_storage("user_inv");
 
     // Post information about selection in debug window
@@ -46,62 +46,75 @@ function radio_check(e) {
     // Clear ingredients section
     clear_section('ing_section');
 
+    // Selection
+    console.log("target = " + radio_target);
+    let selection = {};
 
-    // YOU ARE HERE TRYING TO MATCH SELECTION WITH CORRECT MANUAL
-    // loop through manuals
-    for (i in a) {
-        console.log(i)
-        if (i === radio_target) {
-
-            console.log("yes")
-
-            // Print Assembly Subheading
-            let a_head = document.createElement('h3');
-            let newline = document.createElement('br');
-            a_head.textContent = radio_target;
-            ing_section.appendChild(a_head);
-            ing_section.appendChild(newline);
-
-            // for each ingredient
-            Object.keys(i.ingredients).forEach(element => {
-
-                // ingredient heading
-                let i_head = document.createElement('h4');
-                i_head.textContent = element;
-                ing_section.appendChild(i_head);
-
-                // get user inventory of 
-                for (x of r) {
-                    if (x.item_name === element) {
-
-                        // if none of ingredient, add to info box
-
-                        // create radio buttons for user's set of ingredient
-                        let name = x.item_no + " - " + x.item_name + " - h." + x.health
-                        create_radio(x.item_name, name, x.item_no);
-                    }
-                }
-
-            // space between ingredient selection sections    
-            let newline = document.createElement('br');
-            ing_section.appendChild(newline);
-        })
+    if ( radio_target === "power_subsystem" ) {
+        selection = manual[0].power_subsystem;
+        console.log(selection)
     }
-}}
 
-// disable submit button until all ingredients are selected
+    if ( radio_target === "controller_assembly" ) {
+        selection = manual[1].controller_assembly;
+        console.log(selection)
+    }
+
+    if ( radio_target === "small_chassis" ) {
+        selection = manual[2].small_chassis;
+        console.log(selection)
+    }
+
+    if ( radio_target === "arm_assembly" ) {
+        selection = manual[3].arm_assembly;
+        console.log(selection)
+        }
+
+    // Print Assembly Subheading
+    let assembly_header = document.createElement('h3');
+    let newline = document.createElement('br');
+    assembly_header.textContent = radio_target;
+    ing_section.appendChild(assembly_header);
+    ing_section.appendChild(newline);
+
+    for ( i in selection ) {
+        console.log(i)
+    
+        // Ingredient Heading
+        let ingredient_header = document.createElement('h4');
+        ingredient_header.textContent = i;
+        ing_section.appendChild(ingredient_header);
+
+                // Get User Inventory 
+                for (x of r) {
+                    if (x.item_name === i) {
+
+                        // IF MISSING INGREDIENTS, ADD TO INFO BOX
+
+                        // Create Radio Buttons for User's Set of Ingredient
+                        let name = x.id + " - " + x.item_name + " - h." + x.health
+                        create_radio(x.item_name, name, x.id);
+                    }}
+
+            // Add space between ingredient radio button sections    
+            let newline = document.createElement('br');
+            ing_section.appendChild(newline);
+            }
+    }
+    
+// TODO
+// DISABLE SUBMIT BUTTON UNTIL ALL INGREDIENTS ARE SELECTED
 sub_btn = document.getElementById("submit_btn").disabled = false;
+
 
 // Clear ing_section
 function clear_section(section) {
     const parent = document.getElementById(section);
     while (parent.firstChild) {
         parent.firstChild.remove();
-    }
-}
+    }}
   
-// Set one as default
-  // Creates radio button
+// Creates Radio Button
 function create_radio(id, text, id_num) {
       let radiobox = document.createElement('input');
       radiobox.type = 'radio';
@@ -109,7 +122,7 @@ function create_radio(id, text, id_num) {
       radiobox.name = id;  // group
       radiobox.value = id;  // input
 
-      let label = document.createElement('label');  // 
+      let label = document.createElement('label'); 
       label.htmlFor = id;
 
       let description = document.createTextNode(text + " ");
@@ -124,6 +137,9 @@ function create_radio(id, text, id_num) {
       container.appendChild(newline);
   }
 
+
+
+  // YOU ARE HERE
   function craft(obj) {
     // Removes ingredients from inventory (localStorage);
     Object.keys(obj.ingredients).forEach(element => {

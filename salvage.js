@@ -34,7 +34,7 @@ function looting(obj) {
     set_terminal_message("Your rummaging yields: <br><br>");
 
     // determine quantity of finds
-    let count = dice(2,3);
+    let count = dice(9,9);
 
     // for # of finds
     for (c = 0; c < count; c++) {
@@ -71,6 +71,7 @@ function generate_item(lot) {
 
     // roll for item
     let x = dice(1,100);
+    console.log(x)
 
     // cycle through loot list and returns item
     Object.entries(lot.loot).forEach(element => {
@@ -226,6 +227,7 @@ function update_inv() {
     // get document ids
     for ( i of r ) {
         let x = i.item_name;
+        console.log(x);
         document.getElementById(x).innerHTML = i.qua;
     }}
 

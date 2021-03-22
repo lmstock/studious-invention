@@ -3,11 +3,14 @@ function init_vars() {
 
 // VARIABLES
 
-let bots_list = [];
 let lots = [];
 let user_inv = [];
+let assemblies_list = [];
+let bots_list = [];
 let tracking = {
-    id_num : 0
+    id_num : 0,
+    id_assembly : 0,
+    id_bot : 0
 };
 
 
@@ -43,7 +46,7 @@ let cityDump_loot = {
     screwdriver: [70,78],
     pliers: [79,85],
     gear_set: [86, 90],
-    CTREMCAT1_board: [90,100],
+    CTREMCAT1_board: [90,100]
     //assembly: [98,100]
 }
 
@@ -59,16 +62,42 @@ let junkyard_loot = {
     screwdriver: [70,78],
     pliers:	[79,85],
     gear_set: [86,90],
-    CTREMCAT1_board: [90,100],
+    CTREMCAT1_board: [90,100]
     //assembly: [98,100],
 }
 
-let manuals = [
-    {power_subsystem : {wire_bundle: 1, electronic_components: 1, rechargeable_batteries: 1}},
-    {controller_assembly : {wire_bundle: 1, CTREMCAT1_board: 1}},
-    {small_chassis : {plastic_framing: 1, hardware_bits: 1, mounting_brackets: 1}},
-    {arm_assembly : {wire_bundle: 1, plastic_framing: 1, hardware_bits: 1, electronic_components: 1, gear_set: 1}}
-];
+var manuals = {
+
+    power_subsystem : 
+        {
+            "wire_bundle" : 1,
+            "electronic_components" : 1,
+            "rechargeable_batteries" : 1
+        },
+    
+    controller_assembly : 
+        {
+            "wire_bundle" : 1,
+            "CTREMCAT1_board" : 1
+        },
+        
+
+    small_chassis : 
+        {
+            "plastic_framing" : 1,
+            "hardware_bits" : 1,
+            "mounting_brackets" : 1
+        },
+
+    arm_assembly : 
+        {
+            "wire_bundle" : 1,
+            "plastic_framing" : 1,
+            "hardware_bits" : 1,
+            "electronic_components" : 1,
+            "gear_set" : 1
+        }
+};
 
 
 
@@ -82,4 +111,5 @@ set_storage("user_inv", user_inv);
 set_storage("lots", lots);
 set_storage("manuals", manuals);
 set_storage("tracking", tracking);
+set_storage("assemblies_list");
 }

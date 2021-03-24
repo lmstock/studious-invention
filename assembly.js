@@ -1,21 +1,31 @@
 function set_storage(name, list) {
-    localStorage.setItem(name, JSON.stringify(list))
+    localStorage.setItem(name, JSON.stringify(list));
 }
 
 function get_storage(list) {
+    try {
     let l = JSON.parse(localStorage.getItem(list));
     return l;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function load_assembly() {
     console.log("load_assembly");
-    let r = get_storage("user_inv");
-    a_generateTable(table_2, r);
+    refresh_table()
 }
 
-function a_generateTable(table, data) {
+function refresh_table() {
+    a_generateTable(table_2);
+}
+
+function a_generateTable(table) {
     console.log("a_generateTable")
-    for ( let x of data) {
+
+    let r = get_storage("user_inv");
+
+    for ( let x of r) {
         let row = table.insertRow();
 
         let cell_id = row.insertCell();
@@ -31,66 +41,22 @@ function a_generateTable(table, data) {
         cell_health.appendChild(text_health)
     }}
 
-
-// Assembly Section
-
-// take input from assembly selection and display required ingredients
+// On radio button selection, display user's available ingredients
 function radio_check(e) {
     let radio_target = e.target.value;
-    //let manual = get_storage("manuals");
-    let r = get_storage("user_inv");
 
     // Post information about selection in debug window
     debug.textContent = "Information about the " + radio_target;
 
-    // Clear ingredients section
+    // Clear ingredients section of previous content
     clear_section('ing_section');
 
     // Selection
-    console.log("target = " + radio_target);
-
     let selection = get_selection(radio_target);
+    sub_heading(radio_target);
 
-    // Print Assembly Subheading
-    let assembly_header = document.createElement('h3');
-    let newline = document.createElement('br');
-    assembly_header.textContent = radio_target;
-    ing_section.appendChild(assembly_header);
-    ing_section.appendChild(newline);
-
-    for ( i in selection ) {
-    
-        // Ingredient Heading
-        let ingredient_header = document.createElement('h4');
-        ingredient_header.textContent = i;
-        ing_section.appendChild(ingredient_header);
-
-            // Display User Inventory 
-            let count = 0;
-            for (x of r) {
-                
-                if (x.item_name === i) {
-                    count = count + 1;
-
-                    // Create Radio Buttons for User's Set of Ingredient
-                    let name = " " + x.id + " - " + x.item_name + " - h." + x.health
-                    create_radio(x.item_name, name, x.id);
-                    
-                    // Set first button as default checked
-                    if ( count === 1 ) {
-                        document.getElementsByName(i)[0].checked = true;
-                    }
-                }}
-
-            // Add space between ingredient radio button sections    
-            let newline = document.createElement('br');
-            ing_section.appendChild(newline);
-            }
-    }
-    
-// TODO
-// DISABLE SUBMIT BUTTON UNTIL ALL INGREDIENTS ARE SELECTED
-sub_btn = document.getElementById("submit_btn").disabled = false;
+    display_parts(selection);
+}
 
 // Returns user ingredient selection from radio button
 function get_selection(target) {
@@ -155,72 +121,23 @@ function create_radio(id, text, id_num) {
 function craft_assembly(assembly_name, obj_list) {
     console.log("function = craft()")
     new_item = {};
-    parts_list = [];
-
-    let r = get_storage("user_inv");
+    
     let track = get_storage("tracking");
     let a = get_storage("assemblies_list")
 
     // Set New Assembly Name
-    new_item.name = assembly_name;
-    console.log("new_item.name = " + new_item.name);
+    item_name = assembly_name;
 
     // Set New Assembly Id Number
     track.id_assembly = track.id_assembly + 1;
     let assembly_id = "P" + track.id_assembly;
-    console.log(assembly_id + " " + track.id_assembly);
     set_storage("tracking", track);
 
-    // Set New Assembly Parts List
-    console.log(obj_list);
-    for ( id of obj_list ) {
-        id = parseInt(id, 10);
-        console.log("for id in obj_list " + id)
-        for ( part of r ) {
-            if ( part.id === id ) {
-                console.log("yes " + part.id + part.item_name + part.health)
-                parts_list.push(part);
-            }  
-        }
-    }
-
-    // Calculate Assembly Health
-    function get_health(parts_list) {
-        let count = 0;
-        let total = 0;
-        for ( i of parts_list ) {
-            count = count + 1;
-            total = total + i.health;
-        }
-
-        let health = total / count;
-        console.log("health = " + health)
-        return health
-    }
-
-    console.log(parts_list)
-    new_item.parts_list = parts_list;
-    new_item.id = assembly_id;
-    new_item.health = get_health(parts_list)
-    console.log(new_item)
+    create_parts_list(obj_list);
+    a.push(new_assembly(item_name, assembly_id, parts_list))
+    set_storage("assemblies_list", a)
+    remove_parts(parts_list);
     
-   
-    
-/*
-
-assembly structure:
-
-assembly_list = {
-    assembly_name : x,
-    health : 50,
-    id_num : P0
-    parts_list : {obj, obj, obj}
-}
-
-*/
-
-    // Add to Storage
-
     // Refresh Terminal to Current Activity
     clr_term();
     // set_terminal_message();
@@ -230,34 +147,20 @@ assembly_list = {
 function submit_selection() {
     console.log('function = submit button');
 
-    // Access user_inv and assembly_list 
-    let manual = get_storage("manuals");
-    let r = get_storage("user_inv");
-
     // Assembly Selection Assignment
     let radio_target = get_checked_value("assembly");
-    let selection = get_selection(radio_target);
-    console.log("selection = ");
-    console.log(selection);
-
-    // Parts Assignment List
-    let assignment_list = []
-
-    for ( i in selection ) {
-        let x = get_checked_value(i);
-        x = parseInt(x, 10);  // ? still come out as strings in craft function
-        assignment_list.push(x);
-        console.log(typeof(x))
-
-    }
+    let assignment_list = get_assignment_list(get_selection(radio_target));
 
     craft_assembly(radio_target, assignment_list);
 
-    // Remove these items from user_inv and add to object
-    // console.log(assignment_list);
+    // Clear ingredients section of previous content
+    clear_section('ing_section');
 
+    // Refresh Table
+    a_generateTable(table_2);
 
-} // End submit_selection
+    refresh_parts();
+}
 
 function reset() {
     localStorage.clear();
@@ -275,6 +178,156 @@ function get_checked_value(group_name) {
     }
 }
 
+function calc_health(parts_list) {
+    console.log("function calc_health");
+    let count = 0;
+    let total = 0;
+    for ( i of parts_list ) {
+        count = count + 1;
+        total = total + i.health;
+    }
+
+    let health = total / count;
+    return health
+}
+
+// REMOVE PARTS FROM INVENTORY
+function remove_parts(parts_list) {
+    let r = get_storage("user_inv");
+    console.log("function remove_parts");
+    
+    for ( p of parts_list ) {
+
+        function match_id() {
+        for ( i of r ) {
+            if ( p.id === i.id ) {
+                return i
+                } else {};
+            }
+        }
+
+        let x = r.indexOf(match_id());
+        r.splice(x, 1)
+    }
+
+    set_storage("user_inv", r);
+}
+
+function new_assembly(name, id, parts_list) {
+    console.log("function new_assembly")
+    new_item = {}
+
+    new_item.item_name = name;
+    new_item.id = id;
+    new_item.parts_list = parts_list;
+    new_item.health = calc_health(parts_list)
+    
+    return new_item
+} 
+
+// Create list of users inventory by type; assignment_list
+function get_assignment_list(selection) {
+    let assignment_list = []
+
+    for ( i in selection ) {
+        let x = get_checked_value(i);
+        x = parseInt(x, 10); 
+        assignment_list.push(x);
+    }
+    return assignment_list
+    }
+
+function create_parts_list(obj_list) {
+    let r = get_storage("user_inv");
+    parts_list = [];
+
+    // Set New Assembly Parts List
+    for ( id of obj_list ) {
+        id = parseInt(id, 10);
+
+        for ( part of r ) {
+            if ( part.id === id ) {
+                parts_list.push(part);
+            }  
+        }
+    }
+    return parts_list
+    }
+
+// Print Assembly Subheading
+function sub_heading(target) {
+    console.log("function sub_heading")
+
+    let assembly_header = document.createElement('h3');
+    let newline = document.createElement('br');
+    assembly_header.textContent = target;
+    ing_section.appendChild(assembly_header);
+    ing_section.appendChild(newline);
+    }
+
+// Reprint Assembly Options after submission
+function refresh_parts() {
+
+    // Clear ingredients section of previous content
+     clear_section('ing_section');
+
+    let selection = get_selection(get_checked_value("assembly"));
+    display_parts(selection);
+    }
+
+function display_parts(selection) {
+    console.log("function display_parts");
+    let r = get_storage("user_inv");
+    let sub_btn = 1;
+
+    for ( i in selection ) {
+    
+        // Ingredient Heading
+        let ingredient_header = document.createElement('h4');
+        ingredient_header.textContent = i;
+        ing_section.appendChild(ingredient_header);
+
+            // Display User Inventory 
+            let count = 0;
+            for (x of r) {
+                
+                if (x.item_name === i) {
+                    count = count + 1;
+
+                    // Create Radio Buttons for User's Set of Ingredient
+                    let name = " " + x.id + " - " + x.item_name + " - h." + x.health
+                    create_radio(x.item_name, name, x.id);
+                    
+                    // Set first button as default checked
+                    if ( count === 1 ) {
+                        document.getElementsByName(i)[0].checked = true;
+                }
+                } 
+            }
+
+            // will disable submit button if an ingredient is missing
+            if ( count === 0 ) {
+                sub_btn = 0;
+            }
+
+            // Add space between ingredient radio button sections    
+            let newline = document.createElement('br');
+            ing_section.appendChild(newline);
+            }
+
+        if ( sub_btn === 0 ) {
+            console.log("check sub_btn: " + sub_btn)
+            document.getElementById("submit_btn").disabled = true;
+
+        } else {
+                document.getElementById("submit_btn").disabled = false;   
+        }
+
+        console.log("end display_parts")
+}
+
+
+
   // EVENTS
 
 // displays assembly info when new radio button is selected
@@ -283,6 +336,4 @@ const assembly_radio = document.getElementById('assembly_radio').addEventListene
 const submit = document.getElementById('submit_btn').addEventListener('click', submit_selection);
 
 const log = document.getElementById('terminal');
-
-
 

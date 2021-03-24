@@ -34,7 +34,7 @@ function looting(obj) {
     set_terminal_message("Your rummaging yields: <br><br>");
 
     // determine quantity of finds
-    let count = dice(9,9);
+    let count = dice(2,3);
 
     // for # of finds
     for (c = 0; c < count; c++) {
@@ -227,7 +227,6 @@ function update_inv() {
     // get document ids
     for ( i of r ) {
         let x = i.item_name;
-        console.log(x);
         document.getElementById(x).innerHTML = i.qua;
     }}
 

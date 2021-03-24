@@ -36,7 +36,7 @@ class Lot extends Item {
 
 let cityDump_loot = {
     wire_bundle: [1,8],
-    electronic_components: [9,16],
+    electronic_components: [9,17],
     rechargeable_batteries: [18,24],
     hardware_bits: [25,40],
     plastic_framing: [41,48],
@@ -46,14 +46,14 @@ let cityDump_loot = {
     screwdriver: [70,78],
     pliers: [79,85],
     gear_set: [86, 90],
-    CTREMCAT1_board: [90,100]
+    CTREMCAT1_board: [91,100]
     //assembly: [98,100]
 }
 
 let junkyard_loot = {
     wire_bundle: [1,8],
     electronic_components: [9,16],
-    rechargeable_batteries: [18,24],
+    rechargeable_batteries: [17,24],
     hardware_bits: [25,40],
     plastic_framing: [41,48],
     mounting_brackets: [49,60],
@@ -62,7 +62,7 @@ let junkyard_loot = {
     screwdriver: [70,78],
     pliers:	[79,85],
     gear_set: [86,90],
-    CTREMCAT1_board: [90,100]
+    CTREMCAT1_board: [91,100]
     //assembly: [98,100],
 }
 
@@ -111,5 +111,5 @@ set_storage("user_inv", user_inv);
 set_storage("lots", lots);
 set_storage("manuals", manuals);
 set_storage("tracking", tracking);
-set_storage("assemblies_list");
+set_storage("assemblies_list",assemblies_list);
 }

@@ -1,3 +1,5 @@
+  // Shared
+  
   function run_ads() {
   
   // set ad variables
@@ -36,7 +38,6 @@ let ads = [
 ]
 
 function change_ad() {
- // replace debug function
 
     // get random integer to choose ad being replaced
     let adLen = adList.length;

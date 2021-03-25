@@ -116,23 +116,6 @@ function set_terminal_message(msg) {
         }
     }}
 
-function get_rand_int(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-/* function add_item(name, health, id) {
-    
-    let r = get_storage("user_inv");
-
-    let this_obj = {};
-    this_obj["id"] = id;
-    this_obj["item_name"] = name;
-    this_obj["health"] = health;
-    r.push(this_obj);
-
-    set_storage("user_inv", r);
-} */
-
 function disable_btns() {
     console.log("disable buttons")
 /*     let assemble_btns_list = document.getElementsByClassName("assemble");
@@ -177,31 +160,6 @@ function SalvageClick(e) {
     if (sel === "junkyard_btn") {
         start_cooldown(lot[1]);
     };
-}
-
-function roll(sides) {
-    rand = get_rand_int(1, sides);
-    return rand;
-}
-
-function dice(quantity, sides) {
-    //console.log("Rolling " + quantity + "d" + sides);
-    let total = 0;
-    for (i = 0; i < quantity; i++) {
-        x = roll(sides);
-        //console.log("roll #" + i + " - " + x);
-        total = total + x;
-        //console.log("total: " + total)   
-    }
-    return total;
-}
-
-// Clear localStorage & reload page
-function reset() {
-    
-    localStorage.clear();
-    location.reload();
-    window.alert("Your game has been reset.")
 }
 
 // Set Local Storage
@@ -306,65 +264,7 @@ function get_storage(list) {
     return l;
 }
 
-// Queued for removal
-/* function create_initial_inv() {
-    console.log("function create_initial_inv");
-    let r = [];
-    let id = 1;
-
-    function make(type) {
-    let obj = {};
-    obj["item_name"] = type;
-    obj["health"] = 5;
-    obj["id"] = id;
-    id = id + 1;
-    r.push(obj);
-    }
-
-    make("wire_bundle");
-    make("rechargeable_batteries");
-    make("hardware_bits");
-    make("hardware_bits")
-
-    set_storage("user_inv", r);
-} */
-
-// Queued for removal
-/* function create_item(type) {
-    console.log("function create_item()");
-
-    let r = get_storage("user_inv");
-    let n = get_storage("tracking");
-
-
-    let id = n.id_num;
-    console.log(id)
-
-    // increment id
-    id = id + 1;
-
-    let obj = {};
-    obj["item_name"] = type;
-    obj["health"] = 5;
-    obj["id"] = id;
-    r.push(obj);
-
-    set_storage("user_inv", r);
-    set_storage("tracking", id);
-} */
-
-
 // EVENT HANDLER
 
 let salvage_parent_btn = document.getElementById('salvage_parent_btn').addEventListener('click', SalvageClick);
 
-
-
-function test(thisArray) {
-    console.log(typeof(thisArray));
-}
-
-let ray = ["this is an array", "a list of things"];
-let strings = "this is a string";
-test(strings)
-test(ray)

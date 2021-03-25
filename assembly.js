@@ -1,31 +1,29 @@
-function set_storage(name, list) {
-    localStorage.setItem(name, JSON.stringify(list));
-}
 
-function get_storage(list) {
-    try {
-    let l = JSON.parse(localStorage.getItem(list));
-    return l;
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 function load_assembly() {
     console.log("load_assembly");
-    refresh_table()
+    gen_table(table_2, get_storage("user_inv"));
+    gen_table(table_3, get_storage("assemblies_list"));
 }
 
 function refresh_table() {
-    a_generateTable(table_2);
+    clear_table("table_2");  // why does this need parens and 
+    clear_table("table_3");
+    gen_table(table_2, get_storage("user_inv")); // this does not?
+    gen_table(table_3, get_storage("assemblies_list"));
 }
 
-function a_generateTable(table) {
-    console.log("a_generateTable")
+function clear_table(table) {
+    let parent = document.getElementById(table);
+    while(parent.hasChildNodes()) {
+        parent.removeChild(parent.firstChild);
+    };
+}
 
-    let r = get_storage("user_inv");
+function gen_table(table, data) {
+    console.log("gen_table")
 
-    for ( let x of r) {
+    for ( let x of data) {
         let row = table.insertRow();
 
         let cell_id = row.insertCell();
@@ -37,7 +35,7 @@ function a_generateTable(table) {
         cell_item_name.appendChild(text_item_name);
 
         let cell_health = row.insertCell();
-        let text_health = document.createTextNode(x.health);
+        let text_health = document.createTextNode(x.health.toFixed(1));
         cell_health.appendChild(text_health)
     }}
 
@@ -82,11 +80,6 @@ function get_selection(target) {
 
     return selection
 }   
-
-function clr_term() {
-    terminal.innerHTML = ""
-    messages = []
-}
 
 // Clear ing_section
 function clear_section(section) {
@@ -137,10 +130,6 @@ function craft_assembly(assembly_name, obj_list) {
     a.push(new_assembly(item_name, assembly_id, parts_list))
     set_storage("assemblies_list", a)
     remove_parts(parts_list);
-    
-    // Refresh Terminal to Current Activity
-    clr_term();
-    // set_terminal_message();
 }
 
 // SUBMIT BUTTON
@@ -155,17 +144,12 @@ function submit_selection() {
 
     // Clear ingredients section of previous content
     clear_section('ing_section');
+    refresh_parts();
 
     // Refresh Table
-    a_generateTable(table_2);
+    refresh_table();
 
-    refresh_parts();
-}
-
-function reset() {
-    localStorage.clear();
-    location.reload();
-    window.alert("Your game has been reset.")
+    
 }
 
 // Get inputs from radio button groups

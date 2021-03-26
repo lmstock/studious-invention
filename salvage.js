@@ -24,6 +24,25 @@ function finish_cooldown(obj) {
     enable_btns();
 }
 
+function generate_item(item_type) {
+    console.log("generate_item()");
+
+    let new_item = {};
+    let name = item_type;
+    console.log("item name is " + name)
+
+    // roll for health
+    let h = dice(5,20);
+
+    let id = get_item_no();
+
+    new_item.item_name = name;
+    new_item.health = h;
+    new_item.id = id;
+
+    return new_item;  
+}
+
 function looting(obj) {
     console.log("looting function")
 
@@ -34,12 +53,13 @@ function looting(obj) {
     set_terminal_message("Your rummaging yields: <br><br>");
 
     // determine quantity of finds
-    let count = dice(2,3);
+    let count = dice(5,5);
 
     // for # of finds
     for (c = 0; c < count; c++) {
 
-        item_find = generate_item(obj);
+        roll_for = (item_roll(obj));
+        item_find = generate_item(roll_for);
         console.log(item_find)
 
         // Change font color for tiers, misc = blue, assembly = warm        
@@ -60,40 +80,31 @@ function looting(obj) {
     }
     
         set_storage("user_inv", u);
-        update_inv();
+        update_inv("user_inv");
         set_terminal_message(msglist);
 }
 
-function generate_item(lot) {
-    console.log("generate_item()");
-    let new_item = {};
-    let name = "safo";
+function item_roll(lot) {
+    console.log("function item_roll");
+    let item = " ";
 
     // roll for item
     let x = dice(1,100);
-    console.log(x)
 
-    // cycle through loot list and returns item
-    Object.entries(lot.loot).forEach(element => {
-        let min = element[1][0];
-        let max = element[1][1];
-
-        if (x >= min && x <= max) {
-            name = element[0];
-
-            // roll for health
-            let h = dice(5,20);
-
-            let id = get_item_no();
-
-            new_item.item_name = name;
-            new_item.health = h;
-            new_item.id = id;
-        } 
+        // cycle through loot list and returns item
+        Object.entries(lot.loot).forEach(element => {
+            let min = element[1][0];
+            let max = element[1][1];
+    
+            if (x >= min && x <= max) {
+                item = element[0];  
+        }
     })
-    return new_item;  
+    return item;
 }
 
+
+// Get current item_number from tracking
 function get_item_no() {
     let n = get_storage("tracking");
     console.log(typeof(n.id_num));
@@ -177,10 +188,10 @@ function init_local_inventory(x) {
     localStorage.setItem("count", JSON.stringify(set_local_inv));
 }
 
-// Update inventory table with localStorage.local_inv
-function update_inv() { 
+// Update inventory table with localStorage
+function update_inv(local) { 
     console.log("starting update_inv");
-    let r = abstract_hist(inv_count());
+    let r = abstract_hist(inv_count(local));
 
     // get document ids
     for ( i of r ) {
@@ -188,28 +199,11 @@ function update_inv() {
         document.getElementById(x).innerHTML = i.qua;
     }}
 
-// PAGE LOAD
-function load_salvage() {
-    console.log("function load_salvage")
-
-    // update inventory if local storage is not empty
-    if (localStorage.length != 0) {
-        update_inv();
-
-    // set up game if local storage is empty
-    } else {
-        init_vars();
-        // create_initial_inv();
-        enable_btns();
-        update_inv();
-    }
-}
-
-// pull item count for update_inv
-function inv_count() {
+// Item count from user_inv
+function inv_count(ls) {
     console.log("inv_count");
-    let r = get_storage("user_inv");
-    let obj = {};
+    let r = get_storage(ls);
+    console.log(r)
     let hist = {
         wire_bundle : 0
     };
@@ -262,6 +256,23 @@ function set_storage(name, list) {
 function get_storage(list) {
     let l = JSON.parse(localStorage.getItem(list));
     return l;
+}
+
+// PAGE LOAD
+function load_salvage() {
+    console.log("function load_salvage")
+
+    // update inventory if local storage is not empty
+    if (localStorage.length != 0) {
+        update_inv("user_inv");
+
+    // set up game if local storage is empty
+    } else {
+        init_vars();
+        // create_initial_inv();
+        enable_btns();
+        update_inv("user_inv");
+    }
 }
 
 // EVENT HANDLER

@@ -21,7 +21,6 @@ ROBOT NOTES:
 			re-add misc
 
 		Assembly 
-			restructure assemblies
 				readd to salvaging
 			styles to terminal / overhaul messages
 			ads should work on all pages
@@ -120,49 +119,29 @@ FUTURE:
 PAGES:
 
 Salvage page - 3 div
-	table representing item list and player quantity (left div)
-	salvage buttons (center div) 
-	assembly buttons (center div) 
-	terminal (right div - top)
+	tables for each item type on left column 
+		readd misc bits
+	additional salvage yards - design scale out
+	terminal , renamed
 	city map / local weather (right div - bottom)
 
 Assembly page - 2 divs
-	table representing inventory, quantity, item "health", assemblies (left div)
-		https://mdn.github.io/learning-area/html/tables/assessment-finished/planets-data.html
-	smaller right div with terminal output and buttons for:
-		disassembly
+	add first bots
 		
-Repairs page - 
+Repairs page - design
+
+Disassembly - design 
+	append to assembly or get its own page? ;
 
 
 Reference page -
 
-Notes -
+Full Inventory - "Catalog"
+
+Ads - I think they will need tied to constants for the uniformity goal
+
+Additional Notes -
 	
-
-assembly:
-	displays table of user items: Id, Item_name, and health
-
-	second column contains radio buttons for all sub assemblies.
-
-		when selected:
-			the submit button will be enabled
-			the debug box will display information about the part
-			the space below the submit button will populate 
-				with list of ingredients for selected item 
-				users actual inventory of each ingredient presented as radio buttons
-
-		The user should be able to select the ingredients from their inventory
-		in this way and on clicking the submit button, the items will be 
-		pulled from the inventory and grouped into the assembly with name and 
-		health being automatically calculated.
-
-	do completed subassemblies belong in this inventory table?
-
-	how to generate ids for subassemblies 
-		use tracking in LS. starts with s; "S1", "S2", etc.
-
-	health - uses the avg of the ingredients. wear and tear happens to the ingredients.
 
 ================================================================
 

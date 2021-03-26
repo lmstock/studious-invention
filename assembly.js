@@ -6,20 +6,47 @@ function load_assembly() {
     gen_table(table_3, get_storage("assemblies_list"));
 }
 
+
+
 function refresh_table() {
     clear_table("table_2");  // why does this need parens and 
     clear_table("table_3");
+
+    regen_table_headers(table_2);
+    regen_table_headers(table_3);
+
     gen_table(table_2, get_storage("user_inv")); // this does not?
     gen_table(table_3, get_storage("assemblies_list"));
 }
 
 function clear_table(table) {
+    console.log("clear_table")
     let parent = document.getElementById(table);
     while(parent.hasChildNodes()) {
         parent.removeChild(parent.firstChild);
     };
 }
 
+function regen_table_headers(table) {
+    console.log("regen_table_headers");
+    let hdr_list = ["ID", "Item_name", "Health"]
+    console.log(table);
+
+    let new_head = table.createTHead();
+    console.log(new_head)
+
+    let row = new_head.insertRow();
+    console.log(row)
+
+    for ( let i of hdr_list ) {
+        let th = document.createElement("th");
+        let text = document.createTextNode(i);
+        th.appendChild(text);
+        row.appendChild(th);
+    }
+
+}
+ 
 function gen_table(table, data) {
     console.log("gen_table")
 

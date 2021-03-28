@@ -29,7 +29,7 @@ function generate_item(item_type) {
 
     let new_item = {};
     let name = item_type;
-    console.log("item name is " + name)
+    console.log("     item name is " + name)
 
     // roll for health
     let h = dice(5,20);
@@ -46,68 +46,139 @@ function generate_item(item_type) {
 function looting(obj) {
     console.log("looting function")
 
-    let u = get_storage("user_inv");
     let item_find = 0;
     let msglist = [];
 
     set_terminal_message("Your rummaging yields: <br><br>");
 
     // determine quantity of finds
-    let count = dice(5,5);
+    let count = dice(2,3);
 
     // for # of finds
     for (c = 0; c < count; c++) {
 
-        roll_for = (item_roll(obj));
-        item_find = generate_item(roll_for);
-        console.log(item_find)
-
-        // Change font color for tiers, misc = blue, assembly = warm        
-                // Misc Selections
-/*                 if (item_find === "misc") {
-                    select = get_rand_int(0, misc_list.length - 1);
-                    item_find = misc_list[select].name;
-
-                    misc_message = "<br>You found a " + item_find + "!";
-                    shortlist.push(misc_message);
-                } */
+        item_find = (item_roll(obj));
             
             increase_msg = " +1 "  + item_find.item_name + " /h." + item_find.health;
             msglist.push(increase_msg);
-
-            // add new item to user_inv
-            u.push(item_find);
     }
     
-        set_storage("user_inv", u);
-        update_inv("user_inv");
+        update_all_tables();
         set_terminal_message(msglist);
 }
 
 function item_roll(lot) {
     console.log("function item_roll");
-    let item = " ";
+    let item_find = 0;
 
     // roll for item
     let x = dice(1,100);
+    console.log("        loot roll = " + x)
+    let part = loot_list_check(x, lot.loot)
 
-        // cycle through loot list and returns item
-        Object.entries(lot.loot).forEach(element => {
-            let min = element[1][0];
-            let max = element[1][1];
+    if ( part != "misc" && part != "assembly" ) {
+        item_find = generate_item(part);
+        let u = get_storage("user_inv");
+        u.push(item_find);
+        set_storage("user_inv", u);
+        return item_find;
+    }
     
-            if (x >= min && x <= max) {
-                item = element[0];  
-        }
-    })
-    return item;
+    if ( part === "misc" ) {
+        x = dice(1,100);
+        part = loot_list_check(x, lot.misc_loot);
+        item_find = generate_item(part);
+        let m = get_storage("misc");
+        m.push(item_find);
+        set_storage("misc", m);
+    }
+
+    if ( part === "assembly" ) {
+        item_find = random_assembly(lot);
+        let a = get_storage("assemblies_list");
+        a.push(item_find);
+        set_storage("assemblies_list", a);
+    }
+
+    return item_find;
 }
 
+function loot_list_check(x, list) {
+    console.log("loot_list_check");
+    let part = "";
+
+    // cycle through loot list and returns item
+    Object.entries(list).forEach(element => {
+        let min = element[1][0];
+        let max = element[1][1];
+
+        if (x >= min && x <= max) {
+            part = element[0];  
+            return part;  //new
+    }
+    })
+    console.log(part)
+    return part
+}
+
+function assembly_item_roll(lot) {
+    console.log("assembly_item_roll");
+    let item_find = 0;
+
+    // roll for item
+    let x = dice(1,100);
+    console.log("        loot roll = " + x)
+    let part = loot_list_check(x, lot.loot)
+
+    if ( part != "misc" && part != "assembly" ) {
+        item_find = generate_item(part);
+        return item_find;
+    }
+    
+    if ( part === "misc" ) {
+        x = dice(1,100);
+        part = loot_list_check(x, lot.misc_loot);
+        item_find = generate_item(part);
+        return item_find;
+    }
+
+    if ( part === "assembly" ) {
+        item_find = random_assembly(lot);
+        return item_find;
+    }
+
+    return item_find;
+}
+
+function random_assembly(lot) {
+    console.log("random_assembly")
+    let count = dice(2,4);
+    console.log("        number of items in assembly = " + count)
+
+    let ing_list = [];
+    for ( j=0; j<count; j++) {
+        console.log("        item count for assembly:  " + i)
+
+        let x = assembly_item_roll(lot);
+        console.log("        Assembly item roll: ")
+        console.log(x)
+
+        ing_list.push(x);
+        console.log("        ing_list: ")
+        console.log(ing_list)
+        };
+
+    let asmbly_id = tracking_no();
+
+    console.log("        full ing_list: ")
+    console.log(ing_list)
+    let new_assmbly = new_assembly("unknown_assembly", asmbly_id, ing_list);
+    return new_assmbly
+}
 
 // Get current item_number from tracking
 function get_item_no() {
     let n = get_storage("tracking");
-    console.log(typeof(n.id_num));
     n.id_num = n.id_num + 1;
     set_storage("tracking", n);
     return n.id_num
@@ -173,25 +244,11 @@ function SalvageClick(e) {
     };
 }
 
-// Set Local Storage
-function init_local_inventory(x) {
-    console.log("init_local_inventory");
-    let set_local_inv = []
-    for (i of x) {
-
-        let obj = {}
-        obj["item_name"] = i;
-        obj["qua"] = 0;
-        set_local_inv.push(obj);
-    };
-
-    localStorage.setItem("count", JSON.stringify(set_local_inv));
-}
-
 // Update inventory table with localStorage
-function update_inv(local) { 
+function update_inv(data) { 
     console.log("starting update_inv");
-    let r = abstract_hist(inv_count(local));
+    let r = inventory_table_prep(counter(data));
+
 
     // get document ids
     for ( i of r ) {
@@ -199,14 +256,11 @@ function update_inv(local) {
         document.getElementById(x).innerHTML = i.qua;
     }}
 
-// Item count from user_inv
-function inv_count(ls) {
+// Counter
+function counter(list_to_count) {
     console.log("inv_count");
-    let r = get_storage(ls);
-    console.log(r)
-    let hist = {
-        wire_bundle : 0
-    };
+    let r = get_storage(list_to_count);
+    let hist = {};
 
     for ( i of r ) {
         let x = i.item_name;
@@ -219,11 +273,11 @@ function inv_count(ls) {
     return hist;
 }
 
-// puts inventory count into array of objects for update_inv
-function abstract_hist(inv_count) {
+// Structures inventory count data into array of objects suitable for Inventory table
+function inventory_table_prep(inv_count) {
+    console.log("inventory_table_prep")
     let hist = inv_count;
     let obj = {};
-    console.log("abstract_hist")
     let inv_table = [];
     
     for ( let [key, value] of Object.entries(hist)) {
@@ -239,14 +293,6 @@ function abstract_hist(inv_count) {
     };
 
     return inv_table;
-    
-        
-        
-        
-    
-    
-
-    
 }
 
 function set_storage(name, list) {
@@ -258,18 +304,23 @@ function get_storage(list) {
     return l;
 }
 
+function update_all_tables() {
+    update_inv("user_inv");
+    update_inv("assemblies_list");
+    update_inv("misc")
+}
+
 // PAGE LOAD
 function load_salvage() {
     console.log("function load_salvage")
 
     // update inventory if local storage is not empty
     if (localStorage.length != 0) {
-        update_inv("user_inv");
+        update_all_tables()
 
     // set up game if local storage is empty
     } else {
         init_vars();
-        // create_initial_inv();
         enable_btns();
         update_inv("user_inv");
     }

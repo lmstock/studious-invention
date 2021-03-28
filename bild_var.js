@@ -1,10 +1,13 @@
 
 function init_vars() {
 
+
+
 // VARIABLES
 
 let lots = [];
 let user_inv = [];
+let misc = [];
 let assemblies_list = [];
 let bots_list = [];
 let tracking = {
@@ -13,17 +16,17 @@ let tracking = {
     id_bot : 0
 };
 
-
 class Item {
-    constructor(name, type) {
+    constructor(name, type, misc_loot) {
         this.name = name;
         this.type = type;
+        this.misc_loot = misc_loot;
     }
 }
 
 class Lot extends Item {
-    constructor(name, type, btn, cooldown, loot) {
-        super(name, type);
+    constructor(name, type, misc_loot, btn, cooldown, loot) {
+        super(name, type, misc_loot);
         this.btn = btn;
         this.cooldown = cooldown;
         this.loot = loot;
@@ -40,14 +43,14 @@ let cityDump_loot = {
     rechargeable_batteries: [18,24],
     hardware_bits: [25,40],
     plastic_framing: [41,48],
-    mounting_brackets: [ 49,60],
-    // misc: [57,60],
+    mounting_brackets: [ 49,56],
+    misc: [57,60],
     claw: [61,69],
     screwdriver: [70,78],
     pliers: [79,85],
     gear_set: [86, 90],
-    CTREMCAT1_board: [91,100]
-    //assembly: [98,100]
+    CTREMCAT1_board: [91,97],
+    assembly: [98,150]
 }
 
 let junkyard_loot = {
@@ -56,17 +59,31 @@ let junkyard_loot = {
     rechargeable_batteries: [17,24],
     hardware_bits: [25,40],
     plastic_framing: [41,48],
-    mounting_brackets: [49,60],
-    // misc: [57,60],
+    mounting_brackets: [49,56],
+    misc: [57,60],
     claw: [61,69],
     screwdriver: [70,78],
     pliers:	[79,85],
     gear_set: [86,90],
-    CTREMCAT1_board: [91,100]
-    //assembly: [98,100],
+    CTREMCAT1_board: [91,97],
+    assembly: [98,150],
 }
 
-var manuals = {
+let misc_loot = {
+    fish_bones: [1,10],
+    old_shoe: [11,20],
+    broken_glasses: [21,30],
+    beer_bottle: [31,40],
+    worn_book: [41,50],
+    rags: [51,60],
+    wet_newspaper: [61,70],
+    couple_of_teeth: [71,80],
+    monster_fur: [81,90],
+    brick: [91,100] 
+};
+
+
+let manuals = {
 
     power_subsystem : 
         {
@@ -99,16 +116,14 @@ var manuals = {
         }
 };
 
-
-
-
 // define lots
-    // add new lots to SalvageClick function
-let cityDump = new Lot("city dump", "lot", "cityDump_btn", 3000, cityDump_loot);
-let junkyard = new Lot("junkyard", "lot", "junkyard_btn", 3000, junkyard_loot);
+    // dont forget to add new lots to SalvageClick function
+let cityDump = new Lot("city dump", "lot", misc_loot, "cityDump_btn", 3000, cityDump_loot);
+let junkyard = new Lot("junkyard", "lot", misc_loot, "junkyard_btn", 3000, junkyard_loot);
 
 set_storage("user_inv", user_inv);
 set_storage("lots", lots);
+set_storage("misc", misc);
 set_storage("manuals", manuals);
 set_storage("tracking", tracking);
 set_storage("assemblies_list",assemblies_list);

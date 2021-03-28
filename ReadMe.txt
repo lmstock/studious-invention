@@ -21,11 +21,13 @@ ROBOT NOTES:
 			re-add misc
 
 		Assembly 
-				readd to salvaging
+			
 			styles to terminal / overhaul messages
 			ads should work on all pages
 
 		Repairs
+
+		Disassembly
 
 	
 	more ads
@@ -37,6 +39,13 @@ ROBOT NOTES:
 
 	handle compromises:
 		underscore in table names
+
+	add to misc:
+		plastic_bag
+		fake_id
+		claw
+
+		change part claw to grasping tool
 
 RESEARCH:
 

@@ -1,7 +1,41 @@
 
+// Assembly
 
+function tracking_no() {
+   let track = get_storage("tracking");
 
+       // Set New Assembly Id Number
+       track.id_assembly = track.id_assembly + 1;
+       let new_id = "P" + track.id_assembly;
+       set_storage("tracking", track);
 
+       return new_id
+}
+
+function new_assembly(name, id, parts_list) {
+   console.log("function new_assembly")
+   new_item = {}
+
+   new_item.item_name = name;
+   new_item.id = id;
+   new_item.parts_list = parts_list;
+   new_item.health = calc_health(parts_list)
+   
+   return new_item
+} 
+
+function calc_health(parts_list) {
+   console.log("function calc_health");
+   let count = 0;
+   let total = 0;
+   for ( i of parts_list ) {
+       count = count + 1;
+       total = total + i.health;
+   }
+
+   let health = total / count;
+   return health
+}
 
 
 // Dice

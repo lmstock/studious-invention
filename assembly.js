@@ -138,26 +138,7 @@ function create_radio(id, text, id_num) {
       container.appendChild(newline);
   }
 
-function craft_assembly(assembly_name, obj_list) {
-    console.log("function = craft()")
-    new_item = {};
-    
-    let track = get_storage("tracking");
-    let a = get_storage("assemblies_list")
 
-    // Set New Assembly Name
-    item_name = assembly_name;
-
-    // Set New Assembly Id Number
-    track.id_assembly = track.id_assembly + 1;
-    let assembly_id = "P" + track.id_assembly;
-    set_storage("tracking", track);
-
-    create_parts_list(obj_list);
-    a.push(new_assembly(item_name, assembly_id, parts_list))
-    set_storage("assemblies_list", a)
-    remove_parts(parts_list);
-}
 
 // SUBMIT BUTTON
 function submit_selection() {
@@ -189,18 +170,43 @@ function get_checked_value(group_name) {
     }
 }
 
-function calc_health(parts_list) {
-    console.log("function calc_health");
-    let count = 0;
-    let total = 0;
-    for ( i of parts_list ) {
-        count = count + 1;
-        total = total + i.health;
-    }
 
-    let health = total / count;
-    return health
-}
+
+function craft_assembly(assembly_name, obj_list) {
+    console.log("craft_assembly")
+    new_item = {};
+    
+    let a = get_storage("assemblies_list")
+ 
+    // Set New Assembly Name
+    item_name = assembly_name;
+ 
+    let assembly_id = tracking_no();
+ 
+    create_parts_list(obj_list);
+    a.push(new_assembly(item_name, assembly_id, parts_list))
+    set_storage("assemblies_list", a)
+ 
+ 
+    remove_parts(parts_list);
+ }
+ 
+ function create_parts_list(obj_list) {
+    let r = get_storage("user_inv");
+    parts_list = [];
+ 
+    // Set New Assembly Parts List
+    for ( id of obj_list ) {
+        id = parseInt(id, 10);
+ 
+        for ( part of r ) {
+            if ( part.id === id ) {
+                parts_list.push(part);
+            }  
+        }
+    }
+    return parts_list
+    }
 
 // REMOVE PARTS FROM INVENTORY
 function remove_parts(parts_list) {
@@ -224,17 +230,7 @@ function remove_parts(parts_list) {
     set_storage("user_inv", r);
 }
 
-function new_assembly(name, id, parts_list) {
-    console.log("function new_assembly")
-    new_item = {}
 
-    new_item.item_name = name;
-    new_item.id = id;
-    new_item.parts_list = parts_list;
-    new_item.health = calc_health(parts_list)
-    
-    return new_item
-} 
 
 // Create list of users inventory by type; assignment_list
 function get_assignment_list(selection) {
@@ -248,22 +244,7 @@ function get_assignment_list(selection) {
     return assignment_list
     }
 
-function create_parts_list(obj_list) {
-    let r = get_storage("user_inv");
-    parts_list = [];
 
-    // Set New Assembly Parts List
-    for ( id of obj_list ) {
-        id = parseInt(id, 10);
-
-        for ( part of r ) {
-            if ( part.id === id ) {
-                parts_list.push(part);
-            }  
-        }
-    }
-    return parts_list
-    }
 
 // Print Assembly Subheading
 function sub_heading(target) {

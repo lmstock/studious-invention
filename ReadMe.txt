@@ -15,10 +15,18 @@ ROBOT NOTES:
 =====> TO DO:
 
 	*DO THIS NEXT*
+
+		Disassembly
 		
 		Salvage
 			add soldering iron
-			re-add misc
+		add to misc:
+			plastic_bag
+			fake_id
+			claw
+
+			change part claw to grasping tool
+	
 
 		Assembly 
 			
@@ -27,7 +35,7 @@ ROBOT NOTES:
 
 		Repairs
 
-		Disassembly
+		
 
 	
 	more ads
@@ -40,12 +48,7 @@ ROBOT NOTES:
 	handle compromises:
 		underscore in table names
 
-	add to misc:
-		plastic_bag
-		fake_id
-		claw
 
-		change part claw to grasping tool
 
 RESEARCH:
 

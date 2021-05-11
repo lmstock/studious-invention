@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# script that maintains robot game on home network 
+# - must run as sudo for lighttpd stop/start
+# this is now automated and runs at 9pm daily
+
+now=$(date)
+
+# heading
+echo "=====> Current date: $now" | tee -a /home/michelle/robot_update_log.txt
+
+# remove old clone
+echo "remove old clone" | tee -a /home/michelle/robot_update_log.txt
+rm -r /home/michelle/git_repo/studious-invention/ >> /home/michelle/robot_update_log.txt 2>&1
+
+# cd to repo directory
+cd /home/michelle/git_repo
+
+# download latest clone
+echo "download new clone" | tee -a /home/michelle/robot_update_log.txt
+git clone https://github.com/lmstock/studious-invention.git >> /home/michelle/robot_update_log.txt 2>&1
+
+# stop lighttpd
+echo "stopping lighttpd" | tee -a /home/michelle/robot_update_log.txt
+systemctl stop lighttpd >> /home/michelle/robot_update_log.txt 2>&1
+sleep 5
+
+# deletes previous web directory
+echo "remove old robot web directory" | tee -a /home/michelle/robot_update_log.txt
+rm -r /var/www/html/mysite/studious-invention >> /home/michelle/robot_update_log.txt 2>&1
+
+# cp updated dir from git home to web dir
+echo "copy in new robot directory" | tee -a /home/michelle/robot_update_log.txt
+cp -r /home/michelle/git_repo/studious-invention /var/www/html/mysite >> /home/michelle/robot_update_log.txt 2>&1
+
+# restart lighttpd
+echo "restart lighttpd" | tee -a /home/michelle/robot_update_log.txt
+systemctl start lighttpd >> /home/michelle/robot_update_log.txt 2>&1

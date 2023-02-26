@@ -2,14 +2,14 @@ ROBOT NOTES:
 
 =====> LINKS:
 
-	the spreadsheet https://docs.google.com/spreadsheets/d/14TXMDzZkfL3mTpIjvksJIMLdS3f7xjeLOFpIGviCEMk/edit#gid=94843435
+
 
 	https://youtu.be/rRgD1yVwIvE
 	https://anydice.com/
 	https://youtu.be/MfxBfRD0FVU  - inheritance in JS
 	http://www.electronicsteacher.com/robotics/robotics-technology/
 	https://www.valentinog.com/blog/html-table/
-	https://medium.com/@bretcameron/how-to-build-a-web-scraper-using-javascript-11d7cd9f77f2
+
 
 
 =====> TO DO: test3
